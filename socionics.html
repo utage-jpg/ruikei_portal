@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ソシオニクス — 情報代謝の類型論 | 類型界隈ポータル</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f2f7f4; --bg2:#e6f0ea; --bg3:#d8e8de;
+  --surface:#ffffff; --surface2:#f6fbf7;
+  --border:#c4d8ca; --border2:#a0c4ae;
+  --ink:#101e14; --ink2:#2a4030; --ink3:#507060; --ink4:#88a898;
+  --accent:#2a7a58; --accent2:#3d9a70; --accent3:#70c498;
+  --accent-bg:#ecf7f2; --accent-mid:#5aab88;
+  --gold:#b8943a; --gold-lt:#d4b060; --gold-bg:#fdf8ee;
+  --warn:#b85c28; --warn-bg:#fdf3ec;
+  --info:#2d5fa8; --info-bg:#eef3fc;
+  /* クアドラカラー */
+  --alpha:#4a7fd0; --alpha-bg:#eef4fc;
+  --beta:#c04830;  --beta-bg:#fdf0ee;
+  --gamma:#2a7a58; --gamma-bg:#ecf7f2;
+  --delta:#b8943a; --delta-bg:#fdf8ee;
+  /* 機能ポジションカラー */
+  --ego:#2a7a58;    --ego-bg:#ecf7f2;
+  --superego:#c04830; --superego-bg:#fdf0ee;
+  --superid:#4a7fd0;  --superid-bg:#eef4fc;
+  --id:#888;         --id-bg:#f4f4f4;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 2px 16px rgba(10,40,20,.07);
+  --shadow-lg:0 8px 40px rgba(10,40,20,.13);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden;font-size:14px;}
+
+/* TOPBAR */
+.topbar{background:rgba(242,247,244,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;position:sticky;top:0;z-index:300;}
+.topbar-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 0;transition:color .2s;}
+.topbar-back:hover{color:var(--accent);}
+.topbar-back svg{width:14px;height:14px;}
+.topbar-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:.06em;}
+.topbar-right{width:80px;text-align:right;font-size:11px;color:var(--ink4);}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#e4f0e8 0%,#f2f7f4 50%,#ecf7f2 100%);border-bottom:1px solid var(--border);padding:44px 20px 36px;position:relative;overflow:hidden;text-align:center;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,#3d9a7020 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{display:inline-block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;padding:4px 14px;border:1px solid var(--border2);border-radius:20px;background:var(--surface);margin-bottom:16px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,9vw,72px);font-weight:300;color:var(--ink);line-height:1.0;margin-bottom:8px;letter-spacing:.04em;}
+.hero h1 em{font-style:italic;color:var(--accent2);}
+.hero-sub{font-size:12px;color:var(--ink3);letter-spacing:1.5px;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--ink3);}
+
+/* TABS */
+.tabs-nav{display:flex;justify-content:center;gap:0;background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:48px;z-index:200;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tab-btn{font-size:12px;font-weight:400;padding:12px 15px;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;font-family:'Noto Sans JP',sans-serif;margin-bottom:-2px;}
+.tab-btn:hover{color:var(--ink2);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* CONTAINER */
+.container{max-width:860px;margin:0 auto;padding:28px 16px calc(60px + var(--safe-bottom));}
+
+/* TYPOGRAPHY */
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,28px);font-weight:400;color:var(--ink);margin-bottom:4px;}
+.sec-label{font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+h2.sh{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--ink);margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;margin-bottom:14px;box-shadow:var(--shadow);}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;color:var(--ink);margin-bottom:8px;}
+.card p,.card li{font-size:13px;color:var(--ink2);line-height:1.8;}
+.card ul{padding-left:18px;}
+.info-box{background:var(--accent-bg);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--ink2);line-height:1.7;}
+.warn-box{background:var(--warn-bg);border:1px solid #e8c0a0;border-left:3px solid var(--warn);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#5a2808;line-height:1.7;}
+.warn-box strong{color:var(--warn);}
+.info-blue{background:var(--info-bg);border:1px solid #b0c8e8;border-left:3px solid var(--info);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#1a3060;line-height:1.7;}
+
+/* DIAGRAM */
+.diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:20px;overflow:hidden;}
+.diagram-title{font-size:11px;color:var(--ink4);letter-spacing:2px;margin-bottom:12px;text-align:center;text-transform:uppercase;}
+
+/* ─ 情報要素グリッド ─ */
+.ie-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+@media(max-width:500px){.ie-grid{grid-template-columns:1fr;}}
+.ie-card{border-radius:var(--radius-sm);padding:14px 16px;border:1px solid;position:relative;overflow:hidden;transition:transform .2s;}
+.ie-card:hover{transform:translateY(-2px);}
+.ie-card::after{content:attr(data-code);position:absolute;right:-4px;top:-4px;font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;opacity:.07;line-height:1;pointer-events:none;}
+.ie-Te{background:#eef6ff;border-color:#b0d0f0;} .ie-Te::after{color:#1a3a6a;}
+.ie-Ti{background:#f0f4ff;border-color:#c0cef8;} .ie-Ti::after{color:#20308a;}
+.ie-Fe{background:#fff0f5;border-color:#f0b0c8;} .ie-Fe::after{color:#6a1a3a;}
+.ie-Fi{background:#fff4f0;border-color:#f0c0b0;} .ie-Fi::after{color:#7a2010;}
+.ie-Se{background:#f0fff0;border-color:#a0d8a0;} .ie-Se::after{color:#1a5a1a;}
+.ie-Si{background:#f4fff4;border-color:#b0e0b0;} .ie-Si::after{color:#1a4a2a;}
+.ie-Ne{background:#fffaee;border-color:#e8d080;} .ie-Ne::after{color:#5a4000;}
+.ie-Ni{background:#f8f0ff;border-color:#d0b0f0;} .ie-Ni::after{color:#4a1a7a;}
+.ie-code{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;line-height:1;margin-bottom:3px;}
+.ie-Te .ie-code,.ie-Ti .ie-code{color:#1a3a6a;}
+.ie-Fe .ie-code,.ie-Fi .ie-code{color:#6a1a3a;}
+.ie-Se .ie-code,.ie-Si .ie-code{color:#1a5a1a;}
+.ie-Ne .ie-code,.ie-Ni .ie-code{color:#5a4000;}
+.ie-name{font-size:12px;font-weight:500;margin-bottom:6px;opacity:.85;}
+.ie-diff{font-size:11px;font-style:italic;opacity:.55;margin-bottom:7px;}
+.ie-desc{font-size:12px;line-height:1.7;opacity:.85;}
+.ie-socio{font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(0,0,0,.08);opacity:.65;font-style:italic;}
+
+/* ─ モデルA ─ */
+.model-a-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+@media(max-width:480px){.model-a-grid{grid-template-columns:1fr;}}
+.ma-slot{border-radius:var(--radius-sm);padding:12px 14px;border:1px solid;position:relative;}
+.ma-slot.ego{background:var(--ego-bg);border-color:#80c4a0;}
+.ma-slot.superego{background:var(--superego-bg);border-color:#e0a898;}
+.ma-slot.superid{background:var(--superid-bg);border-color:#a0b8e0;}
+.ma-slot.id{background:var(--id-bg);border-color:#ccc;}
+.ma-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1;margin-bottom:2px;}
+.ma-slot.ego .ma-num{color:var(--ego);}
+.ma-slot.superego .ma-num{color:var(--superego);}
+.ma-slot.superid .ma-num{color:var(--superid);}
+.ma-slot.id .ma-num{color:#888;}
+.ma-fn{font-size:13px;font-weight:500;margin-bottom:4px;}
+.ma-alt{font-size:11px;opacity:.55;margin-bottom:6px;}
+.ma-desc{font-size:12px;line-height:1.7;opacity:.8;}
+.ma-block-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;opacity:.6;position:absolute;right:10px;top:10px;}
+
+/* ─ クアドラ ─ */
+.quadra-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+@media(max-width:480px){.quadra-grid{grid-template-columns:1fr;}}
+.quadra-card{border-radius:var(--radius);padding:16px;border:1px solid;}
+.q-alpha{background:var(--alpha-bg);border-color:#b0c8e8;}
+.q-beta{background:var(--beta-bg);border-color:#e0a898;}
+.q-gamma{background:var(--gamma-bg);border-color:#80c4a0;}
+.q-delta{background:var(--delta-bg);border-color:#e0cc88;}
+.quadra-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.quadra-sym{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1;}
+.q-alpha .quadra-sym{color:var(--alpha);}
+.q-beta .quadra-sym{color:var(--beta);}
+.q-gamma .quadra-sym{color:var(--gamma);}
+.q-delta .quadra-sym{color:var(--delta);}
+.quadra-name{font-size:14px;font-weight:500;}
+.q-alpha .quadra-name{color:var(--alpha);}
+.q-beta .quadra-name{color:var(--beta);}
+.q-gamma .quadra-name{color:var(--gamma);}
+.q-delta .quadra-name{color:var(--delta);}
+.quadra-types{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.qt{font-size:12px;padding:3px 9px;border-radius:20px;border:1px solid;font-family:'Cormorant Garamond',serif;letter-spacing:.5px;}
+.q-alpha .qt{background:#dae8f8;border-color:#a0c0e0;color:var(--alpha);}
+.q-beta .qt{background:#fde8e0;border-color:#e0a898;color:var(--beta);}
+.q-gamma .qt{background:#d4f0e4;border-color:#80c4a0;color:var(--gamma);}
+.q-delta .qt{background:#fde8c0;border-color:#d0c080;color:#8a6010;}
+.quadra-values{font-size:11px;line-height:1.7;opacity:.7;}
+.quadra-vals-title{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;opacity:.5;margin-bottom:4px;font-weight:500;}
+.val-chips{display:flex;gap:5px;flex-wrap:wrap;}
+.val-chip{font-size:11px;padding:2px 8px;border-radius:12px;background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.1);color:var(--ink3);}
+
+/* ─ 関係論 ─ */
+.rel-grid{display:grid;gap:8px;margin-bottom:20px;}
+.rel-row{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+.rel-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;color:var(--accent);white-space:nowrap;}
+.rel-body{font-size:12px;color:var(--ink2);line-height:1.7;}
+.rel-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:12px;margin-bottom:4px;font-weight:500;}
+.rb-best{background:#d4f0e4;color:var(--accent);}
+.rb-good{background:#e8f0fc;color:var(--info);}
+.rb-neutral{background:#f4f4f4;color:#888;}
+.rb-hard{background:#fde8e0;color:var(--warn);}
+
+/* ─ 外部ツールリンク ─ */
+.tool-grid{display:grid;gap:12px;margin-bottom:20px;}
+.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 18px;box-shadow:var(--shadow);display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;}
+.tool-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--border2);}
+.tool-icon{font-size:28px;flex-shrink:0;margin-top:2px;}
+.tool-body{flex:1;min-width:0;}
+.tool-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--ink);margin-bottom:4px;}
+.tool-desc{font-size:12px;color:var(--ink3);line-height:1.7;margin-bottom:8px;}
+.tool-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.tool-tag{font-size:10px;padding:2px 8px;border-radius:12px;background:var(--bg2);border:1px solid var(--border);color:var(--ink4);}
+.tool-arrow{flex-shrink:0;color:var(--accent2);margin-top:4px;}
+.tool-arrow svg{width:16px;height:16px;}
+.tool-external{font-size:10px;color:var(--ink4);margin-top:4px;letter-spacing:.5px;}
+
+/* ─ 二分法テーブル ─ */
+.dichotomy-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px;}
+.dichotomy-table th{background:var(--bg2);padding:8px 10px;text-align:left;border:1px solid var(--border);font-weight:500;font-size:11px;letter-spacing:.5px;color:var(--ink3);}
+.dichotomy-table td{padding:8px 10px;border:1px solid var(--border);vertical-align:top;line-height:1.6;}
+.dichotomy-table tr:nth-child(even) td{background:var(--surface2);}
+.dt-pair{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:400;color:var(--accent);}
+
+/* ─ 16タイプ一覧 ─ */
+.types16-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px;}
+@media(max-width:480px){.types16-grid{grid-template-columns:repeat(2,1fr);}}
+.t16-chip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s;}
+.t16-chip:hover{border-color:var(--accent2);background:var(--accent-bg);transform:translateY(-2px);}
+.t16-chip.active{border-color:var(--accent);background:var(--accent-bg);}
+.t16-code{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;display:block;line-height:1.3;}
+.t16-mbti{font-size:10px;color:var(--ink4);display:block;margin-top:2px;}
+.t16-chip.qa .t16-code{color:var(--alpha);}
+.t16-chip.qb .t16-code{color:var(--beta);}
+.t16-chip.qg .t16-code{color:var(--gamma);}
+.t16-chip.qd .t16-code{color:var(--delta);}
+
+/* TYPE DETAIL */
+.type-detail{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 18px;margin-top:14px;box-shadow:var(--shadow);display:none;}
+.type-detail.active{display:block;}
+.td-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;}
+.td-code{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;line-height:1;color:var(--accent);}
+.td-meta h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--ink);margin-bottom:3px;}
+.td-meta p{font-size:12px;color:var(--ink3);}
+.td-stack{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.td-stack-row{display:flex;gap:6px;align-items:center;}
+.td-fn-badge{font-size:12px;padding:3px 10px;border-radius:20px;min-width:44px;text-align:center;font-weight:500;}
+.td-fn-badge.ego{background:var(--ego);color:white;}
+.td-fn-badge.superego{background:var(--superego);color:white;}
+.td-fn-badge.superid{background:var(--superid);color:white;}
+.td-fn-badge.id{background:var(--id-bg);color:#888;border:1px solid #ccc;}
+.td-fn-name{font-size:11px;color:var(--ink3);}
+.td-section h4{font-size:11px;font-weight:500;color:var(--ink4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
+.td-section p{font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:12px;}
+.td-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.td-tag{font-size:11px;padding:3px 9px;border-radius:20px;background:var(--bg2);border:1px solid var(--border);color:var(--ink3);}
+
+/* FOOTER */
+.page-footer{background:var(--ink);color:rgba(255,255,255,.5);padding:36px 20px 24px;}
+.footer-inner{max-width:860px;margin:0 auto;}
+.footer-nav-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.footer-nav-link{font-size:12px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);text-decoration:none;transition:all .2s;}
+.footer-nav-link:hover{background:rgba(255,255,255,.12);color:white;}
+.footer-bottom{font-size:11px;color:rgba(255,255,255,.3);}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.hero>*{animation:fadeInUp .6s ease both;}
+.hero>*:nth-child(1){animation-delay:.1s;}
+.hero>*:nth-child(2){animation-delay:.2s;}
+.hero>*:nth-child(3){animation-delay:.3s;}
+.hero>*:nth-child(4){animation-delay:.38s;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m5-5-5 5 5 5"/></svg>
+    ポータルへ
+  </a>
+  <span class="topbar-title">ソシオニクス</span>
+  <span class="topbar-right">Phase 4</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Information Metabolism · 16 Types</div>
+  <h1><em>ソシオニクス</em></h1>
+  <p class="hero-sub">Socionics — 情報代謝の類型論</p>
+  <div class="hero-badges">
+    <span class="hero-badge">A. Augusta</span>
+    <span class="hero-badge">Gulenko</span>
+    <span class="hero-badge">モデルA</span>
+    <span class="hero-badge">モデルG</span>
+    <span class="hero-badge">クアドラ</span>
+    <span class="hero-badge">関係論16種</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<nav class="tabs-nav" id="mainTabs">
+  <button class="tab-btn active" onclick="switchTab('overview',this)">概要</button>
+  <button class="tab-btn" onclick="switchTab('ie',this)">情報要素</button>
+  <button class="tab-btn" onclick="switchTab('modelA',this)">モデルA</button>
+  <button class="tab-btn" onclick="switchTab('modelG',this)">モデルG</button>
+  <button class="tab-btn" onclick="switchTab('quadra',this)">クアドラ</button>
+  <button class="tab-btn" onclick="switchTab('types',this)">16タイプ</button>
+  <button class="tab-btn" onclick="switchTab('relations',this)">関係論</button>
+  <button class="tab-btn" onclick="switchTab('tools',this)">ツール集</button>
+</nav>
+
+<!-- ══════ TAB: OVERVIEW ══════ -->
+<div class="tab-content active" id="tab-overview">
+<div class="container">
+  <p class="sec-title">ソシオニクスとは</p>
+  <p class="sec-label">Socionics — Overview</p>
+
+  <div class="info-box">
+    ソシオニクスは1970年代にリトアニアの社会学者<strong>アウシュラ・アウグスタ（A. Augusta）</strong>が提唱した心理類型論です。
+    ユングの機能論とアントニー・ケンピンスキーの「情報代謝」概念を融合させ、
+    人間の情報処理様式を<strong>16タイプ</strong>に体系化しました。
+    MBTIと同じ記号（Te・Ti・Fe・Fi・Se・Si・Ne・Ni）を使いますが、<strong>理論体系・意味・タイプ間関係は別物</strong>です。
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ MBTIとの記号の混用に注意</strong><br>
+    ソシオニクスとMBTIは同じアルファベット記号を使いますが、同一ではありません。
+    類型界隈では区別のために
+    ソシオニクス = <strong>🄢 Te</strong>（下線付き・サンセリフ）、
+    MBTI = <strong>Te</strong>（通常）
+    と表記することが一般的です。このページでは「情報要素」はソシオニクスの意味で使います。
+  </div>
+
+  <h2 class="sh">MBTIとソシオニクスの主な違い</h2>
+
+  <div class="card">
+    <h3>① タイプコードの体系が異なる</h3>
+    <p>ソシオニクスのタイプ名はMBTI式の「INTJ」ではなく<strong>「LII」「SLE」</strong>のような略称が基本です。
+    LIIは「Logical Intuitive Introvert」を意味し、主導機能（Ti）と創造機能（Ne）から名付けられます。
+    MBTIのINTJに対応するタイプは概ねLIIですが、完全な同一視はできません。</p>
+  </div>
+  <div class="card">
+    <h3>② 情報代謝（モデルA）が理論の中核</h3>
+    <p>MBTIが4軸スコアや認知機能の優先順位を重視するのに対し、
+    ソシオニクスは<strong>8つのスロット（ポジション）</strong>に情報要素が割り当てられる
+    「モデルA」という構造を理論の中核に置きます。
+    スロットごとに「次元」「ブロック」「強度」が定義されています。</p>
+  </div>
+  <div class="card">
+    <h3>③ タイプ間関係論（インタータイプ関係）が発達</h3>
+    <p>ソシオニクスの最大の特徴の一つが<strong>インタータイプ関係</strong>です。
+    16種の関係（デュアル・ミラー・活性化など）が数学的に定義されており、
+    2タイプの組み合わせが決まれば関係の種類が一意に決まります。
+    MBTIにはこれほど体系化された関係論はありません。</p>
+  </div>
+  <div class="card">
+    <h3>④ ロシア圏・東欧圏で発展した学問的背景</h3>
+    <p>ソシオニクスはロシア・ウクライナ・リトアニアを中心に発展し、
+    英語圏では<strong>Wikisocion</strong>などのコミュニティが理論を整理・英訳しています。
+    Viktor Gulenko（ウクライナ）は独自のモデルGやDCNH・小グループ理論などで理論を拡張しました。</p>
+  </div>
+
+  <h2 class="sh">主要研究者・資料</h2>
+  <div style="display:grid;gap:8px;">
+    <div class="card" style="margin-bottom:0;">
+      <h3>Aušra Augustinavičiūtė（A. Augusta）</h3>
+      <p>ソシオニクスの創始者。1970年代にリトアニアでユング心理学×情報代謝理論を融合。モデルAの原型を構築。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>Viktor Gulenko</h3>
+      <p>ウクライナの研究者。モデルGによるモデルAの拡張、DCNH（ドミナント・クリエイティブ・ノーマライザー・ハーモナイザー）サブタイプ理論、認知スタイル・ロマンススタイルなど多数の小グループ理論を提唱。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>Wikisocion</h3>
+      <p>ソシオニクスの英語圏最大のオープン資料集。Augusta・Gulenkoら複数の研究者の理論を収録・整理。このサイトの解説の主要参照元。</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: 情報要素 ══════ -->
+<div class="tab-content" id="tab-ie">
+<div class="container">
+  <p class="sec-title">情報要素</p>
+  <p class="sec-label">Information Elements（≠ MBTI Cognitive Functions）</p>
+
+  <div class="info-box">
+    情報要素はMBTIの認知機能と<strong>記号が同じ</strong>ですが、定義・使われ方が異なります。
+    MBTIの「Te（外向的思考）」がプロセスや動機を表すのに対し、
+    ソシオニクスの「<strong>Te（外向論理）</strong>」は情報代謝における「どの種類の情報を扱うか」を示します。
+    以下はソシオニクス文脈での定義です。
+  </div>
+
+  <div class="ie-grid">
+    <div class="ie-card ie-Te" data-code="Te">
+      <div class="ie-code">Te</div>
+      <div class="ie-name">外向論理 — 成果・効率</div>
+      <div class="ie-diff">Extroverted Logic</div>
+      <div class="ie-desc">現実における事実・実用性・効率に基づいて判断する。データ、方法論、実績を重んじる。</div>
+      <div class="ie-socio">ソシオ：「これは機能するか・効率的か」という問い</div>
+    </div>
+    <div class="ie-card ie-Ti" data-code="Ti">
+      <div class="ie-code">Ti</div>
+      <div class="ie-name">内向論理 — 構造・定義</div>
+      <div class="ie-diff">Introverted Logic</div>
+      <div class="ie-desc">物事の体系・原理・内的整合性を重視。「理屈に合うか」「論理的に矛盾がないか」で判断する。</div>
+      <div class="ie-socio">ソシオ：「この定義・構造は正確か」という問い</div>
+    </div>
+    <div class="ie-card ie-Fe" data-code="Fe">
+      <div class="ie-code">Fe</div>
+      <div class="ie-name">外向倫理 — 感情表出・場の空気</div>
+      <div class="ie-diff">Extroverted Ethics</div>
+      <div class="ie-desc">感情の表現・場の雰囲気を読む力。集団の空気を読み取り、感情を動かす。外に向かう感情エネルギー。</div>
+      <div class="ie-socio">ソシオ：「場の感情状態をどう動かすか」という問い</div>
+    </div>
+    <div class="ie-card ie-Fi" data-code="Fi">
+      <div class="ie-code">Fi</div>
+      <div class="ie-name">内向倫理 — 関係性・内的価値</div>
+      <div class="ie-diff">Introverted Ethics</div>
+      <div class="ie-desc">人間関係の距離感・内的な好悪を感じ取る。「誰とどんな関係か」「相手の内心」が判断基準。</div>
+      <div class="ie-socio">ソシオ：「この関係は親密か・距離があるか」という問い</div>
+    </div>
+    <div class="ie-card ie-Se" data-code="Se">
+      <div class="ie-code">Se</div>
+      <div class="ie-name">外向感覚 — 現実制圧・力</div>
+      <div class="ie-diff">Extroverted Sensing</div>
+      <div class="ie-desc">今この瞬間の物理的現実・力関係・状況支配をとらえる。行動力・存在感・制御を重視。</div>
+      <div class="ie-socio">ソシオ：「誰がこの状況をコントロールしているか」という問い</div>
+    </div>
+    <div class="ie-card ie-Si" data-code="Si">
+      <div class="ie-code">Si</div>
+      <div class="ie-name">内向感覚 — 快適・身体感覚</div>
+      <div class="ie-diff">Introverted Sensing</div>
+      <div class="ie-desc">過去の感覚記憶・身体的快不快・心地よい環境を重視。安心できるリズムと安定を求める。</div>
+      <div class="ie-socio">ソシオ：「この状況は快適か・身体的に心地よいか」という問い</div>
+    </div>
+    <div class="ie-card ie-Ne" data-code="Ne">
+      <div class="ie-code">Ne</div>
+      <div class="ie-name">外向直観 — 可能性・アイデア</div>
+      <div class="ie-diff">Extroverted Intuition</div>
+      <div class="ie-desc">対象から多様な可能性・アイデアを見出す。連想・創造力に富み、あらゆる方向に思考を拡げる。</div>
+      <div class="ie-socio">ソシオ：「この状況にはどんな可能性が眠っているか」という問い</div>
+    </div>
+    <div class="ie-card ie-Ni" data-code="Ni">
+      <div class="ie-code">Ni</div>
+      <div class="ie-name">内向直観 — 時間・意味の核</div>
+      <div class="ie-diff">Introverted Intuition</div>
+      <div class="ie-desc">時間の流れ・因果・未来展開を洞察する。過去・現在・未来を一本の線で結び、本質を探る。</div>
+      <div class="ie-socio">ソシオ：「この流れはどこへ向かっているか」という問い</div>
+    </div>
+  </div>
+
+  <div class="info-blue">
+    <strong>価値機能 vs 非価値機能：</strong>
+    各タイプには「価値機能（自我・超イドブロック：1/2/5/6番）」と
+    「非価値機能（超自我・イドブロック：3/4/7/8番）」があります。
+    人は価値機能の情報に自然と引き寄せられ、同じ価値機能を持つ人と居心地よく交流できます。
+    非価値機能は意識的に使うと消耗しやすく、ストレスの元になります。
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: MODEL A ══════ -->
+<div class="tab-content" id="tab-modelA">
+<div class="container">
+  <p class="sec-title">モデルA</p>
+  <p class="sec-label">Model A — Augusta's 8-Function Structure</p>
+
+  <div class="info-box">
+    モデルAはA. Augustaが構築したソシオニクスの中核理論です。
+    各タイプは<strong>8つのスロット（ポジション）</strong>に8種の情報要素が割り当てられ、
+    スロットごとに「ブロック」「次元」「強度」が定義されます。
+    スロット1〜8の配置がそのタイプの情報代謝の構造そのものです。
+  </div>
+
+  <h2 class="sh">4つのブロック構造</h2>
+  <div class="model-a-grid">
+    <div class="ma-slot ego">
+      <span class="ma-block-label">自我ブロック</span>
+      <div class="ma-num">①</div>
+      <div class="ma-fn">主導機能（Leading）</div>
+      <div class="ma-alt">Dominant / Base</div>
+      <div class="ma-desc">最も意識的・強力なスロット。自分のアイデンティティと一体化しており、自然体で使い続けられる。このスロットの情報は瞬時に認識・言語化できる。</div>
+    </div>
+    <div class="ma-slot ego">
+      <span class="ma-block-label">自我ブロック</span>
+      <div class="ma-num">②</div>
+      <div class="ma-fn">創造機能（Creative）</div>
+      <div class="ma-alt">Auxiliary</div>
+      <div class="ma-desc">主導機能を実行するための道具。主導より柔軟で状況に応じて使い方が変わる。目的達成のための手段として機能する。</div>
+    </div>
+    <div class="ma-slot superego">
+      <span class="ma-block-label">超自我ブロック</span>
+      <div class="ma-num">③</div>
+      <div class="ma-fn">規範機能（Role）</div>
+      <div class="ma-alt">Tertiary</div>
+      <div class="ma-desc">意識的に「こうあるべき」と思っているが、自発的には使いにくいスロット。過剰な期待をかけられると苦痛・罪悪感を感じやすい。</div>
+    </div>
+    <div class="ma-slot superego">
+      <span class="ma-block-label">超自我ブロック</span>
+      <div class="ma-num">④</div>
+      <div class="ma-fn">脆弱機能（Vulnerable）</div>
+      <div class="ma-alt">Inferior / PoLR</div>
+      <div class="ma-desc">最も弱く傷つきやすいスロット。批判を受けると深く傷つく。防衛的になりやすく、このスロットへの刺激を避けようとする。</div>
+    </div>
+    <div class="ma-slot superid">
+      <span class="ma-block-label">超イドブロック</span>
+      <div class="ma-num">⑤</div>
+      <div class="ma-fn">暗示機能（Suggestive）</div>
+      <div class="ma-alt">Dual-seeking</div>
+      <div class="ma-desc">最も強く補完を必要とするスロット。このスロットが得意な人と一緒にいると安心感・充足感を得られる。デュアル（双対）タイプが持つ主導機能と対応する。</div>
+    </div>
+    <div class="ma-slot superid">
+      <span class="ma-block-label">超イドブロック</span>
+      <div class="ma-num">⑥</div>
+      <div class="ma-fn">動員機能（Mobilizing）</div>
+      <div class="ma-alt">Activating</div>
+      <div class="ma-desc">補完されると活性化するスロット。⑤と同様に外から供給されることで能力が引き出される。デュアルタイプの創造機能と対応する。</div>
+    </div>
+    <div class="ma-slot id">
+      <span class="ma-block-label">イドブロック</span>
+      <div class="ma-num">⑦</div>
+      <div class="ma-fn">無視機能（Ignoring）</div>
+      <div class="ma-alt">Background</div>
+      <div class="ma-desc">使えるが積極的には使わないスロット。意識的に活用するには労力がかかり、通常は無意識下で処理される。①と同じ情報要素の外/内逆バージョン。</div>
+    </div>
+    <div class="ma-slot id">
+      <span class="ma-block-label">イドブロック</span>
+      <div class="ma-num">⑧</div>
+      <div class="ma-fn">証明機能（Demonstrative）</div>
+      <div class="ma-alt">Demonstrative</div>
+      <div class="ma-desc">表面上は使えるように見えるが、深く関わろうとはしないスロット。②と同じ要素の逆方向。外からはスキルがあるように見えるが本人は重要視していない。</div>
+    </div>
+  </div>
+
+  <h2 class="sh">次元（Dimensionality）</h2>
+  <div class="info-box">
+    各スロットには「次元」という概念があり、1〜4次元でそのスロットの情報処理能力の深さを示します。
+  </div>
+  <div style="display:grid;gap:8px;margin-bottom:20px;">
+    <div class="card" style="margin-bottom:0;">
+      <h3>4次元（スロット①②） — 最高次元</h3>
+      <p>経験・規範・状況・時間のすべてを統合して判断できる。最も自由で多様な使い方ができる。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>3次元（スロット⑦⑧）</h3>
+      <p>経験・規範・状況を使えるが、時間的変化への対応が弱い。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>2次元（スロット③⑥）</h3>
+      <p>経験と規範のみを使える。状況に応じた柔軟な対応が難しい。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>1次元（スロット④⑤）</h3>
+      <p>経験からのみ学べる最低次元。説明を受けても消化しにくく、失敗からしか学べない傾向がある。</p>
+    </div>
+  </div>
+
+  <h2 class="sh">モデルA例：LSE（ESTj相当）</h2>
+  <div class="diagram-wrap">
+    <div class="diagram-title">LSE の情報代謝構造</div>
+    <svg viewBox="0 0 640 220" style="width:100%;max-width:640px;display:block;margin:0 auto;">
+      <defs>
+        <style>.slot-label{font-family:'Noto Sans JP',sans-serif;font-size:10px;}</style>
+      </defs>
+      <!-- 自我 -->
+      <rect x="10" y="10" width="145" height="90" rx="8" fill="#ecf7f2" stroke="#80c4a0" stroke-width="1.5"/>
+      <text x="82" y="28" text-anchor="middle" font-size="10" fill="#507060" letter-spacing="1">自我ブロック</text>
+      <text x="40" y="55" font-family="Cormorant Garamond,serif" font-size="22" fill="#2a7a58" text-anchor="middle">①Te</text>
+      <text x="40" y="72" font-size="9" fill="#507060" text-anchor="middle">主導・4次元</text>
+      <text x="110" y="55" font-family="Cormorant Garamond,serif" font-size="22" fill="#2a7a58" text-anchor="middle">②Si</text>
+      <text x="110" y="72" font-size="9" fill="#507060" text-anchor="middle">創造・4次元</text>
+      <!-- 超自我 -->
+      <rect x="165" y="10" width="145" height="90" rx="8" fill="#fdf0ee" stroke="#e0a898" stroke-width="1.5"/>
+      <text x="237" y="28" text-anchor="middle" font-size="10" fill="#7a4030" letter-spacing="1">超自我ブロック</text>
+      <text x="195" y="55" font-family="Cormorant Garamond,serif" font-size="22" fill="#c04830" text-anchor="middle">③Fe</text>
+      <text x="195" y="72" font-size="9" fill="#7a4030" text-anchor="middle">規範・2次元</text>
+      <text x="265" y="55" font-family="Cormorant Garamond,serif" font-size="22" fill="#c04830" text-anchor="middle">④Ni</text>
+      <text x="265" y="72" font-size="9" fill="#7a4030" text-anchor="middle">脆弱・1次元</text>
+      <!-- 超イド -->
+      <rect x="10" y="115" width="145" height="90" rx="8" fill="#eef4fc" stroke="#a0b8e0" stroke-width="1.5"/>
+      <text x="82" y="133" text-anchor="middle" font-size="10" fill="#304870" letter-spacing="1">超イドブロック</text>
+      <text x="40" y="160" font-family="Cormorant Garamond,serif" font-size="22" fill="#4a7fd0" text-anchor="middle">⑤Ti</text>
+      <text x="40" y="177" font-size="9" fill="#304870" text-anchor="middle">暗示・1次元</text>
+      <text x="110" y="160" font-family="Cormorant Garamond,serif" font-size="22" fill="#4a7fd0" text-anchor="middle">⑥Ne</text>
+      <text x="110" y="177" font-size="9" fill="#304870" text-anchor="middle">動員・2次元</text>
+      <!-- イド -->
+      <rect x="165" y="115" width="145" height="90" rx="8" fill="#f4f4f4" stroke="#ccc" stroke-width="1.5"/>
+      <text x="237" y="133" text-anchor="middle" font-size="10" fill="#888" letter-spacing="1">イドブロック</text>
+      <text x="195" y="160" font-family="Cormorant Garamond,serif" font-size="22" fill="#888" text-anchor="middle">⑦Ti</text>
+      <text x="195" y="177" font-size="9" fill="#888" text-anchor="middle">無視・3次元</text>
+      <text x="265" y="160" font-family="Cormorant Garamond,serif" font-size="22" fill="#888" text-anchor="middle">⑧Se</text>
+      <text x="265" y="177" font-size="9" fill="#888" text-anchor="middle">証明・3次元</text>
+      <!-- 矢印・説明 -->
+      <text x="340" y="30" font-size="11" fill="#507060">▶ LSE（ESTj相当）の構造例</text>
+      <text x="340" y="52" font-size="11" fill="#507060">・主導 Te：効率・成果の情報を自然に処理</text>
+      <text x="340" y="70" font-size="11" fill="#507060">・創造 Si：快適・安定で主導を支援</text>
+      <text x="340" y="88" font-size="11" fill="#c04830">・脆弱 Ni：将来予測への批判に弱い</text>
+      <text x="340" y="106" font-size="11" fill="#4a7fd0">・暗示 Ti：論理構造の補完を求める</text>
+      <text x="340" y="130" font-size="10" fill="#888">デュアルは EII（INFj）：</text>
+      <text x="340" y="146" font-size="10" fill="#888">EIIの主導 Fi が LSE の暗示 Ti を補完</text>
+      <text x="340" y="162" font-size="10" fill="#888">EIIの創造 Ne が LSE の動員 Ne を活性化</text>
+    </svg>
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: MODEL G ══════ -->
+<div class="tab-content" id="tab-modelG">
+<div class="container">
+  <p class="sec-title">モデルG</p>
+  <p class="sec-label">Model G — Viktor Gulenko's Extension</p>
+
+  <div class="info-box">
+    モデルGはViktor GulenkoがモデルAを拡張・再解釈した理論です。
+    モデルAの8スロットに加え、<strong>「ブロック間の相互作用」「エネルギーの流れ」</strong>をより精緻に記述します。
+    Gulenkoは認知スタイル・ロマンススタイル・DCNHサブタイプなどの小グループ理論も構築しました。
+  </div>
+
+  <h2 class="sh">モデルAとモデルGの主な相違点</h2>
+  <div style="overflow-x:auto;margin-bottom:20px;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:480px;">
+      <thead>
+        <tr>
+          <th style="background:var(--bg2);padding:8px 12px;border:1px solid var(--border);font-weight:500;font-size:11px;color:var(--ink3);">観点</th>
+          <th style="background:var(--ego-bg);padding:8px 12px;border:1px solid var(--border);font-weight:500;font-size:11px;color:var(--ego);">モデルA（Augusta）</th>
+          <th style="background:var(--info-bg);padding:8px 12px;border:1px solid var(--border);font-weight:500;font-size:11px;color:var(--info);">モデルG（Gulenko）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:8px 12px;border:1px solid var(--border);">理論の焦点</td><td style="padding:8px 12px;border:1px solid var(--border);">各スロットの強さ・次元・ブロック構造</td><td style="padding:8px 12px;border:1px solid var(--border);">スロット間のエネルギー流・機能の動的相互作用</td></tr>
+        <tr style="background:var(--surface2);"><td style="padding:8px 12px;border:1px solid var(--border);">スロット命名</td><td style="padding:8px 12px;border:1px solid var(--border);">主導・創造・規範・脆弱・暗示・動員・無視・証明</td><td style="padding:8px 12px;border:1px solid var(--border);">プログラム・実現・規範・動員・提案・調整・制限・背景（一部異なる呼称）</td></tr>
+        <tr><td style="padding:8px 12px;border:1px solid var(--border);">ブロック構造</td><td style="padding:8px 12px;border:1px solid var(--border);">自我・超自我・超イド・イド（固定）</td><td style="padding:8px 12px;border:1px solid var(--border);">メンタルリング（①-④）とバイタルリング（⑤-⑧）の循環として捉え直す</td></tr>
+        <tr style="background:var(--surface2);"><td style="padding:8px 12px;border:1px solid var(--border);">サブタイプ</td><td style="padding:8px 12px;border:1px solid var(--border);">活性・不活性サブタイプ</td><td style="padding:8px 12px;border:1px solid var(--border);">DCNH（ドミナント・クリエイティブ・ノーマライザー・ハーモナイザー）</td></tr>
+        <tr><td style="padding:8px 12px;border:1px solid var(--border);">小グループ理論</td><td style="padding:8px 12px;border:1px solid var(--border);">クアドラ・リング・テンポ（基本）</td><td style="padding:8px 12px;border:1px solid var(--border);">認知スタイル・ロマンススタイル・コミュニケーションスタイル（大幅拡張）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sh">メンタルリング・バイタルリング</h2>
+  <div class="card">
+    <h3>Gulenkoの「2つのリング」概念</h3>
+    <p>モデルGではモデルAの8スロットを、<strong>メンタルリング（①②③④）</strong>と<strong>バイタルリング（⑤⑥⑦⑧）</strong>として再解釈します。<br><br>
+    <strong>メンタルリング</strong>：意識的・言語化可能な処理。外部に表出しやすく、他者に説明できる機能群。<br>
+    <strong>バイタルリング</strong>：無意識的・自動的な処理。本能・感覚・直感的な反応。言語化しにくく、表出しにくい機能群。<br><br>
+    Gulenkoはこの2リングの循環によって情報処理の「意識↔無意識」の流れを説明します。</p>
+  </div>
+
+  <h2 class="sh">DCNHサブタイプ</h2>
+  <div class="info-box">
+    GUlenkoが提唱するDCNHは、同じタイプ内でも<strong>どのスロットが活性化しているか</strong>でサブタイプを分類します。
+    D（ドミナント）・C（クリエイティブ）・N（ノーマライザー）・H（ハーモナイザー）の4種。
+    例えばLSE-D（ドミナントLSE）とLSE-H（ハーモナイザーLSE）は同タイプでも外見の行動パターンが異なります。
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+    <div class="card" style="margin-bottom:0;">
+      <h3>D — ドミナント</h3>
+      <p style="font-size:12px;">主導機能①が特に強調。自己主張が強く、リーダーシップを発揮。タイプの典型的な特徴が前面に出やすい。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>C — クリエイティブ</h3>
+      <p style="font-size:12px;">創造機能②が特に強調。柔軟で適応力があり、問題解決・手段の工夫に長ける。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>N — ノーマライザー</h3>
+      <p style="font-size:12px;">規範機能③が活性化。秩序・ルール・手順を重視し、調整役・管理役に向く。</p>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <h3>H — ハーモナイザー</h3>
+      <p style="font-size:12px;">動員機能⑥が活性化。人間関係・雰囲気の維持に強く、和を大切にする。</p>
+    </div>
+  </div>
+
+  <h2 class="sh">認知スタイル・ロマンススタイル</h2>
+  <div class="card">
+    <h3>認知スタイル（Cognitive Styles）</h3>
+    <p>Gulenkoが提唱する4つの認知パターン。
+    <strong>ホリスト</strong>（全体的把握・構造優先）・<strong>リニアリスト</strong>（順序立て・段階的処理）・
+    <strong>アルゴリズミスト</strong>（手順・規則・反復）・<strong>エモティビスト</strong>（感情的文脈・関係性重視）の4種。
+    クアドラや合理/非合理と対応しています。</p>
+  </div>
+  <div class="card">
+    <h3>ロマンススタイル（Romance Styles）</h3>
+    <p>恋愛・性的な相互作用における4パターン。
+    <strong>ケア型</strong>（相手を気遣い守る）・<strong>情熱型</strong>（強烈な吸引力と感情表現）・
+    <strong>親密型</strong>（内側の信頼と深い繋がり）・<strong>ビジネス型</strong>（パートナーシップと相互尊重）の4種。
+    各クアドラに1スタイルが対応します。</p>
+  </div>
+
+  <div class="warn-box">
+    <strong>注意：</strong>モデルGはモデルAの「代替」ではなく「拡張・再解釈」です。
+    どちらが「正しい」かではなく、用途に応じて補完的に使われます。
+    Wikisocionや英語圏のコミュニティでは主にモデルAが参照されますが、
+    ロシア語圏ではGulenko理論も広く使われています。
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: QUADRA ══════ -->
+<div class="tab-content" id="tab-quadra">
+<div class="container">
+  <p class="sec-title">クアドラ</p>
+  <p class="sec-label">Quadras — 4 Value Groups</p>
+
+  <div class="info-box">
+    クアドラは16タイプをα・β・γ・Δの4グループに分類します。
+    同じクアドラ内のメンバーは<strong>同一の価値機能セット（4つの情報要素）</strong>を共有しており、
+    コミュニケーションの快適さ・価値観の共鳴が特に高いとされます。
+    デュアル関係はすべて同クアドラ内に存在します。
+  </div>
+
+  <div class="quadra-grid">
+    <div class="quadra-card q-alpha">
+      <div class="quadra-head">
+        <div class="quadra-sym">α</div>
+        <div class="quadra-name">アルファクアドラ</div>
+      </div>
+      <div class="quadra-types">
+        <span class="qt q-alpha">ILE</span><span class="qt q-alpha">SEI</span>
+        <span class="qt q-alpha">ESE</span><span class="qt q-alpha">LII</span>
+      </div>
+      <div class="quadra-vals-title">価値機能</div>
+      <div class="val-chips">
+        <span class="val-chip">Ne（可能性）</span>
+        <span class="val-chip">Ti（論理構造）</span>
+        <span class="val-chip">Fe（感情表出）</span>
+        <span class="val-chip">Si（快適感覚）</span>
+      </div>
+      <p style="font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.7;">
+        アイデア・知的探求・感情の共有・快適な環境を大切にする。温かく好奇心旺盛で民主的な雰囲気。
+      </p>
+    </div>
+    <div class="quadra-card q-beta">
+      <div class="quadra-head">
+        <div class="quadra-sym">β</div>
+        <div class="quadra-name">ベータクアドラ</div>
+      </div>
+      <div class="quadra-types">
+        <span class="qt q-beta">SLE</span><span class="qt q-beta">IEI</span>
+        <span class="qt q-beta">EIE</span><span class="qt q-beta">LSI</span>
+      </div>
+      <div class="quadra-vals-title">価値機能</div>
+      <div class="val-chips">
+        <span class="val-chip">Se（意志・力）</span>
+        <span class="val-chip">Ni（時間・洞察）</span>
+        <span class="val-chip">Fe（感情表出）</span>
+        <span class="val-chip">Ti（論理構造）</span>
+      </div>
+      <p style="font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.7;">
+        力・秩序・ビジョン・感情的表現を重視。強い意志と方向性を持ち、階層的・貴族的な雰囲気。
+      </p>
+    </div>
+    <div class="quadra-card q-gamma">
+      <div class="quadra-head">
+        <div class="quadra-sym">γ</div>
+        <div class="quadra-name">ガンマクアドラ</div>
+      </div>
+      <div class="quadra-types">
+        <span class="qt q-gamma">SEE</span><span class="qt q-gamma">ILI</span>
+        <span class="qt q-gamma">LIE</span><span class="qt q-gamma">ESI</span>
+      </div>
+      <div class="quadra-vals-title">価値機能</div>
+      <div class="val-chips">
+        <span class="val-chip">Se（意志・力）</span>
+        <span class="val-chip">Ni（時間・洞察）</span>
+        <span class="val-chip">Fi（関係性）</span>
+        <span class="val-chip">Te（効率・成果）</span>
+      </div>
+      <p style="font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.7;">
+        成果・効率・個人的な関係の深さ・長期的洞察を重視。実用的・競争的・選択的な雰囲気。
+      </p>
+    </div>
+    <div class="quadra-card q-delta">
+      <div class="quadra-head">
+        <div class="quadra-sym">Δ</div>
+        <div class="quadra-name">デルタクアドラ</div>
+      </div>
+      <div class="quadra-types">
+        <span class="qt q-delta">SLI</span><span class="qt q-delta">IEE</span>
+        <span class="qt q-delta">LSE</span><span class="qt q-delta">EII</span>
+      </div>
+      <div class="quadra-vals-title">価値機能</div>
+      <div class="val-chips">
+        <span class="val-chip">Si（快適感覚）</span>
+        <span class="val-chip">Ne（可能性）</span>
+        <span class="val-chip">Fi（関係性）</span>
+        <span class="val-chip">Te（効率・成果）</span>
+      </div>
+      <p style="font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.7;">
+        現実的な快適さ・具体的な可能性・誠実な人間関係・実務的効率を重視。温かく実用的な雰囲気。
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: 16TYPES ══════ -->
+<div class="tab-content" id="tab-types">
+<div class="container">
+  <p class="sec-title">16タイプ一覧</p>
+  <p class="sec-label">All 16 Socionic Types</p>
+
+  <div class="info-box">タイプをタップすると機能スタック・概要・MBTI対応が展開されます。</div>
+
+  <div style="margin-bottom:12px;">
+    <span style="font-size:11px;color:var(--alpha);margin-right:12px;">● α</span>
+    <span style="font-size:11px;color:var(--beta);margin-right:12px;">● β</span>
+    <span style="font-size:11px;color:var(--gamma);margin-right:12px;">● γ</span>
+    <span style="font-size:11px;color:var(--delta);">● Δ</span>
+  </div>
+
+  <div class="types16-grid" id="types16Grid"></div>
+  <div id="typeDetailWrap"></div>
+</div>
+</div>
+
+<!-- ══════ TAB: RELATIONS ══════ -->
+<div class="tab-content" id="tab-relations">
+<div class="container">
+  <p class="sec-title">インタータイプ関係</p>
+  <p class="sec-label">Intertype Relations — 16 Types of Relationships</p>
+
+  <div class="info-box">
+    ソシオニクスでは2つのタイプの組み合わせが決まると、<strong>16種の関係のうち1つ</strong>に一意に決まります。
+    これはモデルAのスロット間の情報要素の対応から数学的に導かれます。
+    「相性が良い悪い」ではなく、<strong>「どのような相互補完・摩擦が生まれやすいか」</strong>を記述するものです。
+  </div>
+
+  <h2 class="sh">関係一覧</h2>
+  <div class="rel-grid" id="relGrid"></div>
+
+  <h2 class="sh">詳細ツールについて</h2>
+  <div class="card">
+    <h3>インタータイプ関係の詳細は専用ツールで</h3>
+    <p>「ツール集」タブにある関係ビューア・相性ツールでは、任意の2タイプを選択すると
+    関係名・詳細説明・特徴が表示されます。より深い探求はそちらをご利用ください。</p>
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: TOOLS ══════ -->
+<div class="tab-content" id="tab-tools">
+<div class="container">
+  <p class="sec-title">ツール集</p>
+  <p class="sec-label">External Tools — by utage-jpg</p>
+
+  <div class="info-box">
+    以下のツールは本ポータルとは別に開発・公開されている専用ツールです。
+    理論解説で学んだ内容を実際に試す場としてご活用ください。
+    すべて同作者（utage-jpg）によるソシオニクス特化ツールです。
+  </div>
+
+  <div class="tool-grid">
+
+    <a href="https://utage-jpg.github.io/typing/" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-icon">🎯</div>
+      <div class="tool-body">
+        <div class="tool-title">Socionics Typing v2.6</div>
+        <div class="tool-desc">60問の質問からタイプを推定する本格診断ツール。情報要素の価値寄り度・クアドラ割合をグラフ表示し、AIフィードバックも搭載。</div>
+        <div class="tool-tags">
+          <span class="tool-tag">60問診断</span>
+          <span class="tool-tag">スコアグラフ</span>
+          <span class="tool-tag">クアドラ推定</span>
+          <span class="tool-tag">フィードバック</span>
+        </div>
+        <div class="tool-external">↗ utage-jpg.github.io/typing</div>
+      </div>
+      <div class="tool-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+      </div>
+    </a>
+
+    <a href="https://utage-jpg.github.io/jouhouyouso3/" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-icon">🔬</div>
+      <div class="tool-body">
+        <div class="tool-title">機能 × 情報要素ビューア</div>
+        <div class="tool-desc">タイプと機能ポジションを選択すると、その機能スロットに対応する情報要素と詳細説明を表示。モデルAの理解を深めるインタラクティブ参照ツール。</div>
+        <div class="tool-tags">
+          <span class="tool-tag">モデルA参照</span>
+          <span class="tool-tag">全16タイプ</span>
+          <span class="tool-tag">8機能スロット</span>
+        </div>
+        <div class="tool-external">↗ utage-jpg.github.io/jouhouyouso3</div>
+      </div>
+      <div class="tool-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+      </div>
+    </a>
+
+    <a href="https://utage-jpg.github.io/socionix.utage/" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-icon">🔗</div>
+      <div class="tool-body">
+        <div class="tool-title">16タイプ関係ビューア</div>
+        <div class="tool-desc">2つのタイプを選択するとインタータイプ関係名と詳細説明が表示される。自我・超自我・超イド・イドブロックの対応関係も確認できる。</div>
+        <div class="tool-tags">
+          <span class="tool-tag">関係名表示</span>
+          <span class="tool-tag">ブロック対応</span>
+          <span class="tool-tag">全16×16</span>
+        </div>
+        <div class="tool-external">↗ utage-jpg.github.io/socionix.utage</div>
+      </div>
+      <div class="tool-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+      </div>
+    </a>
+
+    <a href="https://utage-jpg.github.io/compatibility/" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-icon">💞</div>
+      <div class="tool-body">
+        <div class="tool-title">相性測定ツール</div>
+        <div class="tool-desc">2タイプの相性をインタータイプ関係から測定・表示する。相性スコアと関係の質的説明をシンプルなUIで確認できる。</div>
+        <div class="tool-tags">
+          <span class="tool-tag">相性スコア</span>
+          <span class="tool-tag">関係の質</span>
+          <span class="tool-tag">シンプルUI</span>
+        </div>
+        <div class="tool-external">↗ utage-jpg.github.io/compatibility</div>
+      </div>
+      <div class="tool-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="warn-box" style="margin-top:8px;">
+    これらのツールは本ポータル（ruikei_portal）とは独立した別リポジトリで公開されています。
+    理論理解はこのページで、実際の診断・関係調査は各ツールで、という使い分けが最適です。
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-inner">
+    <div class="footer-nav-row">
+      <a href="index.html" class="footer-nav-link">← ポータルへ</a>
+      <a href="mbti.html" class="footer-nav-link">MBTI</a>
+      <a href="enneagram.html" class="footer-nav-link">エニアグラム</a>
+      <a href="bigfive.html" class="footer-nav-link">ビッグファイブ</a>
+      <a href="psychosofia.html" class="footer-nav-link">サイコソフィア</a>
+    </div>
+    <p class="footer-bottom">参考：A. Augusta原著 / Viktor Gulenko研究 / Wikisocion / From Over The Sea様 — 学習・参考目的です</p>
+  </div>
+</footer>
+
+<script>
+// ─── TAB SWITCH ───
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:document.getElementById('mainTabs').offsetTop-50,behavior:'smooth'});
+}
+
+// ─── 16TYPE DATA ───
+const TYPES16 = {
+  ILE:{mbti:'ENTp',quadra:'α',stack:['Ne','Ti','Fe','Si','Se','Ni','Fi','Te'],desc:'可能性の探求者。Ne主導でアイデアを次々と生成し、Ti創造で内的論理を整える。知的好奇心旺盛で既成概念を覆す。',traits:['創造的','論理的','可能性重視','自由奔放']},
+  SEI:{mbti:'ISFp',quadra:'α',stack:['Si','Fe','Ti','Ne','Ni','Se','Te','Fi'],desc:'快適さと調和の守り手。Si主導で心地よい環境を整え、Fe創造で周囲の感情を読み和ませる。',traits:['温かい','感覚的','調和志向','内省的']},
+  ESE:{mbti:'ESFj',quadra:'α',stack:['Fe','Si','Ne','Ti','Fi','Ni','Se','Te'],desc:'感情の発信者。Fe主導で場を明るくし、Si創造で快適な環境と気遣いを提供する社交的な存在。',traits:['社交的','感情豊か','世話焼き','活発']},
+  LII:{mbti:'INTj',quadra:'α',stack:['Ti','Ne','Si','Fe','Te','Ni','Fi','Se'],desc:'論理構造の探求者。Ti主導で概念の定義・整合性を追求し、Ne創造で可能性を広げる内省的思考者。',traits:['分析的','原則的','体系的','内省的']},
+  SLE:{mbti:'ESTp',quadra:'β',stack:['Se','Ti','Ni','Fe','Si','Te','Ne','Fi'],desc:'現実支配の行動者。Se主導で状況をコントロールし、Ti創造で論理的に戦略を立てる。',traits:['行動力','現実的','支配的','戦略家']},
+  IEI:{mbti:'INFp',quadra:'β',stack:['Ni','Fe','Se','Ti','Ne','Fi','Si','Te'],desc:'時間の流れを読む詩人。Ni主導で深い洞察と未来予測を行い、Fe創造で感情表現と共感を示す。',traits:['洞察力','感受性','詩的','内省的']},
+  EIE:{mbti:'ENFj',quadra:'β',stack:['Fe','Ni','Se','Ti','Fi','Ne','Si','Te'],desc:'感情の指揮者。Fe主導で場の感情を動かし、Ni創造で長期的ビジョンと深い意味を付与する。',traits:['感情表現','ビジョナリー','カリスマ','表現力']},
+  LSI:{mbti:'ISTj',quadra:'β',stack:['Ti','Se','Ni','Fe','Te','Si','Ne','Fi'],desc:'秩序の守護者。Ti主導で論理的な規則・体系を構築し、Se創造で規律と実行力を持って維持する。',traits:['規律的','体系的','忠実','責任感']},
+  SEE:{mbti:'ESFp',quadra:'γ',stack:['Se','Fi','Ni','Te','Si','Fe','Ne','Ti'],desc:'現実の魅力者。Se主導で環境を把握・支配し、Fi創造で個人的な関係の質と内的価値を重視する。',traits:['魅力的','行動力','社交的','現実的']},
+  ILI:{mbti:'INTp',quadra:'γ',stack:['Ni','Te','Fi','Se','Ne','Ti','Fe','Si'],desc:'深淵な予見者。Ni主導で物事の本質と将来を見通し、Te創造で実用的・効率的な解決策を導く。',traits:['洞察力','分析的','独立心','遠見']},
+  LIE:{mbti:'ENTj',quadra:'γ',stack:['Te','Ni','Fi','Se','Ti','Ne','Fe','Si'],desc:'目標の実現者。Te主導で効率的に成果を追求し、Ni創造で長期ビジョンと本質的方向性を定める。',traits:['目標志向','効率的','戦略家','行動力']},
+  ESI:{mbti:'ISFj',quadra:'γ',stack:['Fi','Se','Ni','Te','Fe','Si','Ne','Ti'],desc:'関係の守護者。Fi主導で人間関係の質と誠実さを重視し、Se創造で具体的な行動で人を守る。',traits:['誠実','保護的','関係重視','実務的']},
+  SLI:{mbti:'ISTp',quadra:'Δ',stack:['Si','Te','Fi','Ne','Se','Ti','Fe','Ni'],desc:'快適の職人。Si主導で身体感覚と実用性を重視し、Te創造で効率的・実践的な方法を組み立てる。',traits:['職人気質','実用的','独立心','観察力']},
+  IEE:{mbti:'ENFp',quadra:'Δ',stack:['Ne','Fi','Te','Si','Ni','Fe','Ti','Se'],desc:'可能性の探求者（対人）。Ne主導で人の可能性を見出し、Fi創造で個人的な繋がりと価値観を育む。',traits:['共感力','創造的','人志向','楽観的']},
+  LSE:{mbti:'ESTj',quadra:'Δ',stack:['Te','Si','Ne','Fi','Ti','Se','Ni','Fe'],desc:'実務の推進者。Te主導で成果・効率を追求し、Si創造で快適で安定した実行環境を整える。',traits:['実務的','責任感','組織力','信頼性']},
+  EII:{mbti:'INFj',quadra:'Δ',stack:['Fi','Ne','Si','Te','Fe','Ni','Ti','Se'],desc:'誠実な理想家。Fi主導で内的価値観と関係の誠実さを重視し、Ne創造で人の可能性と多様性を探る。',traits:['誠実','思いやり','理想主義','内省的']},
+};
+
+const Q_CLASS = {α:'qa',β:'qb',γ:'qg',Δ:'qd'};
+const Q_COLOR = {α:'var(--alpha)',β:'var(--beta)',γ:'var(--gamma)',Δ:'var(--delta)'};
+const BLK_NAMES = ['①主導','②創造','③規範','④脆弱','⑤暗示','⑥動員','⑦無視','⑧証明'];
+const BLK_CLS = ['ego','ego','superego','superego','superid','superid','id','id'];
+
+const g16 = document.getElementById('types16Grid');
+if(g16){
+  Object.entries(TYPES16).forEach(([code,d])=>{
+    g16.innerHTML += `<div class="t16-chip ${Q_CLASS[d.quadra]}" onclick="showType16('${code}')" id="chip16-${code}">
+      <span class="t16-code">${code}</span>
+      <span class="t16-mbti">${d.mbti}</span>
+    </div>`;
+  });
+}
+
+let activeT16 = null;
+function showType16(code) {
+  if(activeT16===code){
+    document.getElementById('chip16-'+code)?.classList.remove('active');
+    document.getElementById('typeDetailWrap').innerHTML='';
+    activeT16=null; return;
+  }
+  if(activeT16) document.getElementById('chip16-'+activeT16)?.classList.remove('active');
+  activeT16=code;
+  document.getElementById('chip16-'+code)?.classList.add('active');
+  const d=TYPES16[code];
+  const stackHtml = d.stack.map((fn,i)=>`
+    <div class="td-stack-row">
+      <span class="td-fn-badge ${BLK_CLS[i]}">${BLK_NAMES[i]}</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--accent);margin:0 4px;">${fn}</span>
+      <span class="td-fn-name">${['主導機能','創造機能','規範機能','脆弱機能','暗示機能','動員機能','無視機能','証明機能'][i]}</span>
+    </div>`).join('');
+  document.getElementById('typeDetailWrap').innerHTML=`
+    <div class="type-detail active">
+      <div class="td-head">
+        <div class="td-code" style="color:${Q_COLOR[d.quadra]}">${code}</div>
+        <div class="td-meta">
+          <h3>MBTI対応: ${d.mbti}</h3>
+          <p style="color:${Q_COLOR[d.quadra]};font-size:11px;letter-spacing:1px;">${d.quadra}クアドラ</p>
+        </div>
+      </div>
+      <div class="td-section"><h4>概要</h4><p>${d.desc}</p></div>
+      <div class="td-section"><h4>モデルA — 機能スタック</h4><div class="td-stack">${stackHtml}</div></div>
+      <div class="td-tags">${d.traits.map(t=>`<span class="td-tag">${t}</span>`).join('')}</div>
+    </div>`;
+  setTimeout(()=>document.getElementById('typeDetailWrap').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+}
+
+// ─── RELATIONS ───
+const RELATIONS = [
+  {name:'デュアル（双対）',en:'Duality',badge:'rb-best',desc:'最も補完的な関係。互いの暗示機能を相手の主導機能が満たす。自然な補完で共にいると最もリラックスできる理想的パートナー。'},
+  {name:'アイデンティティ（同一）',en:'Identity',badge:'rb-neutral',desc:'同タイプ同士。理解度は高いが、同じ弱点を持つため補完が少ない。お互いをよく理解できるが、成長の刺激は少なめ。'},
+  {name:'アクティベーション（活性化）',en:'Activation',badge:'rb-good',desc:'互いを活性化させる関係。楽しい刺激があるが長期接触では疲れることも。短期的な興奮と活力。'},
+  {name:'ミラー（鏡）',en:'Mirror',badge:'rb-good',desc:'主導機能と創造機能が入れ替わった関係。お互いの理解は高く、議論が深まりやすいが、優先順位の微妙な差が摩擦になることも。'},
+  {name:'ルック（同伴）',en:'Look-alike',badge:'rb-neutral',desc:'外見上よく似ているが価値機能が異なる。最初は似ていると感じるが、深まると価値観の違いが出てくる。'},
+  {name:'クエスト（探求）',en:'Quasi-identity',badge:'rb-neutral',desc:'同じ合理/非合理・内外向だが価値観が異なる。興味深く刺激的だが深い理解には至りにくい。'},
+  {name:'コンフリクト（対立）',en:'Conflict',badge:'rb-hard',desc:'主導機能が相手の脆弱機能を刺激する。無意識のうちに相手を傷つけやすく、持続的な接触ではストレスが蓄積しやすい。'},
+  {name:'スーパーエゴ',en:'Super-ego',badge:'rb-hard',desc:'互いに超自我ブロックで影響し合う。表面的には似た雰囲気だが、深まると相互批判になりやすい。'},
+  {name:'ビジネス（仕事）',en:'Business',badge:'rb-good',desc:'共通の目標に向けて効率よく協力できる。感情的な深みは少ないが実務的な協力関係として良好。'},
+  {name:'セミデュアル（半双対）',en:'Semi-duality',badge:'rb-good',desc:'デュアルに近いが完全ではない補完関係。居心地は良いが、時に期待とのずれを感じることがある。'},
+  {name:'スーパービジョン',en:'Supervision',badge:'rb-neutral',desc:'一方的な影響関係（監督者と被監督者）。監督者側は相手の弱点を無意識に指摘し、被監督者は落ち着かない。'},
+  {name:'ベネファクター（恩人）',en:'Benefit',badge:'rb-neutral',desc:'恩恵を与える側と受け取る側。関係は一方向になりやすい。'},
+  {name:'クインクス（親戚）',en:'Quasi-identity',badge:'rb-neutral',desc:'似た話題に引き寄せられるが、深く関わるほどすれ違いが出やすい関係。'},
+  {name:'エクステンション',en:'Extension',badge:'rb-neutral',desc:'クアドラ内の関係。価値観は近いが役割分担のずれがある。'},
+  {name:'コントラリー（逆転）',en:'Contrary',badge:'rb-neutral',desc:'合理/非合理が逆のクアドラ内関係。似た興味を持つが、リズムが合わないことがある。'},
+  {name:'ミスマッチ',en:'Mismatch',badge:'rb-hard',desc:'互いの価値機能と非価値機能が正面から衝突する。どちらも相手のスタイルを理解しにくい。'},
+];
+
+const rg = document.getElementById('relGrid');
+if(rg){
+  RELATIONS.forEach(r=>{
+    rg.innerHTML+=`<div class="rel-row">
+      <div>
+        <div class="rel-name">${r.name}</div>
+        <span class="rel-badge ${r.badge}">${r.en}</span>
+      </div>
+      <div class="rel-body">${r.desc}</div>
+    </div>`;
+  });
+}
+</script>
+</body>
+</html>
