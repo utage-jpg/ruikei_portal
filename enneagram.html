@@ -284,7 +284,8 @@ h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
   <button class="tab-btn" onclick="switchTab('tritype',this)">トライタイプ</button>
   <button class="tab-btn" onclick="switchTab('instinct',this)">生得本能</button>
   <button class="tab-btn" onclick="switchTab('types',this)">9タイプ詳細</button>
-  <button class="tab-btn" onclick="switchTab('quiz',this)">簡易診断</button>
+  <button class="tab-btn" onclick="switchTab('quiz',this)">コアタイプ診断</button>
+  <button class="tab-btn" onclick="switchTab('instquiz',this)">本能スタック診断</button>
 </nav>
 
 <!-- ══════════ TAB: THEORY ══════════ -->
@@ -582,6 +583,296 @@ h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
     <strong>6sx（セクシュアル6）：</strong>強さ・権力・凄みで不安を打ち消そうとする。恐怖を感じると逆に攻撃的・反骨精神が出る（カウンターフォビック傾向）。<br>
     <strong>6so（ソーシャル6）：</strong>規則・権威・集団の方針に依拠することで安心感を得る。義務感が強く、体制への帰属で不安を安定させる。</p>
   </div>
+
+  <!-- ── カウンタータイプ ── -->
+  <h2 class="sh">カウンタータイプ（Counter-type）</h2>
+
+  <div class="info-box">
+    各タイプには3つの生得本能サブタイプ（sp・sx・so）がありますが、
+    そのうち<strong>1つだけ</strong>、そのタイプの中核的な情熱・恐れを<em>最も表に出さない</em>形で表現するサブタイプが存在します。
+    これを<strong>カウンタータイプ（Counter-type）</strong>と呼びます。<br>
+    提唱者はBea Chestnut（『The Complete Enneagram』）で、
+    Sandra Maitriらの研究も基盤となっています。
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ 「カウンター＝健全」ではない</strong><br>
+    カウンタータイプは情熱を抑圧・変換しているように見えますが、
+    あくまでも<em>表現形式の違い</em>です。中核の情熱・恐れそのものは変わりません。
+    「このタイプらしくない」と感じて自分のタイプを誤認しやすい点が最大の注意点です。
+  </div>
+
+  <div class="info-box" style="margin-bottom:20px;">
+    <strong>カウンタータイプと生得本能の対応</strong><br>
+    カウンタータイプは各タイプに固有で、以下のように生得本能と対応しています。<br>
+    <span style="font-size:12px;line-height:2.2;">
+      ・タイプ <strong>1・5・6</strong> のカウンタータイプ → <strong style="color:#c01060;">sx（セクシュアル）</strong><br>
+      ・タイプ <strong>2・3・4</strong> のカウンタータイプ → <strong style="color:#1a7a48;">sp（自己保存）</strong><br>
+      ・タイプ <strong>7・8・9</strong> のカウンタータイプ → <strong style="color:#1a40a8;">so（ソーシャル）</strong>
+    </span><br>
+    <span style="font-size:12px;color:var(--ink3);">※ Bea Chestnut『The Complete Enneagram』に基づく分類です。</span>
+  </div>
+
+  <!-- 9タイプのカウンタータイプ一覧 -->
+  <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #c04830;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#c04830;font-weight:600;">1</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ1 改革者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#fdecea;color:#c04830;border:1px solid #f0b0a0;">カウンター：1sx</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：憤怒（Resentment）</strong> — 怒りを抑圧し「正しさ」への苛立ちとして内側に蓄積するのが典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>1sp（自己保存1）：</strong>個人の生活・習慣・健康・財務を「正しく・規律正しく」整えることに情熱を向ける。
+        几帳面で心配性。不安を抑えるために準備と完璧な管理を重ねる。感情を強く抑圧するため外からは穏やかに見えるが、内面には強い批判的声がある。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>1sx（セクシュアル1）：</strong>怒りを内に溜め込まず、情熱・魅力・「完璧な存在になろうとする衝動」として外に放出する。
+        嫉妬心が強く、自分より優れた存在に強烈に反応する。表面的には感情的・競争的で、「厳格な1」のイメージとかけ離れて見えることも多い。
+        自分の怒りに気づきにくく、欲求として体験する傾向がある。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#fdecea;color:#c04830;border:1px solid #f0b0a0;margin-left:4px;">カウンター</span>
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>1so（ソーシャル1）：</strong>社会・制度・組織を「あるべき姿」に改革したいという使命感を持つ。
+        規則・倫理・理想の体現者として集団に貢献しようとする。教師・指導者・改革者の役割を担いやすく、自分の怒りは「義憤」として正当化される。
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #e07830;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#e07830;font-weight:600;">2</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ2 援助者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#fff4e8;color:#e07830;border:1px solid #f0c890;">カウンター：2sp</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：プライド（Pride）</strong> — 他者への奉仕を通じて「必要とされる自分」のプライドを満たすのが典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>2sp（自己保存2）：</strong>自分のニーズを満たすために、愛らしさ・可愛らしさ・魅力で周囲を惹きつける。
+        「私は大丈夫」と言いながら実は助けを求めており、子供っぽいエネルギーや甘えで他者のケアを引き出す。
+        直接的な奉仕より、「可愛がられること」で安全を確保しようとする。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#fff4e8;color:#e07830;border:1px solid #f0c890;margin-left:4px;">カウンター</span>
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>2sx（セクシュアル2）：</strong>奉仕よりも「誘惑・魅力・征服」で愛と承認を得ようとする。
+        官能的・攻撃的な印象を与えることがあり、与えるより「奪われる側」に身を置くことで存在感を示す。
+        「助ける2」とは一線を画す、積極的・挑発的なエネルギーを持つ。イタリア語で"セデューサー"（誘惑者）とも呼ばれる。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>2so（ソーシャル2）：</strong>集団・コミュニティの中心で「なくてはならない存在」になることに喜びを見出す。
+        影響力・権力者への接近を通じて自分の重要性を確認する。野心的・社交的で、コネや人脈を通じて存在感を広げる。
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #d4a020;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#d4a020;font-weight:600;">3</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ3 達成者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#fdf8e0;color:#b08010;border:1px solid #e8d070;">カウンター：3so</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：欺き（Deceit）</strong> — 成功イメージのためにペルソナを纏い「本当の自分」を隠すのが典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>3sp（自己保存3）：</strong>成功・効率・実績を個人の安全と安定のために積み上げる。
+        自分を売り込まず、「仕事の質で語る」タイプ。地に足のついた努力家に見え、自己宣伝を嫌う傾向がある。
+        外見的な誇示より実務能力で認められようとするため、3と気づかれにくい。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>3sx（セクシュアル3）：</strong>自分自身の魅力・輝き・「最高の自分」を直接演出する。
+        成功より「この人に選ばれたい」という欲求が強く、特定の相手に認められることに全力を注ぐ。
+        競争心が強烈で、自分より輝く存在に嫉妬しやすい。自己陶酔的・カリスマ的な面が出やすい。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>3so（ソーシャル3）：</strong>社会的なイメージ・評判・ステータスを追求する、最も「3らしい3」。
+        成功・地位・承認を社会的文脈で求め、チームや組織の中で輝こうとする。
+        欺き（自己イメージ維持のためのペルソナ）を集団向けに最も洗練させるが、自身ではそれと気づかないことが多い。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#fdf8e0;color:#b08010;border:1px solid #e8d070;margin-left:4px;">カウンター</span>
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #5a9a40;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#5a9a40;font-weight:600;">4</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ4 個人主義者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#f0fae8;color:#4a8030;border:1px solid #a0d070;">カウンター：4sp</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：嫉妬（Envy）</strong> — 自分が欠けているものへの羨望と「自分だけの独自性」への渇望が典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>4sp（自己保存4）：</strong>内面の苦しみを外に表現せず、耐え忍ぶことで強さを証明しようとする。
+        「誰にも理解されなくても一人で生き抜く」という孤高の姿勢が強い。表面上は感情的に見えず、4と気づかれにくい。
+        苦難を通じて自己を磨くという内なる美学を持ち、感情を内側に深く秘める。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#f0fae8;color:#4a8030;border:1px solid #a0d070;margin-left:4px;">カウンター</span>
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>4sx（セクシュアル4）：</strong>感情の強度・嫉妬・渇望を1対1の関係の中で激しく表現する。
+        「あなたと深く繋がりたい、でも絶対に傷つけられたくない」という矛盾が関係性のダイナミクスを生む。
+        感情の波が外に出やすく、最も「4らしい」4と見られやすい。競争心が強く、嫉妬を強烈に体験する。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>4so（ソーシャル4）：</strong>感情の苦しみを内に抱えるよりも、社会への奉仕・崇高な理想の実現として外に向ける。
+        苦しみを他者のために昇華するエネルギーが強く、理想主義的な活動家のように映ることがある。
+        「自分は特別に傷ついた存在だ」という自己憐憫より行動と奉仕が前に出る。
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #2a7a9a;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#2a7a9a;font-weight:600;">5</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ5 調査者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#e8f6fc;color:#1a6080;border:1px solid #80c0d8;">カウンター：5so</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：強欲（Avarice）</strong> — エネルギー・時間・空間を囲い込み、他者との接触から距離を置くのが典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>5sp（自己保存5）：</strong>最も孤立を好み、自分だけの聖域（空間・時間・ルーティン）を確保することに強いこだわりを持つ。
+        必要最小限の関与で生きていこうとし、感情的・物質的な要求を最小化する。外界との接点をできるだけ制限する、最も「典型的な5」のひとつ。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>5sx（セクシュアル5）：</strong>特定の1人との深い知的・感情的な繋がりに情熱を注ぐ。
+        通常の5より感情的・ロマンチックで、理想の相手との「精神的な融合」を夢想する。
+        独自の美学・世界観を共有できる存在を強烈に求め、詩的・芸術的な表現に向かいやすい。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>5so（ソーシャル5）：</strong>孤立を避け、「理想的なグループ・志の共同体」に参加することで知識と繋がりを両立しようとする。
+        抽象的なトーテム（思想・組織・シンボル）への帰属意識が強く、表面上は社交的・集団志向に見える。
+        しかし根底では孤独の恐れを社会参加で迂回しており、5と気づかれにくい。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#e8f6fc;color:#1a6080;border:1px solid #80c0d8;margin-left:4px;">カウンター</span>
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #3a60c8;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#3a60c8;font-weight:600;">6</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ6 忠実者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#eef2fc;color:#2a50b0;border:1px solid #90a8e0;">カウンター：6sx（カウンターフォビック）</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：恐れ（Fear）</strong> — 不安と疑念に支配され、権威や信頼できるものを求め続けるのが典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>6sp（自己保存6）：</strong>暖かみがあり、準備・備蓄・安全確保に積極的。反権威的な独立心が強く、「信頼できる人だけ」の小さなサークルを大切にする。
+        フォビック（回避的）寄りで、脅威を感じると萎縮・依存する傾向。見た目は温かい家庭的な人物として現れやすい。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>6sx（セクシュアル6）：</strong>最も有名なカウンタータイプ。恐れを感じると逆に攻撃・挑発・反抗に転じる「恐怖に向かって突進する」タイプ。
+        強さ・凄み・反権威的な反骨精神を前面に出し、外から見ると8や3に誤認されやすい。
+        「弱く見られることへの恐れ」が逆説的に攻撃性を生む。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#eef2fc;color:#2a50b0;border:1px solid #90a8e0;margin-left:4px;">カウンター</span>
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>6so（ソーシャル6）：</strong>規則・権威・集団の方針に依拠することで安心感を得る。義務感が強く、体制への帰属で不安を安定させる。
+        忠実さ・責任感・規律をチームに体現しようとする。「制度の守護者」「優等生」として集団に貢献することに安心感を見出す。
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #c08030;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#c08030;font-weight:600;">7</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ7 熱中者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#fdf5e4;color:#a06020;border:1px solid #e0b860;">カウンター：7so</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：大食い・耽溺（Gluttony）</strong> — 苦痛・退屈・制約から逃れ、常に刺激と快楽を求めるのが典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>7sp（自己保存7）：</strong>楽しみや喜びを家族・親しいコミュニティ・実用的な豊かさの中に見出す。
+        計画的・実用的で「安全な楽しさ」を好む。実利的なネットワーク作りに長け、利己的にならない範囲で自分の快楽を確保する戦略を持つ。
+        7らしい落ち着きのなさが見えにくく、実直な人物像として現れやすい。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>7sx（セクシュアル7）：</strong>多方面への拡散より「この人・この体験」への一点集中の強度を求める。
+        理想の関係や究極の体験に没頭し、現実が理想に届かないとき強烈な失望・怒りを見せる。
+        欲望の対象を「独占したい」衝動が強く、ナルシシズム的・所有欲的な一面が出ることがある。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>7so（ソーシャル7）：</strong>自分の快楽追求を「理想社会への貢献・みんなのため」として昇華しようとする。
+        犠牲的精神を持ち、自分よりも他者・コミュニティのために楽しさと豊かさを生み出そうとする。
+        自分のニーズを後回しにし、奉仕的に見えるため7と気づかれにくい。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#fdf5e4;color:#a06020;border:1px solid #e0b860;margin-left:4px;">カウンター</span>
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #c03040;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#c03040;font-weight:600;">8</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ8 挑戦者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#fdecea;color:#a02030;border:1px solid #e08090;">カウンター：8sx</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：肉欲・過剰（Lust）</strong> — 強さ・支配・過剰なエネルギーで世界に力強く刻み込もうとするのが典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>8sp（自己保存8）：</strong>生存・安全・物質的支配を通じて強さを表現する。実用的で頼りになり、自分と大切な人の生活基盤を守ることに強いエネルギーを注ぐ。
+        感情を表に出さず、冷徹な交渉者・実務家として現れやすい。「使えるものは使う」という現実主義的姿勢が強い。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>8sx（セクシュアル8）：</strong>1対1の関係で圧倒的な存在感・支配・情熱を求める。
+        「所有と征服」の衝動が人間関係に表れ、激しく強烈な繋がりを求める。
+        最も攻撃的・反抗的・爆発的な8で、権威・制約への反発が最も強い。カリスマ性と破壊力が共存する。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#fdecea;color:#a02030;border:1px solid #e08090;margin-left:4px;">カウンター</span>
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>8so（ソーシャル8）：</strong>個人の力の誇示より「弱者・集団を守るリーダー」としての役割に情熱を向ける。
+        ボスより「兄貴・姐御」的な保護者として仲間のために戦う姿勢が前に出る。
+        社会変革・正義のための行動力として昇華され、「戦闘的な8」よりも温かく親しみやすい印象になる。
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom:0;border-left:3px solid #7a7a7a;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#7a7a7a;font-weight:600;">9</span>
+        <div>
+          <span style="font-size:13px;font-weight:500;color:var(--ink);">タイプ9 平和主義者</span>
+          <span style="margin-left:8px;font-size:11px;padding:2px 8px;border-radius:10px;background:#f4f4f4;color:#585858;border:1px solid #c0c0c0;">カウンター：9so</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:10px;">
+        <strong>情熱：怠惰・自己忘却（Sloth）</strong> — 自分の欲求・存在を後回しにし、摩擦を避けて「溶け込む」のが典型。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>9sp（自己保存9）：</strong>食・眠り・快適な習慣・収集などの感覚的な快楽の中で「溶け込み」を実現する。
+        惰性的なルーティンに心地よさを見出し、変化を避ける。怠惰が最も「物理的」に現れやすく、
+        心配を喜びある活動（趣味・食事・ペット）で麻痺させる。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:6px;">
+        <strong>9sx（セクシュアル9）：</strong>「溶け込み・融合」の欲求を特定の1人との深い一体化として表現する。
+        パートナーや強い相手に完全に融合・同化することで自己を確認する。
+        依存的・共依存的な関係になりやすく、相手の欲求・感情・意見が「自分のもの」として体験される。
+      </p>
+      <p style="font-size:13px;color:var(--ink2);line-height:1.8;">
+        <strong>9so（ソーシャル9）：</strong>集団・コミュニティへの参加・奉仕を通じて自己を溶け込ませる。
+        「みんなのため」に動きながら自分のニーズを後回しにし、集団の調和を保つために自己主張を封じ込める。
+        積極的・社交的・活動的に見えるため最も9と気づかれにくく、他のタイプとよく混同される。<span style="font-size:11px;padding:1px 7px;border-radius:8px;background:#f4f4f4;color:#585858;border:1px solid #c0c0c0;margin-left:4px;">カウンター</span>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="info-box" style="margin-bottom:8px;">
+    <strong>カウンタータイプ まとめ</strong><br>
+    <span style="font-size:12px;line-height:2.2;">
+      1<strong style="color:#c01060;">sx</strong>　2<strong style="color:#1a7a48;">sp</strong>　3<strong style="color:#1a40a8;">so</strong>　4<strong style="color:#1a7a48;">sp</strong>　5<strong style="color:#1a40a8;">so</strong>　6<strong style="color:#c01060;">sx</strong>（カウンターフォビック）　7<strong style="color:#1a40a8;">so</strong>　8<strong style="color:#c01060;">sx</strong>　9<strong style="color:#1a40a8;">so</strong>
+    </span><br>
+    <span style="font-size:12px;color:var(--ink3);">
+      タイプ1・5・6 → sx　／　タイプ2・3・4 → sp　／　タイプ7・8・9 → so
+    </span>
+  </div>
+
 </div>
 </div>
 
@@ -636,7 +927,47 @@ h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
 </div>
 </div>
 
+<!-- ══════════ TAB: INSTINCT QUIZ ══════════ -->
+<div class="tab-content" id="tab-instquiz">
+<div class="container">
+  <p class="sec-title">生得本能スタック診断</p>
+  <p class="sec-label">Instinctual Stack Assessment — sp · sx · so</p>
+
+  <div class="warn-box">
+    <strong>⚠️ この診断について</strong><br>
+    18問の質問から sp・sx・so それぞれのスコアを算出し、あなたの本能スタック（優先順位）を推定します。
+    生得本能はコアタイプ診断よりもさらに自己認識が難しいテーマです。
+    <strong>最下位（盲点）の本能</strong>に特に注目してみてください。
+  </div>
+
+  <div class="quiz-wrap" id="iqWrap">
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="iqBar" style="width:0%"></div></div>
+    <div class="quiz-meta">
+      <span id="iqCounter">問 1 / 18</span>
+      <span id="iqType" style="font-size:11px;color:var(--ink4);"></span>
+    </div>
+    <div id="iqQArea"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn quiz-btn-prev" id="iqBtnPrev" onclick="iqPrev()" disabled>← 前の問</button>
+      <button class="quiz-btn quiz-btn-next" id="iqBtnNext" onclick="iqNext()" disabled>次の問 →</button>
+    </div>
+  </div>
+
+  <div class="quiz-result" id="iqResult">
+    <div style="margin-bottom:20px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--ink3);letter-spacing:2px;margin-bottom:8px;">YOUR INSTINCTUAL STACK</div>
+      <div id="iqStackDisplay" style="display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;"></div>
+    </div>
+    <div id="iqStackDesc" style="max-width:500px;margin:0 auto 20px;text-align:left;"></div>
+    <div style="max-width:420px;margin:0 auto 20px;" id="iqScores"></div>
+    <div class="ok-box" style="max-width:500px;margin:0 auto 20px;text-align:left;" id="iqBlindspot"></div>
+    <button class="result-retry" onclick="resetIQ()">← やり直す</button>
+  </div>
+</div>
+</div>
+
 <!-- FOOTER -->
+
 <footer class="page-footer">
   <div class="footer-inner">
     <div class="footer-nav-row">
@@ -942,6 +1273,136 @@ function resetQuiz(){
 }
 
 renderQuestion();
+
+// ─── INSTINCT QUIZ ───
+const IQ_QUESTIONS = [
+  {q:'毎日の食事・睡眠・体調管理に強いこだわりや不安を感じる。',inst:'sp'},
+  {q:'財布の中身・貯蓄・生活費の安定に常に意識が向く。',inst:'sp'},
+  {q:'自分だけの「安心できる聖域」（部屋・ルーティン・時間）を確保したい気持ちが強い。',inst:'sp'},
+  {q:'体の調子・健康状態が気になり、体のサインに敏感だ。',inst:'sp'},
+  {q:'長期的な安全（老後・保険・貯蓄）への備えを大切にしている。',inst:'sp'},
+  {q:'大人数での関わりより、少人数・一人の時間で充電する。',inst:'sp'},
+  {q:'「この人とだけ深く繋がりたい」という強烈な欲求が常にある。',inst:'sx'},
+  {q:'ときめき・化学反応・吸引力のある関係を人生で最も大切にしている。',inst:'sx'},
+  {q:'強烈な体験・情熱・刺激がないと生きている実感が薄れる。',inst:'sx'},
+  {q:'魅力的な相手に出会うと、その人のことが頭から離れなくなる。',inst:'sx'},
+  {q:'人間関係に強度と深さを求め、表面的な付き合いに物足りなさを感じる。',inst:'sx'},
+  {q:'嫉妬・独占欲・「あの人より私を選んで」という感覚を体験することがある。',inst:'sx'},
+  {q:'集団・コミュニティ・所属グループの中での自分の立ち位置を常に意識する。',inst:'so'},
+  {q:'社会的な役割・評判・影響力が自分の充実感に大きく関係している。',inst:'so'},
+  {q:'「世の中のために」「仲間のために」という動機が行動の根底にある。',inst:'so'},
+  {q:'集団の調和・チームワーク・共同体への貢献に喜びを感じる。',inst:'so'},
+  {q:'社会的なルール・規範・慣習に対して強い意識（遵守または反発）がある。',inst:'so'},
+  {q:'孤立・村八分・「集団から切り離される」ことへの恐れを感じることがある。',inst:'so'},
+];
+
+const STACK_INFO = {
+  'sp-sx-so': {label:'sp > sx > so', desc:'個人の安全と深い1対1の繋がりを最優先。社会的な評判や集団への帰属意識は薄くなりがち。独立心が強く、自分と大切な少数の人のために動く。'},
+  'sp-so-sx': {label:'sp > so > sx', desc:'個人の安全と社会参加のバランスを重視。1対1の強烈な化学反応への関心は薄め。実務的で信頼されやすく、集団の中でも地に足がついた貢献者として動く。'},
+  'sx-sp-so': {label:'sx > sp > so', desc:'強烈な繋がりと個人の安全を優先。社会全体への帰属意識は薄くなりがち。特定の人との深い関係が人生の中心で、そのための安全基盤を整えようとする。'},
+  'sx-so-sp': {label:'sx > so > sp', desc:'情熱と社会参加を最優先。自己管理・日常の安全基盤が盲点になりやすい。強烈なエネルギーで人々を引きつけ、集団の中でも存在感を放つ。'},
+  'so-sp-sx': {label:'so > sp > sx', desc:'社会参加と個人の安全を重視。1対1の強烈な化学反応への関心が薄くなりがち。共同体・組織・社会のために動き、実務的な信頼感を大切にする。'},
+  'so-sx-sp': {label:'so > sx > sp', desc:'社会参加と人間関係の深みを最優先。身体的・物質的安全への配慮が盲点になりやすい。集団に深く関わりながらも特定の人との強い繋がりを求める。'},
+};
+
+const BLINDSPOT_DESC = {
+  sp: '日常の安全基盤・健康管理・経済的な安定への配慮が薄れやすいです。体の疲れや財政面のサインを見逃しがちな場合があります。意識的に「自分の身体と生活環境」を整える時間を確保してみましょう。',
+  sx: '1対1の深い結びつき・化学反応・情熱的な繋がりへの感受性が薄れやすいです。表面的な関係が多くなったり、恋愛・友情の「強度」に鈍感になりがちです。特定の人と深く向き合う機会を意識的に作ってみましょう。',
+  so: '集団・社会の中での自分の位置づけ・役割・評判への意識が薄れやすいです。集団から孤立していても気にならなかったり、社会的な影響を見落としがちです。コミュニティへの参加や社会的な責任を意識してみましょう。',
+};
+
+let iqIdx = 0, iqAnswers = Array(18).fill(null);
+
+function renderIQ() {
+  const q = IQ_QUESTIONS[iqIdx];
+  const pct = (iqIdx / IQ_QUESTIONS.length) * 100;
+  document.getElementById('iqBar').style.width = pct + '%';
+  document.getElementById('iqCounter').textContent = `問 ${iqIdx + 1} / ${IQ_QUESTIONS.length}`;
+  const instLabel = {sp:'🛡️ 自己保存', sx:'⚡ セクシュアル', so:'🌐 ソーシャル'}[q.inst];
+  document.getElementById('iqType').textContent = instLabel + ' に関する設問';
+  const sel = iqAnswers[iqIdx];
+  document.getElementById('iqQArea').innerHTML = `
+    <div class="quiz-q">
+      <div class="quiz-q-num">Q${iqIdx + 1}</div>
+      <p class="quiz-q-text">${q.q}</p>
+      <div class="quiz-options">
+        ${['4','3','2','1'].map((v, i) => {
+          const lb = ['非常にそう思う','ある程度そう思う','あまり思わない','まったく思わない'];
+          return '<label class="quiz-opt' + (sel == v ? ' selected' : '') + '" onclick="iqSelect(\'' + v + '\',this)">' +
+            '<div class="quiz-opt-radio">' + (sel == v ? '<div style="width:6px;height:6px;border-radius:50%;background:white;margin:auto;"></div>' : '') + '</div>' +
+            '<span>' + lb[i] + '</span></label>';
+        }).join('')}
+      </div>
+    </div>`;
+  document.getElementById('iqBtnPrev').disabled = iqIdx === 0;
+  document.getElementById('iqBtnNext').disabled = iqAnswers[iqIdx] === null;
+  document.getElementById('iqBtnNext').textContent = iqIdx < IQ_QUESTIONS.length - 1 ? '次の問 →' : '結果を見る';
+}
+
+function iqSelect(val, el) {
+  iqAnswers[iqIdx] = val;
+  document.querySelectorAll('#iqQArea .quiz-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('iqBtnNext').disabled = false;
+}
+function iqNext() { if (iqAnswers[iqIdx] === null) return; if (iqIdx < IQ_QUESTIONS.length - 1) { iqIdx++; renderIQ(); } else showIQResult(); }
+function iqPrev() { if (iqIdx > 0) { iqIdx--; renderIQ(); } }
+
+function showIQResult() {
+  const sc = {sp: 0, sx: 0, so: 0};
+  IQ_QUESTIONS.forEach((q, i) => { sc[q.inst] += parseInt(iqAnswers[i]) || 1; });
+  const sorted = Object.entries(sc).sort((a, b) => b[1] - a[1]);
+  const stackKey = sorted.map(function(x){return x[0];}).join('-');
+  const info = STACK_INFO[stackKey] || {label: sorted.map(function(x){return x[0];}).join(' > '), desc:''};
+  const blindspot = sorted[2][0];
+
+  document.getElementById('iqWrap').style.display = 'none';
+  const res = document.getElementById('iqResult');
+  res.classList.add('active');
+
+  const instColor = {sp:'#1a7a48', sx:'#c01060', so:'#1a40a8'};
+  const instBg = {sp:'#f0faf5', sx:'#fff0f5', so:'#f0f5ff'};
+  const instIcon = {sp:'🛡️', sx:'⚡', so:'🌐'};
+  const instName = {sp:'自己保存', sx:'セクシュアル', so:'ソーシャル'};
+
+  document.getElementById('iqStackDisplay').innerHTML = sorted.map(function([k,s],i){
+    return '<div style="text-align:center;">' +
+      '<div style="font-size:10px;color:var(--ink4);margin-bottom:4px;">' + ['1st','2nd','3rd'][i] + '</div>' +
+      '<div style="background:' + instBg[k] + ';border:2px solid ' + instColor[k] + ';border-radius:12px;padding:12px 16px;min-width:80px;' + (i===0?'transform:scale(1.1);':i===2?'opacity:0.7;':'') + '">' +
+        '<div style="font-size:20px;">' + instIcon[k] + '</div>' +
+        '<div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:400;color:' + instColor[k] + ';">' + k + '</div>' +
+        '<div style="font-size:10px;color:' + instColor[k] + ';">' + instName[k] + '</div>' +
+      '</div></div>' +
+      (i < 2 ? '<div style="font-size:18px;color:var(--ink4);align-self:center;">›</div>' : '');
+  }).join('');
+
+  document.getElementById('iqStackDesc').innerHTML =
+    '<div style="background:var(--accent-bg);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:16px;">' +
+    '<div style="font-family:\'Cormorant Garamond\',serif;font-size:18px;color:var(--accent);margin-bottom:8px;">' + info.label + '</div>' +
+    '<p style="font-size:13px;color:var(--ink2);line-height:1.8;">' + info.desc + '</p></div>';
+
+  const maxIQ = 24;
+  document.getElementById('iqScores').innerHTML = sorted.map(function([k,s]){
+    const pct = Math.round(s / maxIQ * 100);
+    return '<div class="score-row">' +
+      '<span style="font-size:12px;color:' + instColor[k] + ';width:24px;text-align:center;font-weight:500;">' + k + '</span>' +
+      '<div class="score-track"><div class="score-fill" style="width:' + pct + '%;background:' + instColor[k] + ';"></div></div>' +
+      '<span class="score-val">' + s + '点</span></div>';
+  }).join('');
+
+  document.getElementById('iqBlindspot').innerHTML =
+    '<strong>🔍 盲点：' + instName[blindspot] + '（' + blindspot + '）</strong><br>' +
+    '<span style="font-size:13px;line-height:1.8;">' + BLINDSPOT_DESC[blindspot] + '</span>';
+}
+
+function resetIQ() {
+  iqIdx = 0; iqAnswers = Array(18).fill(null);
+  document.getElementById('iqWrap').style.display = 'block';
+  document.getElementById('iqResult').classList.remove('active');
+  renderIQ();
+}
+
+renderIQ();
 </script>
 </body>
 </html>
