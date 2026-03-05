@@ -7,33 +7,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#0d0e14; --bg2:#13141c; --bg3:#191a24; --card:#1c1e2a;
-  --border:#2e3050; --border2:#3d4070;
-  --accent:#7b6ff0; --accent2:#a89cf5; --accent3:#c4b8ff;
-  --gold:#d4a853; --gold2:#f0cc7a;
-  --text:#e8e6f0; --text2:#b0adc8; --text3:#7a7898;
-  --E:#e87070; --V:#7b9ee8; --L:#5ec47a; --F:#e8a857;
-  --E-bg:#2a1818; --V-bg:#17203a; --L-bg:#182a1e; --F-bg:#2a1e10;
+  --bg:#f8f6ff; --bg2:#f0eeff; --bg3:#e8e4f8; --card:#ffffff;
+  --border:#d4cef0; --border2:#b8b0e0;
+  --accent:#6a50d0; --accent2:#8a72e8; --accent3:#b0a0f8;
+  --gold:#b8943a; --gold2:#c8a848;
+  --text:#1a1630; --text2:#3a3460; --text3:#7068a0; --text4:#a098c8;
+  --E:#b83838; --V:#2a68c8; --L:#2a8a50; --F:#b87010;
+  --E-bg:#fdf0f0; --V-bg:#eef3fc; --L-bg:#ecf7f2; --F-bg:#fdf5e8;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden;font-size:14px;}
 
-/* HEADER */
-.site-header{text-align:center;padding:40px 16px 28px;position:relative;overflow:hidden;}
-.site-header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,#2a246840 0%,transparent 70%);pointer-events:none;}
-.eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--accent2);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;}
-.site-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,8vw,64px);font-weight:300;letter-spacing:.08em;background:linear-gradient(135deg,var(--accent3) 0%,var(--gold2) 50%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:8px;}
-.ornament{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:14px auto;}
-.site-sub{font-size:11px;color:var(--text3);letter-spacing:2px;}
+/* TOPBAR */
+.topbar{background:rgba(248,246,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;position:sticky;top:0;z-index:300;}
+.topbar-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text3);text-decoration:none;transition:color .2s;}
+.topbar-back:hover{color:var(--accent);}
+.topbar-back svg{width:14px;height:14px;}
+.topbar-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:.06em;color:var(--text);}
+.topbar-badge{font-size:11px;color:var(--text4);}
+/* HERO */
+.site-header{background:linear-gradient(160deg,#ede8fc 0%,#f8f6ff 55%,#f0ecfe 100%);border-bottom:1px solid var(--border);padding:44px 20px 36px;position:relative;overflow:hidden;text-align:center;}
+.site-header::before{content:'ψ';position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font-size:400px;font-family:'Cormorant Garamond',serif;color:var(--accent);opacity:.04;pointer-events:none;line-height:1;}
+.eyebrow{display:inline-block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;padding:4px 14px;border:1px solid var(--border2);border-radius:20px;background:#fff;margin-bottom:16px;}
+.site-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,9vw,72px);font-weight:300;letter-spacing:.08em;color:var(--text);line-height:1.0;margin-bottom:8px;}
+.ornament{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:10px auto;}
+.site-sub{font-size:12px;color:var(--text3);letter-spacing:1.5px;margin-bottom:16px;}
+.hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:#fff;border:1px solid var(--border);color:var(--text3);}
 
-/* TABS - sticky bottom on mobile */
-.tabs-nav{display:flex;justify-content:center;gap:0;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+/* TABS */
+.tabs-nav{display:flex;justify-content:center;gap:0;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:48px;z-index:200;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .tabs-nav::-webkit-scrollbar{display:none;}
-.tab-btn{font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:400;padding:11px 14px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;}
+.tab-btn{font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:400;padding:12px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;margin-bottom:-2px;}
 .tab-btn:hover{color:var(--text2);}
-.tab-btn.active{color:var(--accent2);border-bottom-color:var(--accent);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
 .tab-content{display:none;}
 .tab-content.active{display:block;}
 
@@ -41,19 +50,19 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .container{max-width:860px;margin:0 auto;padding:24px 14px 80px;}
 
 /* TYPOGRAPHY */
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,30px);font-weight:400;color:var(--gold2);margin-bottom:4px;letter-spacing:.05em;}
-.section-subtitle{font-size:12px;color:var(--accent2);margin-bottom:24px;letter-spacing:1px;}
-h2.sh{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--text);margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,28px);font-weight:400;color:var(--text);margin-bottom:4px;letter-spacing:.04em;}
+.section-subtitle{font-size:11px;color:var(--accent);margin-bottom:20px;letter-spacing:2px;text-transform:uppercase;}
+h2.sh{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--text);margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
 
 /* CARD */
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 16px;margin-bottom:16px;}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 16px;margin-bottom:14px;box-shadow:0 2px 14px rgba(80,60,180,.06);}
 .card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;margin-bottom:8px;color:var(--text);}
 .card p{font-size:13px;color:var(--text2);line-height:1.8;}
 
-.info-box{background:#1a1b2e;border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--text2);line-height:1.7;}
+.info-box{background:#f0eeff;border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--text2);line-height:1.7;}
 
 /* ===== SVG DIAGRAMS ===== */
-.diagram-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:20px;overflow:hidden;}
+.diagram-wrap{background:#f4f2fc;border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:20px;overflow:hidden;}
 .diagram-title{font-size:11px;color:var(--text3);letter-spacing:2px;margin-bottom:12px;text-align:center;}
 svg.diag{width:100%;height:auto;display:block;}
 
@@ -61,7 +70,7 @@ svg.diag{width:100%;height:auto;display:block;}
 .inner-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto;scrollbar-width:none;}
 .inner-tabs::-webkit-scrollbar{display:none;}
 .inner-tab{font-size:12px;padding:9px 14px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;}
-.inner-tab.active{color:var(--gold2);border-bottom-color:var(--gold);}
+.inner-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
 .inner-panel{display:none;}
 .inner-panel.active{display:block;}
 
@@ -69,11 +78,11 @@ svg.diag{width:100%;height:auto;display:block;}
 .func-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
 @media(max-width:480px){.func-grid{grid-template-columns:1fr;}}
 .func-card{border-radius:12px;padding:16px;border:1px solid;position:relative;overflow:hidden;}
-.func-card::after{content:attr(data-l);position:absolute;right:-8px;top:-8px;font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;opacity:.07;color:white;line-height:1;pointer-events:none;}
-.func-card.E{background:var(--E-bg);border-color:#5a2020;}
-.func-card.V{background:var(--V-bg);border-color:#1e305a;}
-.func-card.L{background:var(--L-bg);border-color:#1e4a28;}
-.func-card.F{background:var(--F-bg);border-color:#5a3010;}
+.func-card::after{content:attr(data-l);position:absolute;right:-8px;top:-8px;font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;opacity:.08;color:#000;line-height:1;pointer-events:none;}
+.func-card.E{background:var(--E-bg);border-color:#e0a8a8;}
+.func-card.V{background:var(--V-bg);border-color:#a0c0e8;}
+.func-card.L{background:var(--L-bg);border-color:#90d4b0;}
+.func-card.F{background:var(--F-bg);border-color:#e8c880;}
 .func-letter{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1;margin-bottom:4px;}
 .func-letter.E{color:var(--E);}
 .func-letter.V{color:var(--V);}
@@ -84,66 +93,66 @@ svg.diag{width:100%;height:auto;display:block;}
 
 /* POSITIONS */
 .pos-list{display:grid;gap:10px;margin-bottom:20px;}
-.pos-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;}
+.pos-item{background:#f8f6ff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;}
 .pos-num-box{flex-shrink:0;text-align:center;width:56px;}
 .pos-n{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--accent2);line-height:1;}
-.pos-att{display:inline-block;font-size:10px;padding:2px 6px;border-radius:20px;background:#2a2a4a;color:var(--accent2);margin-top:3px;white-space:nowrap;}
+.pos-att{display:inline-block;font-size:10px;padding:2px 6px;border-radius:20px;background:#e8e4fc;border:1px solid var(--border);color:var(--accent);margin-top:3px;white-space:nowrap;}
 .pos-body h4{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px;}
 .pos-body p{font-size:12px;color:var(--text2);line-height:1.7;}
 
 /* ATTITUDE GRID */
 .att-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
 @media(max-width:480px){.att-grid{grid-template-columns:1fr;}}
-.att-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;}
-.att-formula{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--accent2);margin-bottom:4px;}
+.att-card{background:#f8f6ff;border:1px solid var(--border);border-radius:10px;padding:14px;}
+.att-formula{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--accent);margin-bottom:4px;}
 .att-quote{font-size:11px;color:var(--text3);font-style:italic;margin-bottom:7px;line-height:1.5;}
 .att-desc{font-size:12px;color:var(--text2);line-height:1.7;}
 
 /* SEXTA */
 .sexta-list{display:grid;gap:12px;margin-bottom:20px;}
-.sexta-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.sexta-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 1px 10px rgba(80,60,180,.05);}
 .sexta-hd{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.sexta-n{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold2);width:28px;text-align:center;flex-shrink:0;}
+.sexta-n{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--accent);width:28px;text-align:center;flex-shrink:0;}
 .sexta-title{font-size:14px;font-weight:500;color:var(--text);}
 .type-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px;}
-.tt{font-size:12px;padding:2px 8px;border-radius:4px;background:#252840;border:1px solid var(--border2);color:var(--accent2);font-family:'Cormorant Garamond',serif;letter-spacing:1px;}
-.sexta-mission{font-size:11px;color:var(--gold);margin-bottom:7px;}
+.tt{font-size:12px;padding:2px 8px;border-radius:4px;background:#ece8fc;border:1px solid var(--border);color:var(--accent);font-family:'Cormorant Garamond',serif;letter-spacing:1px;}
+.sexta-mission{font-size:11px;color:var(--gold2);font-weight:500;margin-bottom:7px;}
 .sexta-desc{font-size:12px;color:var(--text2);line-height:1.7;}
-.sexta-axis{font-size:11px;color:var(--text3);margin-top:6px;background:#ffffff08;padding:6px 8px;border-radius:6px;}
+.sexta-axis{font-size:11px;color:var(--text3);margin-top:6px;background:#f0eeff;border:1px solid var(--border);padding:6px 8px;border-radius:6px;}
 
 /* CLUBS */
 .clubs-grid{display:grid;gap:12px;margin-bottom:20px;}
-.club-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.club-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 1px 10px rgba(80,60,180,.05);}
 .club-hd{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
 .club-icon{font-size:18px;}
 .club-name{font-size:14px;font-weight:500;color:var(--text);}
 .club-desc{font-size:12px;color:var(--text2);line-height:1.7;}
-.club-jobs{font-size:11px;color:var(--gold);margin-top:5px;}
+.club-jobs{font-size:11px;color:var(--gold2);margin-top:5px;}
 
 /* TYPES LIST */
 .type-filter-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
-.flt-btn{font-size:11px;padding:5px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap;}
-.flt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.flt-btn{font-size:11px;padding:5px 12px;background:#f0eeff;border:1px solid var(--border);border-radius:20px;color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.flt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500;}
 
 .type-list{display:grid;gap:12px;}
-.type-item{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.type-item{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 10px rgba(80,60,180,.05);}
 .type-item-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;}
-.type-item-header:active{background:#ffffff05;}
+.type-item-header:active{background:#f0eeff;}
 .type-code-big{font-family:'Cormorant Garamond',serif;font-size:24px;letter-spacing:3px;min-width:90px;}
 .type-meta{flex:1;}
-.type-person{font-size:13px;color:var(--gold);font-weight:400;}
+.type-person{font-size:13px;color:var(--accent);font-weight:400;}
 .type-sexta-badge{font-size:10px;color:var(--text3);margin-top:1px;}
 .type-chevron{font-size:12px;color:var(--text3);transition:transform .25s;flex-shrink:0;}
 .type-item.open .type-chevron{transform:rotate(180deg);}
-.type-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border);}
+.type-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border);background:#faf8ff;}
 .type-item.open .type-body{display:block;}
 .type-desc{font-size:13px;color:var(--text2);line-height:1.8;margin-top:12px;}
 .type-funcs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;}
 .tf{border-radius:8px;padding:8px 6px;text-align:center;border:1px solid;}
-.tf.E{background:var(--E-bg);border-color:#5a2020;}
-.tf.V{background:var(--V-bg);border-color:#1e305a;}
-.tf.L{background:var(--L-bg);border-color:#1e4a28;}
-.tf.F{background:var(--F-bg);border-color:#5a3010;}
+.tf.E{background:var(--E-bg);border-color:#e0a8a8;}
+.tf.V{background:var(--V-bg);border-color:#a0c0e8;}
+.tf.L{background:var(--L-bg);border-color:#90d4b0;}
+.tf.F{background:var(--F-bg);border-color:#e8c880;}
 .tf-rank{font-size:10px;color:var(--text3);}
 .tf-letter{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;}
 .tf-letter.E{color:var(--E);}
@@ -155,54 +164,54 @@ svg.diag{width:100%;height:auto;display:block;}
 /* COMPAT */
 .compat-grid{display:grid;gap:14px;margin-bottom:20px;}
 .compat-card{border-radius:12px;padding:18px 16px;border:1px solid;}
-.compat-card.philia{background:#1a2035;border-color:#2e4080;}
-.compat-card.quasi{background:#1a2a1a;border-color:#2e5a30;}
-.compat-card.eros{background:#2a1a1a;border-color:#703030;}
-.compat-card.agape{background:#251a30;border-color:#5a3080;}
+.compat-card.philia{background:#eef3fc;border-color:#a0c0e8;}
+.compat-card.quasi{background:#ecf7f2;border-color:#90d4b0;}
+.compat-card.eros{background:#fdf0f0;border-color:#e0a8a8;}
+.compat-card.agape{background:#f4f0fc;border-color:#c0a8ec;}
 .compat-hd{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 .compat-icon{font-size:20px;}
 .compat-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;}
-.compat-card.philia .compat-name{color:#88aaff;}
-.compat-card.quasi .compat-name{color:#6ac87a;}
-.compat-card.eros .compat-name{color:#e06060;}
-.compat-card.agape .compat-name{color:#c088e8;}
-.compat-rule{font-size:11px;color:var(--text3);letter-spacing:1px;margin-bottom:8px;background:#ffffff08;padding:5px 9px;border-radius:6px;display:inline-block;}
+.compat-card.philia .compat-name{color:var(--V);}
+.compat-card.quasi .compat-name{color:var(--L);}
+.compat-card.eros .compat-name{color:var(--E);}
+.compat-card.agape .compat-name{color:var(--accent2);}
+.compat-rule{font-size:11px;color:var(--text3);letter-spacing:1px;margin-bottom:8px;background:#f0eeff;border:1px solid var(--border);padding:5px 9px;border-radius:6px;display:inline-block;}
 .compat-desc{font-size:12px;color:var(--text2);line-height:1.75;}
 .stars-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap;}
 .stars-label{font-size:10px;color:var(--text3);}
 .stars{font-size:12px;}
 
 /* QUIZ */
-.prog-bar{background:var(--bg3);border-radius:4px;height:3px;margin-bottom:24px;overflow:hidden;}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:4px;transition:width .4s ease;width:0%;}
-.q-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 16px;margin-bottom:16px;animation:fadeUp .3s ease;}
+.prog-bar{background:#f8f6ff;border-radius:4px;height:4px;margin-bottom:24px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .4s ease;width:0%;}
+.q-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 16px;margin-bottom:16px;box-shadow:0 2px 14px rgba(80,60,180,.07);animation:fadeUp .3s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.q-step{font-size:11px;color:var(--accent2);letter-spacing:3px;margin-bottom:10px;font-weight:500;}
-.q-text{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--text);font-weight:400;margin-bottom:20px;line-height:1.8;}
+.q-step{font-size:11px;color:var(--accent);letter-spacing:3px;margin-bottom:10px;font-weight:500;text-transform:uppercase;}
+.q-text{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--text);font-weight:400;margin-bottom:20px;line-height:1.8;}
 .opts{display:grid;gap:8px;}
-.opt-btn{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text2);font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:300;text-align:left;cursor:pointer;transition:all .2s;line-height:1.6;-webkit-appearance:none;}
-.opt-btn:active,.opt-btn:hover{background:#252840;border-color:var(--accent);color:var(--text);}
-.opt-btn.selected{background:#1e1f35;border-color:var(--accent2);color:var(--accent3);}
+.opt-btn{width:100%;background:#f8f6ff;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text2);font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:300;text-align:left;cursor:pointer;transition:all .2s;line-height:1.6;-webkit-appearance:none;}
+.opt-btn:active,.opt-btn:hover{background:#ece8fc;border-color:var(--accent);color:var(--text);}
+.opt-btn.selected{background:#ece8fc;border-color:var(--accent);color:var(--accent);}
 .nav-btns{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
 .btn{padding:10px 22px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;border:none;font-family:'Noto Sans JP',sans-serif;-webkit-appearance:none;}
 .btn-primary{background:var(--accent);color:white;font-weight:500;}
 .btn-primary:hover,.btn-primary:active{background:var(--accent2);}
-.btn-primary:disabled{background:#3a3a60;color:var(--text3);cursor:not-allowed;}
+.btn-primary:disabled{background:#d4cef0;color:#a098c8;cursor:not-allowed;}
 .btn-ghost{background:none;border:1px solid var(--border2);color:var(--text2);}
-.btn-ghost:hover,.btn-ghost:active{border-color:var(--accent2);color:var(--text);}
+.btn-ghost:hover,.btn-ghost:active{background:#f0eeff;border-color:var(--accent2);color:var(--text);}
 
 /* RESULT */
-.result-hero{text-align:center;padding:32px 14px;background:linear-gradient(180deg,#1a1b2e 0%,var(--card) 100%);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;position:relative;overflow:hidden;}
-.result-hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:240px;height:240px;background:radial-gradient(circle,#3d3580 0%,transparent 70%);pointer-events:none;}
-.result-type{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,12vw,72px);font-weight:300;letter-spacing:.15em;background:linear-gradient(135deg,var(--accent3),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;position:relative;}
-.result-name{font-size:13px;color:var(--gold2);letter-spacing:3px;margin-bottom:16px;}
+.result-hero{text-align:center;padding:32px 14px;background:linear-gradient(160deg,#ede8fc 0%,#f8f6ff 100%);border:1px solid var(--border2);border-radius:14px;margin-bottom:20px;position:relative;overflow:hidden;}
+.result-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,#8a70e818 0%,transparent 70%);pointer-events:none;}
+.result-type{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,12vw,72px);font-weight:300;letter-spacing:.15em;color:var(--accent);margin-bottom:6px;position:relative;}
+.result-name{font-size:13px;color:var(--accent2);letter-spacing:3px;margin-bottom:16px;}
 .result-desc{font-size:13px;color:var(--text2);line-height:1.8;}
 .scores-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
 .sc-card{border-radius:10px;padding:14px;}
-.sc-card.E{background:var(--E-bg);border:1px solid #5a2020;}
-.sc-card.V{background:var(--V-bg);border:1px solid #1e305a;}
-.sc-card.L{background:var(--L-bg);border:1px solid #1e4a28;}
-.sc-card.F{background:var(--F-bg);border:1px solid #5a3010;}
+.sc-card.E{background:var(--E-bg);border:1px solid #e0a8a8;}
+.sc-card.V{background:var(--V-bg);border:1px solid #a0c0e8;}
+.sc-card.L{background:var(--L-bg);border:1px solid #90d4b0;}
+.sc-card.F{background:var(--F-bg);border:1px solid #e8c880;}
 .sc-label{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
 .sc-dot{width:8px;height:8px;border-radius:50%;}
 .sc-dot.E{background:var(--E);}
@@ -215,31 +224,48 @@ svg.diag{width:100%;height:auto;display:block;}
 .sc-rank.V{color:var(--V);}
 .sc-rank.L{color:var(--L);}
 .sc-rank.F{color:var(--F);}
-.sc-bar-wrap{background:#ffffff10;border-radius:3px;height:3px;margin-top:6px;}
+.sc-bar-wrap{background:#e4e0f8;border-radius:3px;height:3px;margin-top:6px;}
 .sc-bar{height:100%;border-radius:3px;transition:width .6s ease;}
 .sc-bar.E{background:var(--E);}
 .sc-bar.V{background:var(--V);}
 .sc-bar.L{background:var(--L);}
 .sc-bar.F{background:var(--F);}
 .result-extras{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-.ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.ex-card{background:#f8f6ff;border:1px solid var(--border);border-radius:10px;padding:14px;}
 .ex-label{font-size:10px;color:var(--text3);letter-spacing:2px;margin-bottom:4px;}
-.ex-value{font-size:14px;color:var(--accent2);font-weight:500;}
+.ex-value{font-size:14px;color:var(--accent);font-weight:500;}
 .ex-sub{font-size:11px;color:var(--text3);margin-top:3px;}
 
-footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));border-top:1px solid var(--border);font-size:11px;color:var(--text3);}
-::-webkit-scrollbar{width:4px;height:4px;}
+footer{background:var(--text);color:rgba(255,255,255,.5);padding:36px 20px calc(24px + var(--safe-bottom));font-size:11px;}
+::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg2);}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 </style>
 </head>
 <body>
 
+<div class="topbar">
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m5-5-5 5 5 5"/></svg>
+    ポータルへ
+  </a>
+  <span class="topbar-title">サイコソフィア</span>
+  <span class="topbar-badge">アファナシエフ</span>
+</div>
+
 <header class="site-header">
   <div class="eyebrow">Psychosophy · 心理分析</div>
   <h1>サイコソフィア</h1>
   <div class="ornament"></div>
   <div class="site-sub">心の設計図 — あなたの内的優先順位を解き明かす</div>
+  <div class="hero-badges">
+    <span class="hero-badge">E 感情</span>
+    <span class="hero-badge">V 意志</span>
+    <span class="hero-badge">L 論理</span>
+    <span class="hero-badge">F 物質</span>
+    <span class="hero-badge">24タイプ</span>
+    <span class="hero-badge">6セクスタ</span>
+  </div>
 </header>
 
 <nav class="tabs-nav">
@@ -287,25 +313,25 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
       <div class="diagram-title">▶ 24タイプが生まれる仕組み</div>
       <svg class="diag" viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg">
         <!-- 4要素 -->
-        <rect x="10" y="20" width="52" height="28" rx="6" fill="#2a1818" stroke="#5a2020"/>
-        <text x="36" y="39" text-anchor="middle" fill="#e87070" font-size="14" font-family="serif" font-weight="bold">E</text>
-        <rect x="70" y="20" width="52" height="28" rx="6" fill="#17203a" stroke="#1e305a"/>
-        <text x="96" y="39" text-anchor="middle" fill="#7b9ee8" font-size="14" font-family="serif" font-weight="bold">V</text>
-        <rect x="130" y="20" width="52" height="28" rx="6" fill="#182a1e" stroke="#1e4a28"/>
-        <text x="156" y="39" text-anchor="middle" fill="#5ec47a" font-size="14" font-family="serif" font-weight="bold">L</text>
-        <rect x="190" y="20" width="52" height="28" rx="6" fill="#2a1e10" stroke="#5a3010"/>
-        <text x="216" y="39" text-anchor="middle" fill="#e8a857" font-size="14" font-family="serif" font-weight="bold">F</text>
+        <rect x="10" y="20" width="52" height="28" rx="6" fill="#fdf0f0" stroke="#5a2020"/>
+        <text x="36" y="39" text-anchor="middle" fill="#b83838" font-size="14" font-family="serif" font-weight="bold">E</text>
+        <rect x="70" y="20" width="52" height="28" rx="6" fill="#eef3fc" stroke="#1e305a"/>
+        <text x="96" y="39" text-anchor="middle" fill="#2a68c8" font-size="14" font-family="serif" font-weight="bold">V</text>
+        <rect x="130" y="20" width="52" height="28" rx="6" fill="#ecf7f2" stroke="#1e4a28"/>
+        <text x="156" y="39" text-anchor="middle" fill="#2a8a50" font-size="14" font-family="serif" font-weight="bold">L</text>
+        <rect x="190" y="20" width="52" height="28" rx="6" fill="#fdf5e8" stroke="#5a3010"/>
+        <text x="216" y="39" text-anchor="middle" fill="#b87010" font-size="14" font-family="serif" font-weight="bold">F</text>
         <!-- Arrow down -->
-        <line x1="170" y1="55" x2="170" y2="75" stroke="#3d4070" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="170" y1="55" x2="170" y2="75" stroke="#c0b8e8" stroke-width="1.5" marker-end="url(#arr)"/>
         <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,1 L0,7 L7,4 Z" fill="#3d4070"/></marker></defs>
         <!-- Result box -->
-        <rect x="40" y="80" width="260" height="36" rx="8" fill="#252840" stroke="#3d4070"/>
-        <text x="170" y="99" text-anchor="middle" fill="#a89cf5" font-size="12" font-family="sans-serif">並べ替え：4! = 24通り</text>
-        <text x="170" y="113" text-anchor="middle" fill="#7a7898" font-size="10" font-family="sans-serif">例：EVLF / VLFE / FVEL …</text>
+        <rect x="40" y="80" width="260" height="36" rx="8" fill="#ece8fc" stroke="#c0b8e8"/>
+        <text x="170" y="99" text-anchor="middle" fill="#6a50d0" font-size="12" font-family="sans-serif">並べ替え：4! = 24通り</text>
+        <text x="170" y="113" text-anchor="middle" fill="#8080b0" font-size="10" font-family="sans-serif">例：EVLF / VLFE / FVEL …</text>
         <!-- Arrow down2 -->
-        <line x1="170" y1="122" x2="170" y2="140" stroke="#3d4070" stroke-width="1.5" marker-end="url(#arr)"/>
-        <rect x="70" y="145" width="200" height="26" rx="7" fill="#1c1e2a" stroke="#7b6ff0"/>
-        <text x="170" y="163" text-anchor="middle" fill="#c4b8ff" font-size="12" font-family="sans-serif" font-weight="bold">24のサイコソフィアタイプ</text>
+        <line x1="170" y1="122" x2="170" y2="140" stroke="#c0b8e8" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="70" y="145" width="200" height="26" rx="7" fill="#f4f2fc" stroke="#8a72e8"/>
+        <text x="170" y="163" text-anchor="middle" fill="#5a3ec0" font-size="12" font-family="sans-serif" font-weight="bold">24のサイコソフィアタイプ</text>
       </svg>
     </div>
 
@@ -314,37 +340,37 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
       <div class="diagram-title">▶ 4つの態度（I/You の +/−）</div>
       <svg class="diag" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
         <!-- 軸 -->
-        <line x1="170" y1="20" x2="170" y2="200" stroke="#3d4070" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="110" x2="310" y2="110" stroke="#3d4070" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="170" y1="20" x2="170" y2="200" stroke="#c0b8e8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="110" x2="310" y2="110" stroke="#c0b8e8" stroke-width="1" stroke-dasharray="4,3"/>
         <!-- 軸ラベル -->
-        <text x="170" y="14" text-anchor="middle" fill="#a89cf5" font-size="10">You ＋</text>
-        <text x="170" y="210" text-anchor="middle" fill="#a89cf5" font-size="10">You −</text>
-        <text x="14" y="114" text-anchor="middle" fill="#a89cf5" font-size="10">I −</text>
-        <text x="320" y="114" text-anchor="middle" fill="#a89cf5" font-size="10">I ＋</text>
+        <text x="170" y="14" text-anchor="middle" fill="#6a50d0" font-size="10">You ＋</text>
+        <text x="170" y="210" text-anchor="middle" fill="#6a50d0" font-size="10">You −</text>
+        <text x="14" y="114" text-anchor="middle" fill="#6a50d0" font-size="10">I −</text>
+        <text x="320" y="114" text-anchor="middle" fill="#6a50d0" font-size="10">I ＋</text>
         <!-- 第1機能: I+ You- (右下) -->
-        <rect x="195" y="125" width="105" height="62" rx="8" fill="#2a1820" stroke="#7b6ff0" stroke-width="1.5"/>
-        <text x="247" y="145" text-anchor="middle" fill="#c4b8ff" font-size="11" font-weight="bold">第１機能</text>
-        <text x="247" y="158" text-anchor="middle" fill="#c4b8ff" font-size="10">I ＋  You −</text>
-        <text x="247" y="173" text-anchor="middle" fill="#7a7898" font-size="9">「私が正しい」</text>
-        <text x="247" y="184" text-anchor="middle" fill="#7a7898" font-size="9">確信・支配</text>
+        <rect x="195" y="125" width="105" height="62" rx="8" fill="#fdeef0" stroke="#8a72e8" stroke-width="1.5"/>
+        <text x="247" y="145" text-anchor="middle" fill="#5a3ec0" font-size="11" font-weight="bold">第１機能</text>
+        <text x="247" y="158" text-anchor="middle" fill="#5a3ec0" font-size="10">I ＋  You −</text>
+        <text x="247" y="173" text-anchor="middle" fill="#8080b0" font-size="9">「私が正しい」</text>
+        <text x="247" y="184" text-anchor="middle" fill="#8080b0" font-size="9">確信・支配</text>
         <!-- 第2機能: I+ You+ (右上) -->
-        <rect x="195" y="30" width="105" height="62" rx="8" fill="#172030" stroke="#5ec47a" stroke-width="1.5"/>
-        <text x="247" y="50" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">第２機能</text>
-        <text x="247" y="63" text-anchor="middle" fill="#5ec47a" font-size="10">I ＋  You ＋</text>
-        <text x="247" y="78" text-anchor="middle" fill="#7a7898" font-size="9">「共に考えよう」</text>
-        <text x="247" y="89" text-anchor="middle" fill="#7a7898" font-size="9">対話・協調</text>
+        <rect x="195" y="30" width="105" height="62" rx="8" fill="#e8f0fc" stroke="#5ec47a" stroke-width="1.5"/>
+        <text x="247" y="50" text-anchor="middle" fill="#2a8a50" font-size="11" font-weight="bold">第２機能</text>
+        <text x="247" y="63" text-anchor="middle" fill="#2a8a50" font-size="10">I ＋  You ＋</text>
+        <text x="247" y="78" text-anchor="middle" fill="#8080b0" font-size="9">「共に考えよう」</text>
+        <text x="247" y="89" text-anchor="middle" fill="#8080b0" font-size="9">対話・協調</text>
         <!-- 第3機能: I- You- (左下) -->
-        <rect x="40" y="125" width="105" height="62" rx="8" fill="#2a1818" stroke="#e87070" stroke-width="1.5"/>
-        <text x="92" y="145" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">第３機能</text>
-        <text x="92" y="158" text-anchor="middle" fill="#e87070" font-size="10">I −  You −</text>
-        <text x="92" y="173" text-anchor="middle" fill="#7a7898" font-size="9">「誰も信じられない」</text>
-        <text x="92" y="184" text-anchor="middle" fill="#7a7898" font-size="9">傷つきやすい</text>
+        <rect x="40" y="125" width="105" height="62" rx="8" fill="#fdf0f0" stroke="#e87070" stroke-width="1.5"/>
+        <text x="92" y="145" text-anchor="middle" fill="#b83838" font-size="11" font-weight="bold">第３機能</text>
+        <text x="92" y="158" text-anchor="middle" fill="#b83838" font-size="10">I −  You −</text>
+        <text x="92" y="173" text-anchor="middle" fill="#8080b0" font-size="9">「誰も信じられない」</text>
+        <text x="92" y="184" text-anchor="middle" fill="#8080b0" font-size="9">傷つきやすい</text>
         <!-- 第4機能: I- You+ (左上) -->
-        <rect x="40" y="30" width="105" height="62" rx="8" fill="#1a1a2a" stroke="#e8a857" stroke-width="1.5"/>
-        <text x="92" y="50" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">第４機能</text>
-        <text x="92" y="63" text-anchor="middle" fill="#e8a857" font-size="10">I −  You ＋</text>
-        <text x="92" y="78" text-anchor="middle" fill="#7a7898" font-size="9">「あなたに任せる」</text>
-        <text x="92" y="89" text-anchor="middle" fill="#7a7898" font-size="9">受容・委任</text>
+        <rect x="40" y="30" width="105" height="62" rx="8" fill="#fdf5e8" stroke="#e8a857" stroke-width="1.5"/>
+        <text x="92" y="50" text-anchor="middle" fill="#b87010" font-size="11" font-weight="bold">第４機能</text>
+        <text x="92" y="63" text-anchor="middle" fill="#b87010" font-size="10">I −  You ＋</text>
+        <text x="92" y="78" text-anchor="middle" fill="#8080b0" font-size="9">「あなたに任せる」</text>
+        <text x="92" y="89" text-anchor="middle" fill="#8080b0" font-size="9">受容・委任</text>
       </svg>
     </div>
 
@@ -353,31 +379,31 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
       <div class="diagram-title">▶ 上位/下位・結果指向/プロセス指向</div>
       <svg class="diag" viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg">
         <!-- 4機能ボックス -->
-        <rect x="20" y="30" width="65" height="70" rx="8" fill="#1e2040" stroke="#7b6ff0" stroke-width="1.5"/>
-        <text x="52" y="58" text-anchor="middle" fill="#c4b8ff" font-size="11" font-weight="bold">第１</text>
-        <text x="52" y="73" text-anchor="middle" fill="#c4b8ff" font-size="10">強・自信</text>
-        <text x="52" y="87" text-anchor="middle" fill="#a89cf5" font-size="10">結果指向</text>
-        <rect x="98" y="30" width="65" height="70" rx="8" fill="#1a2830" stroke="#5ec47a" stroke-width="1.5"/>
-        <text x="130" y="58" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">第２</text>
-        <text x="130" y="73" text-anchor="middle" fill="#5ec47a" font-size="10">強・対話</text>
-        <text x="130" y="87" text-anchor="middle" fill="#7a7898" font-size="10">プロセス指向</text>
-        <rect x="176" y="30" width="65" height="70" rx="8" fill="#2a1818" stroke="#e87070" stroke-width="1.5"/>
-        <text x="208" y="58" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">第３</text>
-        <text x="208" y="73" text-anchor="middle" fill="#e87070" font-size="10">弱・過敏</text>
-        <text x="208" y="87" text-anchor="middle" fill="#7a7898" font-size="10">プロセス指向</text>
-        <rect x="254" y="30" width="65" height="70" rx="8" fill="#2a1e10" stroke="#e8a857" stroke-width="1.5"/>
-        <text x="286" y="58" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">第４</text>
-        <text x="286" y="73" text-anchor="middle" fill="#e8a857" font-size="10">弱・受容</text>
-        <text x="286" y="87" text-anchor="middle" fill="#a89cf5" font-size="10">結果指向</text>
+        <rect x="20" y="30" width="65" height="70" rx="8" fill="#eeeafc" stroke="#8a72e8" stroke-width="1.5"/>
+        <text x="52" y="58" text-anchor="middle" fill="#5a3ec0" font-size="11" font-weight="bold">第１</text>
+        <text x="52" y="73" text-anchor="middle" fill="#5a3ec0" font-size="10">強・自信</text>
+        <text x="52" y="87" text-anchor="middle" fill="#6a50d0" font-size="10">結果指向</text>
+        <rect x="98" y="30" width="65" height="70" rx="8" fill="#e8f4f8" stroke="#5ec47a" stroke-width="1.5"/>
+        <text x="130" y="58" text-anchor="middle" fill="#2a8a50" font-size="11" font-weight="bold">第２</text>
+        <text x="130" y="73" text-anchor="middle" fill="#2a8a50" font-size="10">強・対話</text>
+        <text x="130" y="87" text-anchor="middle" fill="#8080b0" font-size="10">プロセス指向</text>
+        <rect x="176" y="30" width="65" height="70" rx="8" fill="#fdf0f0" stroke="#e87070" stroke-width="1.5"/>
+        <text x="208" y="58" text-anchor="middle" fill="#b83838" font-size="11" font-weight="bold">第３</text>
+        <text x="208" y="73" text-anchor="middle" fill="#b83838" font-size="10">弱・過敏</text>
+        <text x="208" y="87" text-anchor="middle" fill="#8080b0" font-size="10">プロセス指向</text>
+        <rect x="254" y="30" width="65" height="70" rx="8" fill="#fdf5e8" stroke="#e8a857" stroke-width="1.5"/>
+        <text x="286" y="58" text-anchor="middle" fill="#b87010" font-size="11" font-weight="bold">第４</text>
+        <text x="286" y="73" text-anchor="middle" fill="#b87010" font-size="10">弱・受容</text>
+        <text x="286" y="87" text-anchor="middle" fill="#6a50d0" font-size="10">結果指向</text>
         <!-- ブラケット 上位 -->
-        <line x1="20" y1="18" x2="162" y2="18" stroke="#7b6ff0" stroke-width="1.5"/>
+        <line x1="20" y1="18" x2="162" y2="18" stroke="#8a72e8" stroke-width="1.5"/>
         <text x="91" y="13" text-anchor="middle" fill="#7b6ff0" font-size="10">上位（強い）</text>
         <!-- ブラケット 下位 -->
         <line x1="176" y1="18" x2="320" y2="18" stroke="#e8a857" stroke-width="1.5"/>
-        <text x="248" y="13" text-anchor="middle" fill="#e8a857" font-size="10">下位（弱い）</text>
+        <text x="248" y="13" text-anchor="middle" fill="#b87010" font-size="10">下位（弱い）</text>
         <!-- 結果ブラケット -->
         <path d="M52,108 Q52,128 169,128 Q286,128 286,108" stroke="#a89cf5" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
-        <text x="169" y="143" text-anchor="middle" fill="#a89cf5" font-size="9">結果指向（1・4番目）</text>
+        <text x="169" y="143" text-anchor="middle" fill="#6a50d0" font-size="9">結果指向（1・4番目）</text>
       </svg>
     </div>
 
@@ -415,30 +441,30 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
     <div class="diagram-wrap">
       <div class="diagram-title">▶ 4つの心理機能の領域</div>
       <svg class="diag" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="16" width="75" height="115" rx="10" fill="#2a1818" stroke="#5a2020"/>
-        <text x="47" y="50" text-anchor="middle" fill="#e87070" font-size="22" font-family="serif" font-weight="bold">E</text>
-        <text x="47" y="68" text-anchor="middle" fill="#e87070" font-size="11">感情</text>
-        <text x="47" y="84" text-anchor="middle" fill="#7a7898" font-size="9">共感・芸術</text>
-        <text x="47" y="97" text-anchor="middle" fill="#7a7898" font-size="9">感受性</text>
-        <text x="47" y="110" text-anchor="middle" fill="#7a7898" font-size="9">感情表現</text>
-        <rect x="92" y="16" width="75" height="115" rx="10" fill="#17203a" stroke="#1e305a"/>
-        <text x="129" y="50" text-anchor="middle" fill="#7b9ee8" font-size="22" font-family="serif" font-weight="bold">V</text>
-        <text x="129" y="68" text-anchor="middle" fill="#7b9ee8" font-size="11">意志</text>
-        <text x="129" y="84" text-anchor="middle" fill="#7a7898" font-size="9">決断・目標</text>
-        <text x="129" y="97" text-anchor="middle" fill="#7a7898" font-size="9">リーダーシップ</text>
-        <text x="129" y="110" text-anchor="middle" fill="#7a7898" font-size="9">自己主張</text>
-        <rect x="174" y="16" width="75" height="115" rx="10" fill="#182a1e" stroke="#1e4a28"/>
-        <text x="211" y="50" text-anchor="middle" fill="#5ec47a" font-size="22" font-family="serif" font-weight="bold">L</text>
-        <text x="211" y="68" text-anchor="middle" fill="#5ec47a" font-size="11">論理</text>
-        <text x="211" y="84" text-anchor="middle" fill="#7a7898" font-size="9">分析・思考</text>
-        <text x="211" y="97" text-anchor="middle" fill="#7a7898" font-size="9">概念操作</text>
-        <text x="211" y="110" text-anchor="middle" fill="#7a7898" font-size="9">知識探求</text>
-        <rect x="256" y="16" width="75" height="115" rx="10" fill="#2a1e10" stroke="#5a3010"/>
-        <text x="293" y="50" text-anchor="middle" fill="#e8a857" font-size="22" font-family="serif" font-weight="bold">F</text>
-        <text x="293" y="68" text-anchor="middle" fill="#e8a857" font-size="11">物質</text>
-        <text x="293" y="84" text-anchor="middle" fill="#7a7898" font-size="9">身体感覚</text>
-        <text x="293" y="97" text-anchor="middle" fill="#7a7898" font-size="9">美的センス</text>
-        <text x="293" y="110" text-anchor="middle" fill="#7a7898" font-size="9">実践・行動</text>
+        <rect x="10" y="16" width="75" height="115" rx="10" fill="#fdf0f0" stroke="#5a2020"/>
+        <text x="47" y="50" text-anchor="middle" fill="#b83838" font-size="22" font-family="serif" font-weight="bold">E</text>
+        <text x="47" y="68" text-anchor="middle" fill="#b83838" font-size="11">感情</text>
+        <text x="47" y="84" text-anchor="middle" fill="#8080b0" font-size="9">共感・芸術</text>
+        <text x="47" y="97" text-anchor="middle" fill="#8080b0" font-size="9">感受性</text>
+        <text x="47" y="110" text-anchor="middle" fill="#8080b0" font-size="9">感情表現</text>
+        <rect x="92" y="16" width="75" height="115" rx="10" fill="#eef3fc" stroke="#1e305a"/>
+        <text x="129" y="50" text-anchor="middle" fill="#2a68c8" font-size="22" font-family="serif" font-weight="bold">V</text>
+        <text x="129" y="68" text-anchor="middle" fill="#2a68c8" font-size="11">意志</text>
+        <text x="129" y="84" text-anchor="middle" fill="#8080b0" font-size="9">決断・目標</text>
+        <text x="129" y="97" text-anchor="middle" fill="#8080b0" font-size="9">リーダーシップ</text>
+        <text x="129" y="110" text-anchor="middle" fill="#8080b0" font-size="9">自己主張</text>
+        <rect x="174" y="16" width="75" height="115" rx="10" fill="#ecf7f2" stroke="#1e4a28"/>
+        <text x="211" y="50" text-anchor="middle" fill="#2a8a50" font-size="22" font-family="serif" font-weight="bold">L</text>
+        <text x="211" y="68" text-anchor="middle" fill="#2a8a50" font-size="11">論理</text>
+        <text x="211" y="84" text-anchor="middle" fill="#8080b0" font-size="9">分析・思考</text>
+        <text x="211" y="97" text-anchor="middle" fill="#8080b0" font-size="9">概念操作</text>
+        <text x="211" y="110" text-anchor="middle" fill="#8080b0" font-size="9">知識探求</text>
+        <rect x="256" y="16" width="75" height="115" rx="10" fill="#fdf5e8" stroke="#5a3010"/>
+        <text x="293" y="50" text-anchor="middle" fill="#b87010" font-size="22" font-family="serif" font-weight="bold">F</text>
+        <text x="293" y="68" text-anchor="middle" fill="#b87010" font-size="11">物質</text>
+        <text x="293" y="84" text-anchor="middle" fill="#8080b0" font-size="9">身体感覚</text>
+        <text x="293" y="97" text-anchor="middle" fill="#8080b0" font-size="9">美的センス</text>
+        <text x="293" y="110" text-anchor="middle" fill="#8080b0" font-size="9">実践・行動</text>
       </svg>
     </div>
 
@@ -479,10 +505,10 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
         <rect x="180" y="65" width="60" height="25" rx="6" fill="#e8707080"/>
         <rect x="255" y="75" width="60" height="15" rx="6" fill="#e8a85780"/>
         <!-- ラベル -->
-        <text x="60" y="16" text-anchor="middle" fill="#a89cf5" font-size="10" font-weight="bold">第１</text>
-        <text x="135" y="31" text-anchor="middle" fill="#5ec47a" font-size="10" font-weight="bold">第２</text>
-        <text x="210" y="61" text-anchor="middle" fill="#e87070" font-size="10" font-weight="bold">第３</text>
-        <text x="285" y="71" text-anchor="middle" fill="#e8a857" font-size="10" font-weight="bold">第４</text>
+        <text x="60" y="16" text-anchor="middle" fill="#6a50d0" font-size="10" font-weight="bold">第１</text>
+        <text x="135" y="31" text-anchor="middle" fill="#2a8a50" font-size="10" font-weight="bold">第２</text>
+        <text x="210" y="61" text-anchor="middle" fill="#b83838" font-size="10" font-weight="bold">第３</text>
+        <text x="285" y="71" text-anchor="middle" fill="#b87010" font-size="10" font-weight="bold">第４</text>
         <!-- 強度テキスト -->
         <text x="60" y="55" text-anchor="middle" fill="white" font-size="10">確信</text>
         <text x="60" y="68" text-anchor="middle" fill="white" font-size="9">支配</text>
@@ -491,10 +517,10 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
         <text x="210" y="84" text-anchor="middle" fill="white" font-size="9">脆弱</text>
         <text x="285" y="86" text-anchor="middle" fill="white" font-size="9">受容</text>
         <!-- 底線 -->
-        <line x1="20" y1="98" x2="325" y2="98" stroke="#3d4070" stroke-width="1"/>
-        <text x="20" y="113" fill="#7a7898" font-size="9">強い</text>
-        <text x="295" y="113" fill="#7a7898" font-size="9">弱い</text>
-        <text x="170" y="118" text-anchor="middle" fill="#7a7898" font-size="8">← 上位 ─────── 下位 →</text>
+        <line x1="20" y1="98" x2="325" y2="98" stroke="#c0b8e8" stroke-width="1"/>
+        <text x="20" y="113" fill="#8080b0" font-size="9">強い</text>
+        <text x="295" y="113" fill="#8080b0" font-size="9">弱い</text>
+        <text x="170" y="118" text-anchor="middle" fill="#8080b0" font-size="8">← 上位 ─────── 下位 →</text>
       </svg>
     </div>
 
@@ -552,40 +578,40 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
           <radialGradient id="hexGrad" cx="50%" cy="50%"><stop offset="0%" stop-color="#252840"/><stop offset="100%" stop-color="#1c1e2a"/></radialGradient>
         </defs>
         <!-- 中心 -->
-        <circle cx="170" cy="100" r="32" fill="#252840" stroke="#7b6ff0" stroke-width="1.5"/>
-        <text x="170" y="97" text-anchor="middle" fill="#a89cf5" font-size="10" font-weight="bold">24</text>
-        <text x="170" y="110" text-anchor="middle" fill="#a89cf5" font-size="10">タイプ</text>
+        <circle cx="170" cy="100" r="32" fill="#ece8fc" stroke="#8a72e8" stroke-width="1.5"/>
+        <text x="170" y="97" text-anchor="middle" fill="#6a50d0" font-size="10" font-weight="bold">24</text>
+        <text x="170" y="110" text-anchor="middle" fill="#6a50d0" font-size="10">タイプ</text>
         <!-- S1 上 -->
-        <ellipse cx="170" cy="24" rx="46" ry="18" fill="#2a1818" stroke="#e87070" stroke-width="1"/>
-        <text x="170" y="21" text-anchor="middle" fill="#e87070" font-size="10" font-weight="bold">第１</text>
-        <text x="170" y="33" text-anchor="middle" fill="#7a7898" font-size="8">開拓者</text>
+        <ellipse cx="170" cy="24" rx="46" ry="18" fill="#fdf0f0" stroke="#e87070" stroke-width="1"/>
+        <text x="170" y="21" text-anchor="middle" fill="#b83838" font-size="10" font-weight="bold">第１</text>
+        <text x="170" y="33" text-anchor="middle" fill="#8080b0" font-size="8">開拓者</text>
         <!-- S2 右上 -->
-        <ellipse cx="292" cy="58" rx="44" ry="18" fill="#172030" stroke="#5ec47a" stroke-width="1"/>
-        <text x="292" y="55" text-anchor="middle" fill="#5ec47a" font-size="10" font-weight="bold">第２</text>
-        <text x="292" y="67" text-anchor="middle" fill="#7a7898" font-size="8">建設者</text>
+        <ellipse cx="292" cy="58" rx="44" ry="18" fill="#e8f0fc" stroke="#5ec47a" stroke-width="1"/>
+        <text x="292" y="55" text-anchor="middle" fill="#2a8a50" font-size="10" font-weight="bold">第２</text>
+        <text x="292" y="67" text-anchor="middle" fill="#8080b0" font-size="8">建設者</text>
         <!-- S3 右下 -->
-        <ellipse cx="292" cy="142" rx="44" ry="18" fill="#1e1a10" stroke="#e8a857" stroke-width="1"/>
-        <text x="292" y="139" text-anchor="middle" fill="#e8a857" font-size="10" font-weight="bold">第３</text>
-        <text x="292" y="151" text-anchor="middle" fill="#7a7898" font-size="8">統治者</text>
+        <ellipse cx="292" cy="142" rx="44" ry="18" fill="#fdf5e8" stroke="#e8a857" stroke-width="1"/>
+        <text x="292" y="139" text-anchor="middle" fill="#b87010" font-size="10" font-weight="bold">第３</text>
+        <text x="292" y="151" text-anchor="middle" fill="#8080b0" font-size="8">統治者</text>
         <!-- S4 下 -->
-        <ellipse cx="170" cy="176" rx="46" ry="18" fill="#1a1a2e" stroke="#7b9ee8" stroke-width="1"/>
-        <text x="170" y="173" text-anchor="middle" fill="#7b9ee8" font-size="10" font-weight="bold">第４</text>
-        <text x="170" y="185" text-anchor="middle" fill="#7a7898" font-size="8">文化人</text>
+        <ellipse cx="170" cy="176" rx="46" ry="18" fill="#eef3fc" stroke="#7b9ee8" stroke-width="1"/>
+        <text x="170" y="173" text-anchor="middle" fill="#2a68c8" font-size="10" font-weight="bold">第４</text>
+        <text x="170" y="185" text-anchor="middle" fill="#8080b0" font-size="8">文化人</text>
         <!-- S5 左下 -->
-        <ellipse cx="48" cy="142" rx="44" ry="18" fill="#251a30" stroke="#c088e8" stroke-width="1"/>
-        <text x="48" y="139" text-anchor="middle" fill="#c088e8" font-size="10" font-weight="bold">第５</text>
-        <text x="48" y="151" text-anchor="middle" fill="#7a7898" font-size="8">消費者</text>
+        <ellipse cx="48" cy="142" rx="44" ry="18" fill="#f4f0fc" stroke="#c088e8" stroke-width="1"/>
+        <text x="48" y="139" text-anchor="middle" fill="#8a72e8" font-size="10" font-weight="bold">第５</text>
+        <text x="48" y="151" text-anchor="middle" fill="#8080b0" font-size="8">消費者</text>
         <!-- S6 左上 -->
-        <ellipse cx="48" cy="58" rx="44" ry="18" fill="#18281a" stroke="#6ac87a" stroke-width="1"/>
-        <text x="48" y="55" text-anchor="middle" fill="#6ac87a" font-size="10" font-weight="bold">第６</text>
-        <text x="48" y="67" text-anchor="middle" fill="#7a7898" font-size="8">革新者</text>
+        <ellipse cx="48" cy="58" rx="44" ry="18" fill="#ecf7f2" stroke="#6ac87a" stroke-width="1"/>
+        <text x="48" y="55" text-anchor="middle" fill="#2a8a50" font-size="10" font-weight="bold">第６</text>
+        <text x="48" y="67" text-anchor="middle" fill="#8080b0" font-size="8">革新者</text>
         <!-- 繋ぎ線 -->
-        <line x1="170" y1="42" x2="170" y2="68" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
-        <line x1="246" y1="68" x2="202" y2="80" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
-        <line x1="248" y1="132" x2="202" y2="118" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
-        <line x1="170" y1="158" x2="170" y2="132" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
-        <line x1="92" y1="132" x2="138" y2="118" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
-        <line x1="92" y1="68" x2="138" y2="80" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="170" y1="42" x2="170" y2="68" stroke="#c0b8e8" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="246" y1="68" x2="202" y2="80" stroke="#c0b8e8" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="248" y1="132" x2="202" y2="118" stroke="#c0b8e8" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="170" y1="158" x2="170" y2="132" stroke="#c0b8e8" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="92" y1="132" x2="138" y2="118" stroke="#c0b8e8" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="92" y1="68" x2="138" y2="80" stroke="#c0b8e8" stroke-width="0.8" stroke-dasharray="3,3"/>
       </svg>
     </div>
 
@@ -695,40 +721,40 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
       <div class="diagram-title">▶ アクセントの仕組み（例：EVLFタイプ）</div>
       <svg class="diag" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg">
         <!-- ベースタイプ -->
-        <text x="170" y="18" text-anchor="middle" fill="#a89cf5" font-size="11">基本タイプ：EVLF</text>
+        <text x="170" y="18" text-anchor="middle" fill="#6a50d0" font-size="11">基本タイプ：EVLF</text>
         <!-- 4つのアクセントバリエーション -->
         <!-- 1E accent -->
-        <rect x="10" y="28" width="72" height="110" rx="8" fill="#2a1818" stroke="#e87070" stroke-width="2"/>
-        <text x="46" y="50" text-anchor="middle" fill="#e87070" font-size="10" font-weight="bold">1Eアクセント</text>
-        <text x="46" y="68" text-anchor="middle" fill="#e87070" font-size="20" font-family="serif" font-weight="bold">E</text>
-        <text x="46" y="85" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">VLF</text>
-        <text x="46" y="102" text-anchor="middle" fill="#7a7898" font-size="9">感情面が</text>
-        <text x="46" y="114" text-anchor="middle" fill="#7a7898" font-size="9">特に目立つ</text>
-        <text x="46" y="128" text-anchor="middle" fill="#7a7898" font-size="9">表現豊か</text>
+        <rect x="10" y="28" width="72" height="110" rx="8" fill="#fdf0f0" stroke="#e87070" stroke-width="2"/>
+        <text x="46" y="50" text-anchor="middle" fill="#b83838" font-size="10" font-weight="bold">1Eアクセント</text>
+        <text x="46" y="68" text-anchor="middle" fill="#b83838" font-size="20" font-family="serif" font-weight="bold">E</text>
+        <text x="46" y="85" text-anchor="middle" fill="#5a3ec0" font-size="11" font-family="serif">VLF</text>
+        <text x="46" y="102" text-anchor="middle" fill="#8080b0" font-size="9">感情面が</text>
+        <text x="46" y="114" text-anchor="middle" fill="#8080b0" font-size="9">特に目立つ</text>
+        <text x="46" y="128" text-anchor="middle" fill="#8080b0" font-size="9">表現豊か</text>
         <!-- 2V accent -->
-        <rect x="90" y="28" width="72" height="110" rx="8" fill="#17203a" stroke="#7b9ee8" stroke-width="2"/>
-        <text x="126" y="50" text-anchor="middle" fill="#7b9ee8" font-size="10" font-weight="bold">2Vアクセント</text>
-        <text x="126" y="68" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">E</text>
-        <text x="126" y="82" text-anchor="middle" fill="#7b9ee8" font-size="20" font-family="serif" font-weight="bold">V</text>
-        <text x="126" y="98" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">LF</text>
-        <text x="126" y="113" text-anchor="middle" fill="#7a7898" font-size="9">意志面が</text>
-        <text x="126" y="125" text-anchor="middle" fill="#7a7898" font-size="9">より前面に</text>
+        <rect x="90" y="28" width="72" height="110" rx="8" fill="#eef3fc" stroke="#7b9ee8" stroke-width="2"/>
+        <text x="126" y="50" text-anchor="middle" fill="#2a68c8" font-size="10" font-weight="bold">2Vアクセント</text>
+        <text x="126" y="68" text-anchor="middle" fill="#5a3ec0" font-size="11" font-family="serif">E</text>
+        <text x="126" y="82" text-anchor="middle" fill="#2a68c8" font-size="20" font-family="serif" font-weight="bold">V</text>
+        <text x="126" y="98" text-anchor="middle" fill="#5a3ec0" font-size="11" font-family="serif">LF</text>
+        <text x="126" y="113" text-anchor="middle" fill="#8080b0" font-size="9">意志面が</text>
+        <text x="126" y="125" text-anchor="middle" fill="#8080b0" font-size="9">より前面に</text>
         <!-- 3L accent -->
-        <rect x="170" y="28" width="72" height="110" rx="8" fill="#182a1e" stroke="#5ec47a" stroke-width="2"/>
-        <text x="206" y="50" text-anchor="middle" fill="#5ec47a" font-size="10" font-weight="bold">3Lアクセント</text>
-        <text x="206" y="65" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">EV</text>
-        <text x="206" y="82" text-anchor="middle" fill="#5ec47a" font-size="20" font-family="serif" font-weight="bold">L</text>
-        <text x="206" y="98" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">F</text>
-        <text x="206" y="113" text-anchor="middle" fill="#7a7898" font-size="9">弱点の論理が</text>
-        <text x="206" y="125" text-anchor="middle" fill="#7a7898" font-size="9">より繊細に出る</text>
+        <rect x="170" y="28" width="72" height="110" rx="8" fill="#ecf7f2" stroke="#5ec47a" stroke-width="2"/>
+        <text x="206" y="50" text-anchor="middle" fill="#2a8a50" font-size="10" font-weight="bold">3Lアクセント</text>
+        <text x="206" y="65" text-anchor="middle" fill="#5a3ec0" font-size="11" font-family="serif">EV</text>
+        <text x="206" y="82" text-anchor="middle" fill="#2a8a50" font-size="20" font-family="serif" font-weight="bold">L</text>
+        <text x="206" y="98" text-anchor="middle" fill="#5a3ec0" font-size="11" font-family="serif">F</text>
+        <text x="206" y="113" text-anchor="middle" fill="#8080b0" font-size="9">弱点の論理が</text>
+        <text x="206" y="125" text-anchor="middle" fill="#8080b0" font-size="9">より繊細に出る</text>
         <!-- 4F accent -->
-        <rect x="250" y="28" width="72" height="110" rx="8" fill="#2a1e10" stroke="#e8a857" stroke-width="2"/>
-        <text x="286" y="50" text-anchor="middle" fill="#e8a857" font-size="10" font-weight="bold">4Fアクセント</text>
-        <text x="286" y="65" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">EVL</text>
-        <text x="286" y="82" text-anchor="middle" fill="#e8a857" font-size="20" font-family="serif" font-weight="bold">F</text>
-        <text x="286" y="100" text-anchor="middle" fill="#7a7898" font-size="9">物質面への</text>
-        <text x="286" y="112" text-anchor="middle" fill="#7a7898" font-size="9">受容感が</text>
-        <text x="286" y="124" text-anchor="middle" fill="#7a7898" font-size="9">より顕著に</text>
+        <rect x="250" y="28" width="72" height="110" rx="8" fill="#fdf5e8" stroke="#e8a857" stroke-width="2"/>
+        <text x="286" y="50" text-anchor="middle" fill="#b87010" font-size="10" font-weight="bold">4Fアクセント</text>
+        <text x="286" y="65" text-anchor="middle" fill="#5a3ec0" font-size="11" font-family="serif">EVL</text>
+        <text x="286" y="82" text-anchor="middle" fill="#b87010" font-size="20" font-family="serif" font-weight="bold">F</text>
+        <text x="286" y="100" text-anchor="middle" fill="#8080b0" font-size="9">物質面への</text>
+        <text x="286" y="112" text-anchor="middle" fill="#8080b0" font-size="9">受容感が</text>
+        <text x="286" y="124" text-anchor="middle" fill="#8080b0" font-size="9">より顕著に</text>
       </svg>
     </div>
 
@@ -782,56 +808,56 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
       <div class="diagram-title">▶ 16通りのアクセント（4機能 × 4位置）</div>
       <svg class="diag" viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg">
         <!-- ヘッダー行 -->
-        <rect x="0" y="0" width="340" height="30" fill="#1c1e2a"/>
-        <text x="46" y="20" text-anchor="middle" fill="#7a7898" font-size="10">アクセント</text>
-        <text x="126" y="20" text-anchor="middle" fill="#e87070" font-size="12" font-family="serif" font-weight="bold">E 感情</text>
-        <text x="192" y="20" text-anchor="middle" fill="#7b9ee8" font-size="12" font-family="serif" font-weight="bold">V 意志</text>
-        <text x="258" y="20" text-anchor="middle" fill="#5ec47a" font-size="12" font-family="serif" font-weight="bold">L 論理</text>
-        <text x="316" y="20" text-anchor="middle" fill="#e8a857" font-size="12" font-family="serif" font-weight="bold">F 物質</text>
+        <rect x="0" y="0" width="340" height="30" fill="#f4f2fc"/>
+        <text x="46" y="20" text-anchor="middle" fill="#8080b0" font-size="10">アクセント</text>
+        <text x="126" y="20" text-anchor="middle" fill="#b83838" font-size="12" font-family="serif" font-weight="bold">E 感情</text>
+        <text x="192" y="20" text-anchor="middle" fill="#2a68c8" font-size="12" font-family="serif" font-weight="bold">V 意志</text>
+        <text x="258" y="20" text-anchor="middle" fill="#2a8a50" font-size="12" font-family="serif" font-weight="bold">L 論理</text>
+        <text x="316" y="20" text-anchor="middle" fill="#b87010" font-size="12" font-family="serif" font-weight="bold">F 物質</text>
         <!-- 行：第1 -->
-        <rect x="0" y="30" width="340" height="35" fill="#1e2040"/>
-        <text x="46" y="52" text-anchor="middle" fill="#a89cf5" font-size="10">第１位</text>
-        <text x="126" y="47" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">1E</text>
-        <text x="126" y="59" text-anchor="middle" fill="#7a7898" font-size="8">感情が支配的</text>
-        <text x="192" y="47" text-anchor="middle" fill="#7b9ee8" font-size="11" font-weight="bold">1V</text>
-        <text x="192" y="59" text-anchor="middle" fill="#7a7898" font-size="8">意志が支配的</text>
-        <text x="258" y="47" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">1L</text>
-        <text x="258" y="59" text-anchor="middle" fill="#7a7898" font-size="8">論理が支配的</text>
-        <text x="316" y="47" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">1F</text>
-        <text x="316" y="59" text-anchor="middle" fill="#7a7898" font-size="8">物質が支配的</text>
+        <rect x="0" y="30" width="340" height="35" fill="#eeeafc"/>
+        <text x="46" y="52" text-anchor="middle" fill="#6a50d0" font-size="10">第１位</text>
+        <text x="126" y="47" text-anchor="middle" fill="#b83838" font-size="11" font-weight="bold">1E</text>
+        <text x="126" y="59" text-anchor="middle" fill="#8080b0" font-size="8">感情が支配的</text>
+        <text x="192" y="47" text-anchor="middle" fill="#2a68c8" font-size="11" font-weight="bold">1V</text>
+        <text x="192" y="59" text-anchor="middle" fill="#8080b0" font-size="8">意志が支配的</text>
+        <text x="258" y="47" text-anchor="middle" fill="#2a8a50" font-size="11" font-weight="bold">1L</text>
+        <text x="258" y="59" text-anchor="middle" fill="#8080b0" font-size="8">論理が支配的</text>
+        <text x="316" y="47" text-anchor="middle" fill="#b87010" font-size="11" font-weight="bold">1F</text>
+        <text x="316" y="59" text-anchor="middle" fill="#8080b0" font-size="8">物質が支配的</text>
         <!-- 行：第2 -->
-        <rect x="0" y="65" width="340" height="35" fill="#1a2830"/>
-        <text x="46" y="87" text-anchor="middle" fill="#5ec47a" font-size="10">第２位</text>
-        <text x="126" y="82" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">2E</text>
-        <text x="126" y="94" text-anchor="middle" fill="#7a7898" font-size="8">感情が協調的</text>
-        <text x="192" y="82" text-anchor="middle" fill="#7b9ee8" font-size="11" font-weight="bold">2V</text>
-        <text x="192" y="94" text-anchor="middle" fill="#7a7898" font-size="8">意志が協調的</text>
-        <text x="258" y="82" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">2L</text>
-        <text x="258" y="94" text-anchor="middle" fill="#7a7898" font-size="8">論理が協調的</text>
-        <text x="316" y="82" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">2F</text>
-        <text x="316" y="94" text-anchor="middle" fill="#7a7898" font-size="8">物質が協調的</text>
+        <rect x="0" y="65" width="340" height="35" fill="#e8f4f8"/>
+        <text x="46" y="87" text-anchor="middle" fill="#2a8a50" font-size="10">第２位</text>
+        <text x="126" y="82" text-anchor="middle" fill="#b83838" font-size="11" font-weight="bold">2E</text>
+        <text x="126" y="94" text-anchor="middle" fill="#8080b0" font-size="8">感情が協調的</text>
+        <text x="192" y="82" text-anchor="middle" fill="#2a68c8" font-size="11" font-weight="bold">2V</text>
+        <text x="192" y="94" text-anchor="middle" fill="#8080b0" font-size="8">意志が協調的</text>
+        <text x="258" y="82" text-anchor="middle" fill="#2a8a50" font-size="11" font-weight="bold">2L</text>
+        <text x="258" y="94" text-anchor="middle" fill="#8080b0" font-size="8">論理が協調的</text>
+        <text x="316" y="82" text-anchor="middle" fill="#b87010" font-size="11" font-weight="bold">2F</text>
+        <text x="316" y="94" text-anchor="middle" fill="#8080b0" font-size="8">物質が協調的</text>
         <!-- 行：第3 -->
-        <rect x="0" y="100" width="340" height="35" fill="#2a1820"/>
-        <text x="46" y="122" text-anchor="middle" fill="#e87070" font-size="10">第３位</text>
-        <text x="126" y="117" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">3E</text>
-        <text x="126" y="129" text-anchor="middle" fill="#7a7898" font-size="8">感情が過敏</text>
-        <text x="192" y="117" text-anchor="middle" fill="#7b9ee8" font-size="11" font-weight="bold">3V</text>
-        <text x="192" y="129" text-anchor="middle" fill="#7a7898" font-size="8">意志が過敏</text>
-        <text x="258" y="117" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">3L</text>
-        <text x="258" y="129" text-anchor="middle" fill="#7a7898" font-size="8">論理が過敏</text>
-        <text x="316" y="117" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">3F</text>
-        <text x="316" y="129" text-anchor="middle" fill="#7a7898" font-size="8">物質が過敏</text>
+        <rect x="0" y="100" width="340" height="35" fill="#fdeef0"/>
+        <text x="46" y="122" text-anchor="middle" fill="#b83838" font-size="10">第３位</text>
+        <text x="126" y="117" text-anchor="middle" fill="#b83838" font-size="11" font-weight="bold">3E</text>
+        <text x="126" y="129" text-anchor="middle" fill="#8080b0" font-size="8">感情が過敏</text>
+        <text x="192" y="117" text-anchor="middle" fill="#2a68c8" font-size="11" font-weight="bold">3V</text>
+        <text x="192" y="129" text-anchor="middle" fill="#8080b0" font-size="8">意志が過敏</text>
+        <text x="258" y="117" text-anchor="middle" fill="#2a8a50" font-size="11" font-weight="bold">3L</text>
+        <text x="258" y="129" text-anchor="middle" fill="#8080b0" font-size="8">論理が過敏</text>
+        <text x="316" y="117" text-anchor="middle" fill="#b87010" font-size="11" font-weight="bold">3F</text>
+        <text x="316" y="129" text-anchor="middle" fill="#8080b0" font-size="8">物質が過敏</text>
         <!-- 行：第4 -->
-        <rect x="0" y="135" width="340" height="35" fill="#2a1e10"/>
-        <text x="46" y="157" text-anchor="middle" fill="#e8a857" font-size="10">第４位</text>
-        <text x="126" y="152" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">4E</text>
-        <text x="126" y="164" text-anchor="middle" fill="#7a7898" font-size="8">感情を委任</text>
-        <text x="192" y="152" text-anchor="middle" fill="#7b9ee8" font-size="11" font-weight="bold">4V</text>
-        <text x="192" y="164" text-anchor="middle" fill="#7a7898" font-size="8">意志を委任</text>
-        <text x="258" y="152" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">4L</text>
-        <text x="258" y="164" text-anchor="middle" fill="#7a7898" font-size="8">論理を委任</text>
-        <text x="316" y="152" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">4F</text>
-        <text x="316" y="164" text-anchor="middle" fill="#7a7898" font-size="8">物質を委任</text>
+        <rect x="0" y="135" width="340" height="35" fill="#fdf5e8"/>
+        <text x="46" y="157" text-anchor="middle" fill="#b87010" font-size="10">第４位</text>
+        <text x="126" y="152" text-anchor="middle" fill="#b83838" font-size="11" font-weight="bold">4E</text>
+        <text x="126" y="164" text-anchor="middle" fill="#8080b0" font-size="8">感情を委任</text>
+        <text x="192" y="152" text-anchor="middle" fill="#2a68c8" font-size="11" font-weight="bold">4V</text>
+        <text x="192" y="164" text-anchor="middle" fill="#8080b0" font-size="8">意志を委任</text>
+        <text x="258" y="152" text-anchor="middle" fill="#2a8a50" font-size="11" font-weight="bold">4L</text>
+        <text x="258" y="164" text-anchor="middle" fill="#8080b0" font-size="8">論理を委任</text>
+        <text x="316" y="152" text-anchor="middle" fill="#b87010" font-size="11" font-weight="bold">4F</text>
+        <text x="316" y="164" text-anchor="middle" fill="#8080b0" font-size="8">物質を委任</text>
         <!-- グリッド線 -->
         <line x1="85" y1="0" x2="85" y2="170" stroke="#2e3050" stroke-width="1"/>
         <line x1="159" y1="0" x2="159" y2="170" stroke="#2e3050" stroke-width="1"/>
@@ -874,33 +900,33 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
     <div class="diagram-title">▶ 相性の決まり方（2人の機能位置の対応）</div>
     <svg class="diag" viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg">
       <!-- Person A -->
-      <text x="65" y="20" text-anchor="middle" fill="#a89cf5" font-size="11" font-weight="bold">Aさん</text>
-      <rect x="15" y="28" width="100" height="24" rx="6" fill="#7b6ff050" stroke="#7b6ff0" stroke-width="1"/>
-      <text x="65" y="45" text-anchor="middle" fill="#c4b8ff" font-size="10">第１機能（強・確信）</text>
+      <text x="65" y="20" text-anchor="middle" fill="#6a50d0" font-size="11" font-weight="bold">Aさん</text>
+      <rect x="15" y="28" width="100" height="24" rx="6" fill="#7b6ff050" stroke="#8a72e8" stroke-width="1"/>
+      <text x="65" y="45" text-anchor="middle" fill="#5a3ec0" font-size="10">第１機能（強・確信）</text>
       <rect x="15" y="58" width="100" height="24" rx="6" fill="#5ec47a30" stroke="#5ec47a" stroke-width="1"/>
-      <text x="65" y="75" text-anchor="middle" fill="#5ec47a" font-size="10">第２機能（強・対話）</text>
+      <text x="65" y="75" text-anchor="middle" fill="#2a8a50" font-size="10">第２機能（強・対話）</text>
       <rect x="15" y="88" width="100" height="24" rx="6" fill="#e8707030" stroke="#e87070" stroke-width="1"/>
-      <text x="65" y="105" text-anchor="middle" fill="#e87070" font-size="10">第３機能（弱・過敏）</text>
+      <text x="65" y="105" text-anchor="middle" fill="#b83838" font-size="10">第３機能（弱・過敏）</text>
       <rect x="15" y="118" width="100" height="24" rx="6" fill="#e8a85730" stroke="#e8a857" stroke-width="1"/>
-      <text x="65" y="135" text-anchor="middle" fill="#e8a857" font-size="10">第４機能（弱・受容）</text>
+      <text x="65" y="135" text-anchor="middle" fill="#b87010" font-size="10">第４機能（弱・受容）</text>
 
       <!-- Person B -->
-      <text x="275" y="20" text-anchor="middle" fill="#a89cf5" font-size="11" font-weight="bold">Bさん</text>
-      <rect x="225" y="28" width="100" height="24" rx="6" fill="#7b6ff050" stroke="#7b6ff0" stroke-width="1"/>
-      <text x="275" y="45" text-anchor="middle" fill="#c4b8ff" font-size="10">第１機能（強・確信）</text>
+      <text x="275" y="20" text-anchor="middle" fill="#6a50d0" font-size="11" font-weight="bold">Bさん</text>
+      <rect x="225" y="28" width="100" height="24" rx="6" fill="#7b6ff050" stroke="#8a72e8" stroke-width="1"/>
+      <text x="275" y="45" text-anchor="middle" fill="#5a3ec0" font-size="10">第１機能（強・確信）</text>
       <rect x="225" y="58" width="100" height="24" rx="6" fill="#5ec47a30" stroke="#5ec47a" stroke-width="1"/>
-      <text x="275" y="75" text-anchor="middle" fill="#5ec47a" font-size="10">第２機能（強・対話）</text>
+      <text x="275" y="75" text-anchor="middle" fill="#2a8a50" font-size="10">第２機能（強・対話）</text>
       <rect x="225" y="88" width="100" height="24" rx="6" fill="#e8707030" stroke="#e87070" stroke-width="1"/>
-      <text x="275" y="105" text-anchor="middle" fill="#e87070" font-size="10">第３機能（弱・過敏）</text>
+      <text x="275" y="105" text-anchor="middle" fill="#b83838" font-size="10">第３機能（弱・過敏）</text>
       <rect x="225" y="118" width="100" height="24" rx="6" fill="#e8a85730" stroke="#e8a857" stroke-width="1"/>
-      <text x="275" y="135" text-anchor="middle" fill="#e8a857" font-size="10">第４機能（弱・受容）</text>
+      <text x="275" y="135" text-anchor="middle" fill="#b87010" font-size="10">第４機能（弱・受容）</text>
 
       <!-- ライン 1↔1 フィリア -->
       <line x1="115" y1="40" x2="225" y2="40" stroke="#88aaff" stroke-width="1.5"/>
-      <text x="170" y="37" text-anchor="middle" fill="#88aaff" font-size="9">フィリア</text>
+      <text x="170" y="37" text-anchor="middle" fill="#2a68c8" font-size="9">フィリア</text>
       <!-- ライン 2↔3 アガペー -->
       <line x1="115" y1="70" x2="225" y2="100" stroke="#c088e8" stroke-width="1.5" stroke-dasharray="4,2"/>
-      <text x="170" y="82" text-anchor="middle" fill="#c088e8" font-size="9">アガペー</text>
+      <text x="170" y="82" text-anchor="middle" fill="#8a72e8" font-size="9">アガペー</text>
       <!-- ライン 1↔3 エロス -->
       <line x1="115" y1="40" x2="225" y2="100" stroke="#e06060" stroke-width="1" stroke-dasharray="2,3"/>
       <!-- ライン 4↔4 フィリア -->
@@ -947,11 +973,11 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
       <div>
         <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">自分のタイプ</div>
-        <select id="compat-a" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:13px;-webkit-appearance:none;cursor:pointer;"></select>
+        <select id="compat-a" style="width:100%;background:#f8f6ff;border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:13px;-webkit-appearance:none;cursor:pointer;"></select>
       </div>
       <div>
         <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">相手のタイプ</div>
-        <select id="compat-b" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:13px;-webkit-appearance:none;cursor:pointer;"></select>
+        <select id="compat-b" style="width:100%;background:#f8f6ff;border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:13px;-webkit-appearance:none;cursor:pointer;"></select>
       </div>
     </div>
     <button class="btn btn-primary" onclick="calcCompat()" style="width:100%;margin-top:12px;">相性を診断する</button>
@@ -966,8 +992,16 @@ footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));borde
 </div>
 
 <footer>
-  <div>サイコソフィア理論 © A. U. Afanasyev, 1990s | 参考：casual-typology.blogspot.com</div>
-  <div style="margin-top:4px;">このサイトは学習・参考目的で作成されています</div>
+  <div style="max-width:860px;margin:0 auto;">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+      <a href="index.html" style="font-size:12px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);text-decoration:none;">← ポータルへ</a>
+      <a href="mbti.html" style="font-size:12px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);text-decoration:none;">MBTI</a>
+      <a href="enneagram.html" style="font-size:12px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);text-decoration:none;">エニアグラム</a>
+      <a href="socionics.html" style="font-size:12px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);text-decoration:none;">ソシオニクス</a>
+      <a href="bigfive.html" style="font-size:12px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);text-decoration:none;">ビッグファイブ</a>
+    </div>
+    <div style="color:rgba(255,255,255,.3);">サイコソフィア理論 © A. U. Afanasyev, 1990s | 参考：casual-typology.blogspot.com — 学習・参考目的</div>
+  </div>
 </footer>
 
 <script>
@@ -1171,7 +1205,7 @@ function calcCompat(){
     const sc=getRelationScore(rel);
     totalScore+=sc;
     const borderCols={philia:'#2e4080',quasi:'#2e5a30',eros:'#703030',agape:'#5a3080'};
-    rows+=`<div style="background:var(--bg3);border:1px solid ${borderCols[rel]};border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+    rows+=`<div style="background:#f8f6ff;border:1px solid ${borderCols[rel]};border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
       <span style="font-family:serif;font-size:18px;color:${{E:'var(--E)',V:'var(--V)',L:'var(--L)',F:'var(--F)'}[f]};min-width:22px;">${f}</span>
       <span style="font-size:11px;color:var(--text3);min-width:60px;">${{'E':'感情','V':'意志','L':'論理','F':'物質'}[f]}</span>
       <span style="font-size:12px;color:var(--text2);">${cA}の第${posA}位 ↔ ${cB}の第${posB}位</span>
@@ -1185,7 +1219,7 @@ function calcCompat(){
   res.innerHTML=`
     <div style="margin-bottom:12px;display:grid;gap:7px;">${rows}</div>
     ${sameS?`<div style="font-size:12px;color:var(--gold);margin-bottom:8px;">✦ 同じセクスタ（第${tA.sexta}セクスタ）：価値観が近く親和性あり +5</div>`:''}
-    <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:14px;text-align:center;">
+    <div style="background:#f8f6ff;border:1px solid var(--border2);border-radius:10px;padding:14px;text-align:center;">
       <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">総合スコア</div>
       <div style="font-family:serif;font-size:28px;color:${sTotal>=10?'var(--L)':sTotal>=0?'var(--gold2)':'var(--E)'};">${sTotal>0?'+':''}${sTotal}</div>
       <div style="font-size:14px;color:var(--text);margin-top:4px;">${grade}</div>
