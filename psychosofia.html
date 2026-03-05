@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>サイコソフィア — 心の設計図</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0e14; --bg2:#13141c; --bg3:#191a24; --card:#1c1e2a;
+  --border:#2e3050; --border2:#3d4070;
+  --accent:#7b6ff0; --accent2:#a89cf5; --accent3:#c4b8ff;
+  --gold:#d4a853; --gold2:#f0cc7a;
+  --text:#e8e6f0; --text2:#b0adc8; --text3:#7a7898;
+  --E:#e87070; --V:#7b9ee8; --L:#5ec47a; --F:#e8a857;
+  --E-bg:#2a1818; --V-bg:#17203a; --L-bg:#182a1e; --F-bg:#2a1e10;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden;font-size:14px;}
+
+/* HEADER */
+.site-header{text-align:center;padding:40px 16px 28px;position:relative;overflow:hidden;}
+.site-header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,#2a246840 0%,transparent 70%);pointer-events:none;}
+.eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--accent2);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;}
+.site-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,8vw,64px);font-weight:300;letter-spacing:.08em;background:linear-gradient(135deg,var(--accent3) 0%,var(--gold2) 50%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:8px;}
+.ornament{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:14px auto;}
+.site-sub{font-size:11px;color:var(--text3);letter-spacing:2px;}
+
+/* TABS - sticky bottom on mobile */
+.tabs-nav{display:flex;justify-content:center;gap:0;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tab-btn{font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:400;padding:11px 14px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;}
+.tab-btn:hover{color:var(--text2);}
+.tab-btn.active{color:var(--accent2);border-bottom-color:var(--accent);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* CONTAINER */
+.container{max-width:860px;margin:0 auto;padding:24px 14px 80px;}
+
+/* TYPOGRAPHY */
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,30px);font-weight:400;color:var(--gold2);margin-bottom:4px;letter-spacing:.05em;}
+.section-subtitle{font-size:12px;color:var(--accent2);margin-bottom:24px;letter-spacing:1px;}
+h2.sh{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--text);margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 16px;margin-bottom:16px;}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;margin-bottom:8px;color:var(--text);}
+.card p{font-size:13px;color:var(--text2);line-height:1.8;}
+
+.info-box{background:#1a1b2e;border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--text2);line-height:1.7;}
+
+/* ===== SVG DIAGRAMS ===== */
+.diagram-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:20px;overflow:hidden;}
+.diagram-title{font-size:11px;color:var(--text3);letter-spacing:2px;margin-bottom:12px;text-align:center;}
+svg.diag{width:100%;height:auto;display:block;}
+
+/* INNER TABS */
+.inner-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto;scrollbar-width:none;}
+.inner-tabs::-webkit-scrollbar{display:none;}
+.inner-tab{font-size:12px;padding:9px 14px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.inner-tab.active{color:var(--gold2);border-bottom-color:var(--gold);}
+.inner-panel{display:none;}
+.inner-panel.active{display:block;}
+
+/* FUNC CARDS */
+.func-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+@media(max-width:480px){.func-grid{grid-template-columns:1fr;}}
+.func-card{border-radius:12px;padding:16px;border:1px solid;position:relative;overflow:hidden;}
+.func-card::after{content:attr(data-l);position:absolute;right:-8px;top:-8px;font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;opacity:.07;color:white;line-height:1;pointer-events:none;}
+.func-card.E{background:var(--E-bg);border-color:#5a2020;}
+.func-card.V{background:var(--V-bg);border-color:#1e305a;}
+.func-card.L{background:var(--L-bg);border-color:#1e4a28;}
+.func-card.F{background:var(--F-bg);border-color:#5a3010;}
+.func-letter{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1;margin-bottom:4px;}
+.func-letter.E{color:var(--E);}
+.func-letter.V{color:var(--V);}
+.func-letter.L{color:var(--L);}
+.func-letter.F{color:var(--F);}
+.func-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px;}
+.func-desc{font-size:12px;color:var(--text2);line-height:1.7;}
+
+/* POSITIONS */
+.pos-list{display:grid;gap:10px;margin-bottom:20px;}
+.pos-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;}
+.pos-num-box{flex-shrink:0;text-align:center;width:56px;}
+.pos-n{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--accent2);line-height:1;}
+.pos-att{display:inline-block;font-size:10px;padding:2px 6px;border-radius:20px;background:#2a2a4a;color:var(--accent2);margin-top:3px;white-space:nowrap;}
+.pos-body h4{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px;}
+.pos-body p{font-size:12px;color:var(--text2);line-height:1.7;}
+
+/* ATTITUDE GRID */
+.att-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+@media(max-width:480px){.att-grid{grid-template-columns:1fr;}}
+.att-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.att-formula{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--accent2);margin-bottom:4px;}
+.att-quote{font-size:11px;color:var(--text3);font-style:italic;margin-bottom:7px;line-height:1.5;}
+.att-desc{font-size:12px;color:var(--text2);line-height:1.7;}
+
+/* SEXTA */
+.sexta-list{display:grid;gap:12px;margin-bottom:20px;}
+.sexta-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.sexta-hd{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.sexta-n{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold2);width:28px;text-align:center;flex-shrink:0;}
+.sexta-title{font-size:14px;font-weight:500;color:var(--text);}
+.type-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px;}
+.tt{font-size:12px;padding:2px 8px;border-radius:4px;background:#252840;border:1px solid var(--border2);color:var(--accent2);font-family:'Cormorant Garamond',serif;letter-spacing:1px;}
+.sexta-mission{font-size:11px;color:var(--gold);margin-bottom:7px;}
+.sexta-desc{font-size:12px;color:var(--text2);line-height:1.7;}
+.sexta-axis{font-size:11px;color:var(--text3);margin-top:6px;background:#ffffff08;padding:6px 8px;border-radius:6px;}
+
+/* CLUBS */
+.clubs-grid{display:grid;gap:12px;margin-bottom:20px;}
+.club-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.club-hd{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.club-icon{font-size:18px;}
+.club-name{font-size:14px;font-weight:500;color:var(--text);}
+.club-desc{font-size:12px;color:var(--text2);line-height:1.7;}
+.club-jobs{font-size:11px;color:var(--gold);margin-top:5px;}
+
+/* TYPES LIST */
+.type-filter-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.flt-btn{font-size:11px;padding:5px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.flt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+.type-list{display:grid;gap:12px;}
+.type-item{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.type-item-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;}
+.type-item-header:active{background:#ffffff05;}
+.type-code-big{font-family:'Cormorant Garamond',serif;font-size:24px;letter-spacing:3px;min-width:90px;}
+.type-meta{flex:1;}
+.type-person{font-size:13px;color:var(--gold);font-weight:400;}
+.type-sexta-badge{font-size:10px;color:var(--text3);margin-top:1px;}
+.type-chevron{font-size:12px;color:var(--text3);transition:transform .25s;flex-shrink:0;}
+.type-item.open .type-chevron{transform:rotate(180deg);}
+.type-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border);}
+.type-item.open .type-body{display:block;}
+.type-desc{font-size:13px;color:var(--text2);line-height:1.8;margin-top:12px;}
+.type-funcs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;}
+.tf{border-radius:8px;padding:8px 6px;text-align:center;border:1px solid;}
+.tf.E{background:var(--E-bg);border-color:#5a2020;}
+.tf.V{background:var(--V-bg);border-color:#1e305a;}
+.tf.L{background:var(--L-bg);border-color:#1e4a28;}
+.tf.F{background:var(--F-bg);border-color:#5a3010;}
+.tf-rank{font-size:10px;color:var(--text3);}
+.tf-letter{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;}
+.tf-letter.E{color:var(--E);}
+.tf-letter.V{color:var(--V);}
+.tf-letter.L{color:var(--L);}
+.tf-letter.F{color:var(--F);}
+.tf-name{font-size:9px;color:var(--text3);}
+
+/* COMPAT */
+.compat-grid{display:grid;gap:14px;margin-bottom:20px;}
+.compat-card{border-radius:12px;padding:18px 16px;border:1px solid;}
+.compat-card.philia{background:#1a2035;border-color:#2e4080;}
+.compat-card.quasi{background:#1a2a1a;border-color:#2e5a30;}
+.compat-card.eros{background:#2a1a1a;border-color:#703030;}
+.compat-card.agape{background:#251a30;border-color:#5a3080;}
+.compat-hd{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.compat-icon{font-size:20px;}
+.compat-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;}
+.compat-card.philia .compat-name{color:#88aaff;}
+.compat-card.quasi .compat-name{color:#6ac87a;}
+.compat-card.eros .compat-name{color:#e06060;}
+.compat-card.agape .compat-name{color:#c088e8;}
+.compat-rule{font-size:11px;color:var(--text3);letter-spacing:1px;margin-bottom:8px;background:#ffffff08;padding:5px 9px;border-radius:6px;display:inline-block;}
+.compat-desc{font-size:12px;color:var(--text2);line-height:1.75;}
+.stars-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap;}
+.stars-label{font-size:10px;color:var(--text3);}
+.stars{font-size:12px;}
+
+/* QUIZ */
+.prog-bar{background:var(--bg3);border-radius:4px;height:3px;margin-bottom:24px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:4px;transition:width .4s ease;width:0%;}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 16px;margin-bottom:16px;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.q-step{font-size:11px;color:var(--accent2);letter-spacing:3px;margin-bottom:10px;font-weight:500;}
+.q-text{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--text);font-weight:400;margin-bottom:20px;line-height:1.8;}
+.opts{display:grid;gap:8px;}
+.opt-btn{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text2);font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:300;text-align:left;cursor:pointer;transition:all .2s;line-height:1.6;-webkit-appearance:none;}
+.opt-btn:active,.opt-btn:hover{background:#252840;border-color:var(--accent);color:var(--text);}
+.opt-btn.selected{background:#1e1f35;border-color:var(--accent2);color:var(--accent3);}
+.nav-btns{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
+.btn{padding:10px 22px;border-radius:8px;font-size:13px;cursor:pointer;transition:all .2s;border:none;font-family:'Noto Sans JP',sans-serif;-webkit-appearance:none;}
+.btn-primary{background:var(--accent);color:white;font-weight:500;}
+.btn-primary:hover,.btn-primary:active{background:var(--accent2);}
+.btn-primary:disabled{background:#3a3a60;color:var(--text3);cursor:not-allowed;}
+.btn-ghost{background:none;border:1px solid var(--border2);color:var(--text2);}
+.btn-ghost:hover,.btn-ghost:active{border-color:var(--accent2);color:var(--text);}
+
+/* RESULT */
+.result-hero{text-align:center;padding:32px 14px;background:linear-gradient(180deg,#1a1b2e 0%,var(--card) 100%);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;position:relative;overflow:hidden;}
+.result-hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:240px;height:240px;background:radial-gradient(circle,#3d3580 0%,transparent 70%);pointer-events:none;}
+.result-type{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,12vw,72px);font-weight:300;letter-spacing:.15em;background:linear-gradient(135deg,var(--accent3),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;position:relative;}
+.result-name{font-size:13px;color:var(--gold2);letter-spacing:3px;margin-bottom:16px;}
+.result-desc{font-size:13px;color:var(--text2);line-height:1.8;}
+.scores-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.sc-card{border-radius:10px;padding:14px;}
+.sc-card.E{background:var(--E-bg);border:1px solid #5a2020;}
+.sc-card.V{background:var(--V-bg);border:1px solid #1e305a;}
+.sc-card.L{background:var(--L-bg);border:1px solid #1e4a28;}
+.sc-card.F{background:var(--F-bg);border:1px solid #5a3010;}
+.sc-label{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.sc-dot{width:8px;height:8px;border-radius:50%;}
+.sc-dot.E{background:var(--E);}
+.sc-dot.V{background:var(--V);}
+.sc-dot.L{background:var(--L);}
+.sc-dot.F{background:var(--F);}
+.sc-lname{font-size:12px;color:var(--text2);}
+.sc-rank{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;}
+.sc-rank.E{color:var(--E);}
+.sc-rank.V{color:var(--V);}
+.sc-rank.L{color:var(--L);}
+.sc-rank.F{color:var(--F);}
+.sc-bar-wrap{background:#ffffff10;border-radius:3px;height:3px;margin-top:6px;}
+.sc-bar{height:100%;border-radius:3px;transition:width .6s ease;}
+.sc-bar.E{background:var(--E);}
+.sc-bar.V{background:var(--V);}
+.sc-bar.L{background:var(--L);}
+.sc-bar.F{background:var(--F);}
+.result-extras{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.ex-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.ex-label{font-size:10px;color:var(--text3);letter-spacing:2px;margin-bottom:4px;}
+.ex-value{font-size:14px;color:var(--accent2);font-weight:500;}
+.ex-sub{font-size:11px;color:var(--text3);margin-top:3px;}
+
+footer{text-align:center;padding:32px 16px calc(32px + var(--safe-bottom));border-top:1px solid var(--border);font-size:11px;color:var(--text3);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="eyebrow">Psychosophy · 心理分析</div>
+  <h1>サイコソフィア</h1>
+  <div class="ornament"></div>
+  <div class="site-sub">心の設計図 — あなたの内的優先順位を解き明かす</div>
+</header>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" onclick="showTab('t-diag',this)">🔮 診断</button>
+  <button class="tab-btn" onclick="showTab('t-overview',this)">📖 理論</button>
+  <button class="tab-btn" onclick="showTab('t-types',this)">📋 タイプ一覧</button>
+  <button class="tab-btn" onclick="showTab('t-compat',this)">💞 相性</button>
+</nav>
+
+<!-- =================== DIAGNOSIS =================== -->
+<div id="t-diag" class="tab-content active">
+<div class="container">
+  <div class="section-title">簡易診断</div>
+  <div class="section-subtitle">20問の質問に答えてタイプを判定します</div>
+  <div class="prog-bar"><div class="prog-fill" id="prog"></div></div>
+  <div id="quiz-area"></div>
+  <div id="result-area" style="display:none;"></div>
+</div>
+</div>
+
+<!-- =================== OVERVIEW =================== -->
+<div id="t-overview" class="tab-content">
+<div class="container">
+  <div class="section-title">サイコソフィアとは</div>
+  <div class="section-subtitle">理論の基礎から応用まで</div>
+
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showInner('ov-basics',this)">基礎</button>
+    <button class="inner-tab" onclick="showInner('ov-functions',this)">4機能</button>
+    <button class="inner-tab" onclick="showInner('ov-positions',this)">4位置</button>
+    <button class="inner-tab" onclick="showInner('ov-sexta',this)">セクスタ</button>
+    <button class="inner-tab" onclick="showInner('ov-clubs',this)">クラブ</button>
+    <button class="inner-tab" onclick="showInner('ov-accent',this)">サブタイプ</button>
+  </div>
+
+  <!-- 基礎 -->
+  <div id="ov-basics" class="inner-panel active">
+    <div class="card">
+      <h3>サイコソフィアとは何か？</h3>
+      <p>ロシアの思想家 <strong>アレクサンドル・アファナシエフ</strong>が1990年代に提唱した心理類型論。「サイコソフィア」は「心の知恵」を意味します。ソシオニクスから着想を得ながらも、独自の視点で人間の<strong>内的世界と優先分野</strong>を分析します。</p>
+    </div>
+
+    <!-- DIAGRAM: 24タイプの仕組み -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">▶ 24タイプが生まれる仕組み</div>
+      <svg class="diag" viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- 4要素 -->
+        <rect x="10" y="20" width="52" height="28" rx="6" fill="#2a1818" stroke="#5a2020"/>
+        <text x="36" y="39" text-anchor="middle" fill="#e87070" font-size="14" font-family="serif" font-weight="bold">E</text>
+        <rect x="70" y="20" width="52" height="28" rx="6" fill="#17203a" stroke="#1e305a"/>
+        <text x="96" y="39" text-anchor="middle" fill="#7b9ee8" font-size="14" font-family="serif" font-weight="bold">V</text>
+        <rect x="130" y="20" width="52" height="28" rx="6" fill="#182a1e" stroke="#1e4a28"/>
+        <text x="156" y="39" text-anchor="middle" fill="#5ec47a" font-size="14" font-family="serif" font-weight="bold">L</text>
+        <rect x="190" y="20" width="52" height="28" rx="6" fill="#2a1e10" stroke="#5a3010"/>
+        <text x="216" y="39" text-anchor="middle" fill="#e8a857" font-size="14" font-family="serif" font-weight="bold">F</text>
+        <!-- Arrow down -->
+        <line x1="170" y1="55" x2="170" y2="75" stroke="#3d4070" stroke-width="1.5" marker-end="url(#arr)"/>
+        <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,1 L0,7 L7,4 Z" fill="#3d4070"/></marker></defs>
+        <!-- Result box -->
+        <rect x="40" y="80" width="260" height="36" rx="8" fill="#252840" stroke="#3d4070"/>
+        <text x="170" y="99" text-anchor="middle" fill="#a89cf5" font-size="12" font-family="sans-serif">並べ替え：4! = 24通り</text>
+        <text x="170" y="113" text-anchor="middle" fill="#7a7898" font-size="10" font-family="sans-serif">例：EVLF / VLFE / FVEL …</text>
+        <!-- Arrow down2 -->
+        <line x1="170" y1="122" x2="170" y2="140" stroke="#3d4070" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="70" y="145" width="200" height="26" rx="7" fill="#1c1e2a" stroke="#7b6ff0"/>
+        <text x="170" y="163" text-anchor="middle" fill="#c4b8ff" font-size="12" font-family="sans-serif" font-weight="bold">24のサイコソフィアタイプ</text>
+      </svg>
+    </div>
+
+    <!-- DIAGRAM: I/You 態度 -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">▶ 4つの態度（I/You の +/−）</div>
+      <svg class="diag" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
+        <!-- 軸 -->
+        <line x1="170" y1="20" x2="170" y2="200" stroke="#3d4070" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="110" x2="310" y2="110" stroke="#3d4070" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- 軸ラベル -->
+        <text x="170" y="14" text-anchor="middle" fill="#a89cf5" font-size="10">You ＋</text>
+        <text x="170" y="210" text-anchor="middle" fill="#a89cf5" font-size="10">You −</text>
+        <text x="14" y="114" text-anchor="middle" fill="#a89cf5" font-size="10">I −</text>
+        <text x="320" y="114" text-anchor="middle" fill="#a89cf5" font-size="10">I ＋</text>
+        <!-- 第1機能: I+ You- (右下) -->
+        <rect x="195" y="125" width="105" height="62" rx="8" fill="#2a1820" stroke="#7b6ff0" stroke-width="1.5"/>
+        <text x="247" y="145" text-anchor="middle" fill="#c4b8ff" font-size="11" font-weight="bold">第１機能</text>
+        <text x="247" y="158" text-anchor="middle" fill="#c4b8ff" font-size="10">I ＋  You −</text>
+        <text x="247" y="173" text-anchor="middle" fill="#7a7898" font-size="9">「私が正しい」</text>
+        <text x="247" y="184" text-anchor="middle" fill="#7a7898" font-size="9">確信・支配</text>
+        <!-- 第2機能: I+ You+ (右上) -->
+        <rect x="195" y="30" width="105" height="62" rx="8" fill="#172030" stroke="#5ec47a" stroke-width="1.5"/>
+        <text x="247" y="50" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">第２機能</text>
+        <text x="247" y="63" text-anchor="middle" fill="#5ec47a" font-size="10">I ＋  You ＋</text>
+        <text x="247" y="78" text-anchor="middle" fill="#7a7898" font-size="9">「共に考えよう」</text>
+        <text x="247" y="89" text-anchor="middle" fill="#7a7898" font-size="9">対話・協調</text>
+        <!-- 第3機能: I- You- (左下) -->
+        <rect x="40" y="125" width="105" height="62" rx="8" fill="#2a1818" stroke="#e87070" stroke-width="1.5"/>
+        <text x="92" y="145" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">第３機能</text>
+        <text x="92" y="158" text-anchor="middle" fill="#e87070" font-size="10">I −  You −</text>
+        <text x="92" y="173" text-anchor="middle" fill="#7a7898" font-size="9">「誰も信じられない」</text>
+        <text x="92" y="184" text-anchor="middle" fill="#7a7898" font-size="9">傷つきやすい</text>
+        <!-- 第4機能: I- You+ (左上) -->
+        <rect x="40" y="30" width="105" height="62" rx="8" fill="#1a1a2a" stroke="#e8a857" stroke-width="1.5"/>
+        <text x="92" y="50" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">第４機能</text>
+        <text x="92" y="63" text-anchor="middle" fill="#e8a857" font-size="10">I −  You ＋</text>
+        <text x="92" y="78" text-anchor="middle" fill="#7a7898" font-size="9">「あなたに任せる」</text>
+        <text x="92" y="89" text-anchor="middle" fill="#7a7898" font-size="9">受容・委任</text>
+      </svg>
+    </div>
+
+    <!-- DIAGRAM: 上位/下位・結果/プロセス -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">▶ 上位/下位・結果指向/プロセス指向</div>
+      <svg class="diag" viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg">
+        <!-- 4機能ボックス -->
+        <rect x="20" y="30" width="65" height="70" rx="8" fill="#1e2040" stroke="#7b6ff0" stroke-width="1.5"/>
+        <text x="52" y="58" text-anchor="middle" fill="#c4b8ff" font-size="11" font-weight="bold">第１</text>
+        <text x="52" y="73" text-anchor="middle" fill="#c4b8ff" font-size="10">強・自信</text>
+        <text x="52" y="87" text-anchor="middle" fill="#a89cf5" font-size="10">結果指向</text>
+        <rect x="98" y="30" width="65" height="70" rx="8" fill="#1a2830" stroke="#5ec47a" stroke-width="1.5"/>
+        <text x="130" y="58" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">第２</text>
+        <text x="130" y="73" text-anchor="middle" fill="#5ec47a" font-size="10">強・対話</text>
+        <text x="130" y="87" text-anchor="middle" fill="#7a7898" font-size="10">プロセス指向</text>
+        <rect x="176" y="30" width="65" height="70" rx="8" fill="#2a1818" stroke="#e87070" stroke-width="1.5"/>
+        <text x="208" y="58" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">第３</text>
+        <text x="208" y="73" text-anchor="middle" fill="#e87070" font-size="10">弱・過敏</text>
+        <text x="208" y="87" text-anchor="middle" fill="#7a7898" font-size="10">プロセス指向</text>
+        <rect x="254" y="30" width="65" height="70" rx="8" fill="#2a1e10" stroke="#e8a857" stroke-width="1.5"/>
+        <text x="286" y="58" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">第４</text>
+        <text x="286" y="73" text-anchor="middle" fill="#e8a857" font-size="10">弱・受容</text>
+        <text x="286" y="87" text-anchor="middle" fill="#a89cf5" font-size="10">結果指向</text>
+        <!-- ブラケット 上位 -->
+        <line x1="20" y1="18" x2="162" y2="18" stroke="#7b6ff0" stroke-width="1.5"/>
+        <text x="91" y="13" text-anchor="middle" fill="#7b6ff0" font-size="10">上位（強い）</text>
+        <!-- ブラケット 下位 -->
+        <line x1="176" y1="18" x2="320" y2="18" stroke="#e8a857" stroke-width="1.5"/>
+        <text x="248" y="13" text-anchor="middle" fill="#e8a857" font-size="10">下位（弱い）</text>
+        <!-- 結果ブラケット -->
+        <path d="M52,108 Q52,128 169,128 Q286,128 286,108" stroke="#a89cf5" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+        <text x="169" y="143" text-anchor="middle" fill="#a89cf5" font-size="9">結果指向（1・4番目）</text>
+      </svg>
+    </div>
+
+    <div class="info-box">
+      💡 <strong>ソシオニクスとの違い</strong><br>
+      ソシオニクスは「外界の情報をどう処理するか（情報代謝）」を扱います。サイコソフィアは「自分の中で何を優先するか（内的優先順位）」を扱います。同じMBTIタイプでも、サイコソフィアが異なれば行動傾向がかなり変わります。
+    </div>
+
+    <div class="att-grid">
+      <div class="att-card">
+        <div class="att-formula">第１位：I＋ You－</div>
+        <div class="att-quote">「私の見方が正しく、あなたの意見は不要」</div>
+        <div class="att-desc">最も強い機能。自信があり積極的に発揮される。他者がこの領域に干渉すると強い反発を示す。「切り札」として対立時に前面に出る。</div>
+      </div>
+      <div class="att-card">
+        <div class="att-formula">第２位：I＋ You＋</div>
+        <div class="att-quote">「私も考えるし、あなたの意見も聞きたい」</div>
+        <div class="att-desc">柔軟で対話的。自信を持ちながら他者と議論・交流することを楽しむ。最も協調的で他者への貢献を好む機能。</div>
+      </div>
+      <div class="att-card">
+        <div class="att-formula">第３位：I－ You－</div>
+        <div class="att-quote">「私もよくわからないし、あなたも違うかも」</div>
+        <div class="att-desc">最も傷つきやすい機能。自分にも確信が持てず、他者の批判に過敏に反応する。この領域での干渉が強いストレスになる。</div>
+      </div>
+      <div class="att-card">
+        <div class="att-formula">第４位：I－ You＋</div>
+        <div class="att-quote">「私は不得意なので、あなたにお任せします」</div>
+        <div class="att-desc">最も弱い機能だが批判に比較的寛容。この領域では他者のリードを受け入れる。第３機能と違い、批判されても傷つきにくい。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4機能 -->
+  <div id="ov-functions" class="inner-panel">
+    <div class="diagram-wrap">
+      <div class="diagram-title">▶ 4つの心理機能の領域</div>
+      <svg class="diag" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="16" width="75" height="115" rx="10" fill="#2a1818" stroke="#5a2020"/>
+        <text x="47" y="50" text-anchor="middle" fill="#e87070" font-size="22" font-family="serif" font-weight="bold">E</text>
+        <text x="47" y="68" text-anchor="middle" fill="#e87070" font-size="11">感情</text>
+        <text x="47" y="84" text-anchor="middle" fill="#7a7898" font-size="9">共感・芸術</text>
+        <text x="47" y="97" text-anchor="middle" fill="#7a7898" font-size="9">感受性</text>
+        <text x="47" y="110" text-anchor="middle" fill="#7a7898" font-size="9">感情表現</text>
+        <rect x="92" y="16" width="75" height="115" rx="10" fill="#17203a" stroke="#1e305a"/>
+        <text x="129" y="50" text-anchor="middle" fill="#7b9ee8" font-size="22" font-family="serif" font-weight="bold">V</text>
+        <text x="129" y="68" text-anchor="middle" fill="#7b9ee8" font-size="11">意志</text>
+        <text x="129" y="84" text-anchor="middle" fill="#7a7898" font-size="9">決断・目標</text>
+        <text x="129" y="97" text-anchor="middle" fill="#7a7898" font-size="9">リーダーシップ</text>
+        <text x="129" y="110" text-anchor="middle" fill="#7a7898" font-size="9">自己主張</text>
+        <rect x="174" y="16" width="75" height="115" rx="10" fill="#182a1e" stroke="#1e4a28"/>
+        <text x="211" y="50" text-anchor="middle" fill="#5ec47a" font-size="22" font-family="serif" font-weight="bold">L</text>
+        <text x="211" y="68" text-anchor="middle" fill="#5ec47a" font-size="11">論理</text>
+        <text x="211" y="84" text-anchor="middle" fill="#7a7898" font-size="9">分析・思考</text>
+        <text x="211" y="97" text-anchor="middle" fill="#7a7898" font-size="9">概念操作</text>
+        <text x="211" y="110" text-anchor="middle" fill="#7a7898" font-size="9">知識探求</text>
+        <rect x="256" y="16" width="75" height="115" rx="10" fill="#2a1e10" stroke="#5a3010"/>
+        <text x="293" y="50" text-anchor="middle" fill="#e8a857" font-size="22" font-family="serif" font-weight="bold">F</text>
+        <text x="293" y="68" text-anchor="middle" fill="#e8a857" font-size="11">物質</text>
+        <text x="293" y="84" text-anchor="middle" fill="#7a7898" font-size="9">身体感覚</text>
+        <text x="293" y="97" text-anchor="middle" fill="#7a7898" font-size="9">美的センス</text>
+        <text x="293" y="110" text-anchor="middle" fill="#7a7898" font-size="9">実践・行動</text>
+      </svg>
+    </div>
+
+    <div class="func-grid">
+      <div class="func-card E" data-l="E">
+        <div class="func-letter E">E</div>
+        <div class="func-name">感情 / Emotion</div>
+        <div class="func-desc">感情的交流・直感・芸術性・共感力。他者の気持ちへの感受性と自己の感情表現を司る。<br><br><strong style="color:var(--E)">強(1・2位)：</strong>豊かな感情表現、他者の感情を読む力。<br><strong style="color:var(--text3)">弱(3・4位)：</strong>感情の扱いが苦手、表現しにくい。</div>
+      </div>
+      <div class="func-card V" data-l="V">
+        <div class="func-letter V">V</div>
+        <div class="func-name">意志 / Volition</div>
+        <div class="func-desc">意志力・決断力・目標設定・自己主張・責任感。「何を目指すか」「どう決断するか」を司る。<br><br><strong style="color:var(--V)">強(1・2位)：</strong>リーダーシップ、強い意志と信念。<br><strong style="color:var(--text3)">弱(3・4位)：</strong>決断を他者に委ねがち。</div>
+      </div>
+      <div class="func-card L" data-l="L">
+        <div class="func-letter L">L</div>
+        <div class="func-name">論理 / Logic</div>
+        <div class="func-desc">理性的判断・知識探求・分析思考・概念操作。情報整理と論理的思考を担う。<br><br><strong style="color:var(--L)">強(1・2位)：</strong>体系的思考、分析力の高さ。<br><strong style="color:var(--text3)">弱(3・4位)：</strong>論理的議論を苦手とする。</div>
+      </div>
+      <div class="func-card F" data-l="F">
+        <div class="func-letter F">F</div>
+        <div class="func-name">物質 / Physics</div>
+        <div class="func-desc">身体感覚・美的センス・所有欲・快適さ・実践的行動。物理的世界との関わりを司る。<br><br><strong style="color:var(--F)">強(1・2位)：</strong>実行力、美的センス、行動力。<br><strong style="color:var(--text3)">弱(3・4位)：</strong>身体管理や物的快適さへの関心が薄い。</div>
+      </div>
+    </div>
+    <div class="info-box">⚠️ <strong>「論理」は「思考力」ではない</strong><br>L（論理）は「頭が良い・悪い」とは無関係です。「アイデアや概念を操作するプロセス」を指し、L が低位でも非常に知性的な人はたくさんいます。</div>
+  </div>
+
+  <!-- 4位置 -->
+  <div id="ov-positions" class="inner-panel">
+    <!-- DIAGRAM: 機能の強弱グラデーション -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">▶ 4つの位置のエネルギーイメージ</div>
+      <svg class="diag" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+        <!-- バー -->
+        <rect x="30" y="20" width="60" height="70" rx="6" fill="#7b6ff090"/>
+        <rect x="105" y="35" width="60" height="55" rx="6" fill="#5ec47a80"/>
+        <rect x="180" y="65" width="60" height="25" rx="6" fill="#e8707080"/>
+        <rect x="255" y="75" width="60" height="15" rx="6" fill="#e8a85780"/>
+        <!-- ラベル -->
+        <text x="60" y="16" text-anchor="middle" fill="#a89cf5" font-size="10" font-weight="bold">第１</text>
+        <text x="135" y="31" text-anchor="middle" fill="#5ec47a" font-size="10" font-weight="bold">第２</text>
+        <text x="210" y="61" text-anchor="middle" fill="#e87070" font-size="10" font-weight="bold">第３</text>
+        <text x="285" y="71" text-anchor="middle" fill="#e8a857" font-size="10" font-weight="bold">第４</text>
+        <!-- 強度テキスト -->
+        <text x="60" y="55" text-anchor="middle" fill="white" font-size="10">確信</text>
+        <text x="60" y="68" text-anchor="middle" fill="white" font-size="9">支配</text>
+        <text x="135" y="67" text-anchor="middle" fill="white" font-size="10">対話</text>
+        <text x="135" y="80" text-anchor="middle" fill="white" font-size="9">協調</text>
+        <text x="210" y="84" text-anchor="middle" fill="white" font-size="9">脆弱</text>
+        <text x="285" y="86" text-anchor="middle" fill="white" font-size="9">受容</text>
+        <!-- 底線 -->
+        <line x1="20" y1="98" x2="325" y2="98" stroke="#3d4070" stroke-width="1"/>
+        <text x="20" y="113" fill="#7a7898" font-size="9">強い</text>
+        <text x="295" y="113" fill="#7a7898" font-size="9">弱い</text>
+        <text x="170" y="118" text-anchor="middle" fill="#7a7898" font-size="8">← 上位 ─────── 下位 →</text>
+      </svg>
+    </div>
+
+    <div class="pos-list">
+      <div class="pos-item">
+        <div class="pos-num-box">
+          <div class="pos-n">1</div>
+          <div class="pos-att">I＋ You－</div>
+        </div>
+        <div class="pos-body">
+          <h4>第１機能（支配・確信）</h4>
+          <p>最も強く自然に発揮される機能。圧倒的な自信があり、他者がこの領域に干渉すると強い反発を示す。対立時に「切り札」として前面に出る。この機能を批判されることを最も嫌う。</p>
+        </div>
+      </div>
+      <div class="pos-item">
+        <div class="pos-num-box">
+          <div class="pos-n">2</div>
+          <div class="pos-att">I＋ You＋</div>
+        </div>
+        <div class="pos-body">
+          <h4>第２機能（対話・協調）</h4>
+          <p>強い機能ながら開かれている。自信を持ちながら他者の意見も積極的に取り入れる。議論・交流を楽しみ、他者への貢献を通じて最も力を発揮する。相性論でも鍵となる機能。</p>
+        </div>
+      </div>
+      <div class="pos-item">
+        <div class="pos-num-box">
+          <div class="pos-n">3</div>
+          <div class="pos-att">I－ You－</div>
+        </div>
+        <div class="pos-body">
+          <h4>第３機能（傷つきやすさ）</h4>
+          <p>最も傷つきやすく不安定な機能。自分でも確信が持てず、他者の批判に過敏に反応する。この領域での失敗を極度に恐れ、成功すると他の機能以上の満足感を得る。</p>
+        </div>
+      </div>
+      <div class="pos-item">
+        <div class="pos-num-box">
+          <div class="pos-n">4</div>
+          <div class="pos-att">I－ You＋</div>
+        </div>
+        <div class="pos-body">
+          <h4>第４機能（受容・委任）</h4>
+          <p>最も弱い機能だが批判に比較的寛容。「この領域はよくわからないので、詳しい人に任せます」という態度。第３機能と違い、ここへの批判で傷つきにくい。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- セクスタ -->
+  <div id="ov-sexta" class="inner-panel">
+    <!-- DIAGRAM: 6 sextaの円形配置 -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">▶ 6つのセクスタ（人類発展の役割）</div>
+      <svg class="diag" viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="hexGrad" cx="50%" cy="50%"><stop offset="0%" stop-color="#252840"/><stop offset="100%" stop-color="#1c1e2a"/></radialGradient>
+        </defs>
+        <!-- 中心 -->
+        <circle cx="170" cy="100" r="32" fill="#252840" stroke="#7b6ff0" stroke-width="1.5"/>
+        <text x="170" y="97" text-anchor="middle" fill="#a89cf5" font-size="10" font-weight="bold">24</text>
+        <text x="170" y="110" text-anchor="middle" fill="#a89cf5" font-size="10">タイプ</text>
+        <!-- S1 上 -->
+        <ellipse cx="170" cy="24" rx="46" ry="18" fill="#2a1818" stroke="#e87070" stroke-width="1"/>
+        <text x="170" y="21" text-anchor="middle" fill="#e87070" font-size="10" font-weight="bold">第１</text>
+        <text x="170" y="33" text-anchor="middle" fill="#7a7898" font-size="8">開拓者</text>
+        <!-- S2 右上 -->
+        <ellipse cx="292" cy="58" rx="44" ry="18" fill="#172030" stroke="#5ec47a" stroke-width="1"/>
+        <text x="292" y="55" text-anchor="middle" fill="#5ec47a" font-size="10" font-weight="bold">第２</text>
+        <text x="292" y="67" text-anchor="middle" fill="#7a7898" font-size="8">建設者</text>
+        <!-- S3 右下 -->
+        <ellipse cx="292" cy="142" rx="44" ry="18" fill="#1e1a10" stroke="#e8a857" stroke-width="1"/>
+        <text x="292" y="139" text-anchor="middle" fill="#e8a857" font-size="10" font-weight="bold">第３</text>
+        <text x="292" y="151" text-anchor="middle" fill="#7a7898" font-size="8">統治者</text>
+        <!-- S4 下 -->
+        <ellipse cx="170" cy="176" rx="46" ry="18" fill="#1a1a2e" stroke="#7b9ee8" stroke-width="1"/>
+        <text x="170" y="173" text-anchor="middle" fill="#7b9ee8" font-size="10" font-weight="bold">第４</text>
+        <text x="170" y="185" text-anchor="middle" fill="#7a7898" font-size="8">文化人</text>
+        <!-- S5 左下 -->
+        <ellipse cx="48" cy="142" rx="44" ry="18" fill="#251a30" stroke="#c088e8" stroke-width="1"/>
+        <text x="48" y="139" text-anchor="middle" fill="#c088e8" font-size="10" font-weight="bold">第５</text>
+        <text x="48" y="151" text-anchor="middle" fill="#7a7898" font-size="8">消費者</text>
+        <!-- S6 左上 -->
+        <ellipse cx="48" cy="58" rx="44" ry="18" fill="#18281a" stroke="#6ac87a" stroke-width="1"/>
+        <text x="48" y="55" text-anchor="middle" fill="#6ac87a" font-size="10" font-weight="bold">第６</text>
+        <text x="48" y="67" text-anchor="middle" fill="#7a7898" font-size="8">革新者</text>
+        <!-- 繋ぎ線 -->
+        <line x1="170" y1="42" x2="170" y2="68" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="246" y1="68" x2="202" y2="80" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="248" y1="132" x2="202" y2="118" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="170" y1="158" x2="170" y2="132" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="92" y1="132" x2="138" y2="118" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
+        <line x1="92" y1="68" x2="138" y2="80" stroke="#3d4070" stroke-width="0.8" stroke-dasharray="3,3"/>
+      </svg>
+    </div>
+
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.8;">24タイプは<strong>6グループ（セクスタ）</strong>にまとめられます。同じセクスタのタイプは価値観・文化的背景が近く、自然と話が合いやすいとされます（ソシオニクスの「クアドラ」に相当）。</p>
+    <div class="sexta-list">
+      <div class="sexta-card">
+        <div class="sexta-hd"><div class="sexta-n">１</div><div class="sexta-title">第１セクスタ — 開拓者</div></div>
+        <div class="type-tags"><span class="tt">EVLF</span><span class="tt">FLVE</span><span class="tt">FVLE</span><span class="tt">ELVF</span></div>
+        <div class="sexta-mission">🔥 使命：原始的な条件下で生き延びる術を確立する</div>
+        <div class="sexta-desc">感情表現が開放的で、人間や社会の暗い側面への関心が強い。人との衝突を恐れず、負の側面を探求し、それを他者に認識させる力がある。知的・科学的議論や自己改善に情熱を注ぐ。</div>
+        <div class="sexta-axis">結果の側面：EとF ／ プロセスの側面：LとV</div>
+      </div>
+      <div class="sexta-card">
+        <div class="sexta-hd"><div class="sexta-n">２</div><div class="sexta-title">第２セクスタ — 建設者</div></div>
+        <div class="type-tags"><span class="tt">EFVL</span><span class="tt">LVFE</span><span class="tt">LFVE</span><span class="tt">EVFL</span></div>
+        <div class="sexta-mission">🌾 使命：農場・牧場を整え、安定的な生活基盤を確立する</div>
+        <div class="sexta-desc">安定性と実用性を重視するグループ。長期的な視点で物事を構築し、持続可能な秩序を作ることが得意。無駄を排して長引いたり言い争いになることを避け、建設的で友好的な議論を好む。</div>
+        <div class="sexta-axis">結果の側面：EとL ／ プロセスの側面：VとF</div>
+      </div>
+      <div class="sexta-card">
+        <div class="sexta-hd"><div class="sexta-n">３</div><div class="sexta-title">第３セクスタ — 統治者</div></div>
+        <div class="type-tags"><span class="tt">VLFE</span><span class="tt">EFLV</span><span class="tt">ELFV</span><span class="tt">VFLE</span></div>
+        <div class="sexta-mission">⚙️ 使命：集約的な管理体制を築き、社会を整理・統制する</div>
+        <div class="sexta-desc">組織化・管理・統制に優れ、システムを構築する力を持つ。意志と感情が重要な役割を担い、リーダーシップを発揮しながら物事を整理する。</div>
+        <div class="sexta-axis">結果の側面：VとE ／ プロセスの側面：LとF（または異なる組み合わせ）</div>
+      </div>
+      <div class="sexta-card">
+        <div class="sexta-hd"><div class="sexta-n">４</div><div class="sexta-title">第４セクスタ — 文化人</div></div>
+        <div class="type-tags"><span class="tt">VEFL</span><span class="tt">LFEV</span><span class="tt">LEFV</span><span class="tt">VFEL</span></div>
+        <div class="sexta-mission">🎨 使命：文化的水準を高め、芸術・学問・精神生活を充実させる</div>
+        <div class="sexta-desc">精神性と知識を重視するグループ。意志(V)と論理(L)が中心的な役割を果たし、芸術・哲学・精神的な価値を大切にする。人類の知的・文化的側面を豊かにすることに使命を感じる。</div>
+        <div class="sexta-axis">タイプにより結果/プロセス軸は様々</div>
+      </div>
+      <div class="sexta-card">
+        <div class="sexta-hd"><div class="sexta-n">５</div><div class="sexta-title">第５セクスタ — 消費者</div></div>
+        <div class="type-tags"><span class="tt">VLEF</span><span class="tt">FELV</span><span class="tt">FLEV</span><span class="tt">VELF</span></div>
+        <div class="sexta-mission">🛒 使命：消費社会を形成し、選択肢や豊かさを拡大する</div>
+        <div class="sexta-desc">多様な選択肢と豊かさを生み出すグループ。個人の欲求と選択を重視し、消費・享楽・多様性を社会に提供するエネルギーを持つ。意志と物質を巡る独自のダイナミクスが特徴。</div>
+        <div class="sexta-axis">タイプにより結果/プロセス軸は様々</div>
+      </div>
+      <div class="sexta-card">
+        <div class="sexta-hd"><div class="sexta-n">６</div><div class="sexta-title">第６セクスタ — 革新者</div></div>
+        <div class="type-tags"><span class="tt">FEVL</span><span class="tt">LVEF</span><span class="tt">LEVF</span><span class="tt">FVEL</span></div>
+        <div class="sexta-mission">🌟 使命：社会を再編し、新たな価値観や秩序を創造する</div>
+        <div class="sexta-desc">変革と創造を担うグループ。物質(F)と論理(L)が重要な役割を果たし、既存の枠組みを超えた発想と新しい社会システムを生み出す先進性を持つ。</div>
+        <div class="sexta-axis">タイプにより結果/プロセス軸は様々</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- クラブ -->
+  <div id="ov-clubs" class="inner-panel">
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.8;">セクスタとは別に、似た<strong>行動様式・社会的役割・興味関心</strong>を共有するタイプが「クラブ」として分類されます。</p>
+    <div class="clubs-grid">
+      <div class="club-card">
+        <div class="club-hd"><div class="club-icon">🔧</div><div class="club-name">実践クラブ（テクニカル）</div></div>
+        <div class="type-tags"><span class="tt">VLFE</span><span class="tt">FVEL</span><span class="tt">FLVE</span><span class="tt">VFLE</span></div>
+        <div class="club-desc">最も実用的。技術的な課題解決や実学的知識を重視し、理論的空論には興味が薄い。リスク管理と質の高い成果物の創出を得意とする。</div>
+        <div class="club-jobs">💼 エンジニア、職人、科学技術者、金融業</div>
+      </div>
+      <div class="club-card">
+        <div class="club-hd"><div class="club-icon">💡</div><div class="club-name">研究クラブ（アカデミック）</div></div>
+        <div class="type-tags"><span class="tt">LVFE</span><span class="tt">EVLF</span><span class="tt">VELF</span><span class="tt">LEVF</span></div>
+        <div class="club-desc">論理と感情を組み合わせアイデアを伝えるのが得意。独創的な発想と魅力的な表現力を持つ。ロマンチックで夢想的な一面もある。</div>
+        <div class="club-jobs">💼 作家、教師、カウンセラー、研究普及者</div>
+      </div>
+      <div class="club-card">
+        <div class="club-hd"><div class="club-icon">🎉</div><div class="club-name">社交クラブ（ソーシャル）</div></div>
+        <div class="type-tags"><span class="tt">EFVL</span><span class="tt">FEVL</span><span class="tt">EVFL</span><span class="tt">FELV</span></div>
+        <div class="club-desc">社会的交流やコミュニティ形成に長け、情緒豊かで人々を惹きつける。日常的な問題解決に論理を応用する柔軟さも持つ。</div>
+        <div class="club-jobs">💼 ソーシャルワーカー、広告PR、保険コンサル</div>
+      </div>
+      <div class="club-card">
+        <div class="club-hd"><div class="club-icon">⚔️</div><div class="club-name">行動クラブ（アクティブ）</div></div>
+        <div class="type-tags"><span class="tt">VEFL</span><span class="tt">FVLE</span><span class="tt">VFLE</span><span class="tt">FLEV</span></div>
+        <div class="club-desc">強い意志力と物理的行動力を持つ実行派。目標達成に向け積極的に動き、物質的な課題への対処を得意とする。</div>
+        <div class="club-jobs">💼 スポーツ選手、起業家、軍人、施工管理</div>
+      </div>
+      <div class="club-card">
+        <div class="club-hd"><div class="club-icon">🧠</div><div class="club-name">管理クラブ（マネジメント）</div></div>
+        <div class="type-tags"><span class="tt">VLEF</span><span class="tt">LFVE</span><span class="tt">ELFV</span><span class="tt">EFLV</span></div>
+        <div class="club-desc">秩序と構造を重視し、システム最適化・組織管理に優れる。論理的分析力で全体像を把握し効率的な体制を構築する。</div>
+        <div class="club-jobs">💼 管理職、コンサルタント、データアナリスト</div>
+      </div>
+      <div class="club-card">
+        <div class="club-hd"><div class="club-icon">🌿</div><div class="club-name">精神クラブ（スピリチュアル）</div></div>
+        <div class="type-tags"><span class="tt">LEFV</span><span class="tt">LFEV</span><span class="tt">ELVF</span><span class="tt">VFEL</span></div>
+        <div class="club-desc">精神性・理念・価値観に深くコミットし、文化的・精神的領域で活動する。物質的欲求に囚われず、人間存在の核心を探求する。</div>
+        <div class="club-jobs">💼 宗教者、哲学者、メンター、文化プロジェクトリーダー</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- サブタイプ（アクセント） -->
+  <div id="ov-accent" class="inner-panel">
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.8;">
+      サブタイプ（アクセント）は、アファナシエフの原典より後に拡張された概念です。同じタイプコード（例：EVLF）であっても、<strong>どの機能に特にアクセント（強調）がかかっているか</strong>によって、外見上の印象や行動傾向が変化します。
+    </p>
+
+    <div class="info-box">
+      💡 <strong>サブタイプとは？</strong><br>
+      タイプ（4文字の機能順序）は変わらないまま、4つの機能のうちどれかが<em>特に前面に出ている</em>状態を指します。例えば EVLF タイプでも「1Eアクセント」「2Vアクセント」「3Lアクセント」「4Fアクセント」の4通りの現れ方があります。これにより同タイプ内でのバリエーションを説明できます。
+    </div>
+
+    <!-- DIAGRAM: アクセントの仕組み -->
+    <div class="diagram-wrap">
+      <div class="diagram-title">▶ アクセントの仕組み（例：EVLFタイプ）</div>
+      <svg class="diag" viewBox="0 0 340 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- ベースタイプ -->
+        <text x="170" y="18" text-anchor="middle" fill="#a89cf5" font-size="11">基本タイプ：EVLF</text>
+        <!-- 4つのアクセントバリエーション -->
+        <!-- 1E accent -->
+        <rect x="10" y="28" width="72" height="110" rx="8" fill="#2a1818" stroke="#e87070" stroke-width="2"/>
+        <text x="46" y="50" text-anchor="middle" fill="#e87070" font-size="10" font-weight="bold">1Eアクセント</text>
+        <text x="46" y="68" text-anchor="middle" fill="#e87070" font-size="20" font-family="serif" font-weight="bold">E</text>
+        <text x="46" y="85" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">VLF</text>
+        <text x="46" y="102" text-anchor="middle" fill="#7a7898" font-size="9">感情面が</text>
+        <text x="46" y="114" text-anchor="middle" fill="#7a7898" font-size="9">特に目立つ</text>
+        <text x="46" y="128" text-anchor="middle" fill="#7a7898" font-size="9">表現豊か</text>
+        <!-- 2V accent -->
+        <rect x="90" y="28" width="72" height="110" rx="8" fill="#17203a" stroke="#7b9ee8" stroke-width="2"/>
+        <text x="126" y="50" text-anchor="middle" fill="#7b9ee8" font-size="10" font-weight="bold">2Vアクセント</text>
+        <text x="126" y="68" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">E</text>
+        <text x="126" y="82" text-anchor="middle" fill="#7b9ee8" font-size="20" font-family="serif" font-weight="bold">V</text>
+        <text x="126" y="98" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">LF</text>
+        <text x="126" y="113" text-anchor="middle" fill="#7a7898" font-size="9">意志面が</text>
+        <text x="126" y="125" text-anchor="middle" fill="#7a7898" font-size="9">より前面に</text>
+        <!-- 3L accent -->
+        <rect x="170" y="28" width="72" height="110" rx="8" fill="#182a1e" stroke="#5ec47a" stroke-width="2"/>
+        <text x="206" y="50" text-anchor="middle" fill="#5ec47a" font-size="10" font-weight="bold">3Lアクセント</text>
+        <text x="206" y="65" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">EV</text>
+        <text x="206" y="82" text-anchor="middle" fill="#5ec47a" font-size="20" font-family="serif" font-weight="bold">L</text>
+        <text x="206" y="98" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">F</text>
+        <text x="206" y="113" text-anchor="middle" fill="#7a7898" font-size="9">弱点の論理が</text>
+        <text x="206" y="125" text-anchor="middle" fill="#7a7898" font-size="9">より繊細に出る</text>
+        <!-- 4F accent -->
+        <rect x="250" y="28" width="72" height="110" rx="8" fill="#2a1e10" stroke="#e8a857" stroke-width="2"/>
+        <text x="286" y="50" text-anchor="middle" fill="#e8a857" font-size="10" font-weight="bold">4Fアクセント</text>
+        <text x="286" y="65" text-anchor="middle" fill="#c4b8ff" font-size="11" font-family="serif">EVL</text>
+        <text x="286" y="82" text-anchor="middle" fill="#e8a857" font-size="20" font-family="serif" font-weight="bold">F</text>
+        <text x="286" y="100" text-anchor="middle" fill="#7a7898" font-size="9">物質面への</text>
+        <text x="286" y="112" text-anchor="middle" fill="#7a7898" font-size="9">受容感が</text>
+        <text x="286" y="124" text-anchor="middle" fill="#7a7898" font-size="9">より顕著に</text>
+      </svg>
+    </div>
+
+    <h2 class="sh">4つのアクセント位置</h2>
+
+    <div class="pos-list">
+      <div class="pos-item">
+        <div class="pos-num-box">
+          <div class="pos-n" style="color:var(--E)">1</div>
+          <div class="pos-att">第１機能</div>
+        </div>
+        <div class="pos-body">
+          <h4>第１機能アクセント（1F / 1V / 1E / 1L）</h4>
+          <p>第１機能の特徴がとりわけ強く前面に出るサブタイプ。自信・支配・確信の傾向がより顕著になります。外から見ると「典型的なそのタイプ」に見えることが多く、タイプの核心的な表現が強調されます。</p>
+        </div>
+      </div>
+      <div class="pos-item">
+        <div class="pos-num-box">
+          <div class="pos-n" style="color:var(--L)">2</div>
+          <div class="pos-att">第２機能</div>
+        </div>
+        <div class="pos-body">
+          <h4>第２機能アクセント（2F / 2V / 2E / 2L）</h4>
+          <p>第２機能の対話的・協調的な面が特に目立つサブタイプ。他者との関わりをより重視し、協力的・社交的な印象を与えます。1アクセントより柔軟で適応的に見えることが多いです。</p>
+        </div>
+      </div>
+      <div class="pos-item">
+        <div class="pos-num-box">
+          <div class="pos-n" style="color:var(--E)">3</div>
+          <div class="pos-att">第３機能</div>
+        </div>
+        <div class="pos-body">
+          <h4>第３機能アクセント（3F / 3V / 3E / 3L）</h4>
+          <p>第３機能（弱点・傷つきやすい機能）が特に前面に出るサブタイプ。その機能への鋭敏さや過敏さがより顕著に現れます。この弱点領域での体験が人格形成に大きく影響していることが多いです。</p>
+        </div>
+      </div>
+      <div class="pos-item">
+        <div class="pos-num-box">
+          <div class="pos-n" style="color:var(--F)">4</div>
+          <div class="pos-att">第４機能</div>
+        </div>
+        <div class="pos-body">
+          <h4>第４機能アクセント（4F / 4V / 4E / 4L）</h4>
+          <p>第４機能（最も優先度が低い機能）が表面的に目立つサブタイプ。その機能への受容的・無頓着な態度が強調されます。他者からその機能を補ってもらうことをより自然に受け入れる傾向があります。</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sh">アクセント一覧表</h2>
+    <div class="diagram-wrap">
+      <div class="diagram-title">▶ 16通りのアクセント（4機能 × 4位置）</div>
+      <svg class="diag" viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- ヘッダー行 -->
+        <rect x="0" y="0" width="340" height="30" fill="#1c1e2a"/>
+        <text x="46" y="20" text-anchor="middle" fill="#7a7898" font-size="10">アクセント</text>
+        <text x="126" y="20" text-anchor="middle" fill="#e87070" font-size="12" font-family="serif" font-weight="bold">E 感情</text>
+        <text x="192" y="20" text-anchor="middle" fill="#7b9ee8" font-size="12" font-family="serif" font-weight="bold">V 意志</text>
+        <text x="258" y="20" text-anchor="middle" fill="#5ec47a" font-size="12" font-family="serif" font-weight="bold">L 論理</text>
+        <text x="316" y="20" text-anchor="middle" fill="#e8a857" font-size="12" font-family="serif" font-weight="bold">F 物質</text>
+        <!-- 行：第1 -->
+        <rect x="0" y="30" width="340" height="35" fill="#1e2040"/>
+        <text x="46" y="52" text-anchor="middle" fill="#a89cf5" font-size="10">第１位</text>
+        <text x="126" y="47" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">1E</text>
+        <text x="126" y="59" text-anchor="middle" fill="#7a7898" font-size="8">感情が支配的</text>
+        <text x="192" y="47" text-anchor="middle" fill="#7b9ee8" font-size="11" font-weight="bold">1V</text>
+        <text x="192" y="59" text-anchor="middle" fill="#7a7898" font-size="8">意志が支配的</text>
+        <text x="258" y="47" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">1L</text>
+        <text x="258" y="59" text-anchor="middle" fill="#7a7898" font-size="8">論理が支配的</text>
+        <text x="316" y="47" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">1F</text>
+        <text x="316" y="59" text-anchor="middle" fill="#7a7898" font-size="8">物質が支配的</text>
+        <!-- 行：第2 -->
+        <rect x="0" y="65" width="340" height="35" fill="#1a2830"/>
+        <text x="46" y="87" text-anchor="middle" fill="#5ec47a" font-size="10">第２位</text>
+        <text x="126" y="82" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">2E</text>
+        <text x="126" y="94" text-anchor="middle" fill="#7a7898" font-size="8">感情が協調的</text>
+        <text x="192" y="82" text-anchor="middle" fill="#7b9ee8" font-size="11" font-weight="bold">2V</text>
+        <text x="192" y="94" text-anchor="middle" fill="#7a7898" font-size="8">意志が協調的</text>
+        <text x="258" y="82" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">2L</text>
+        <text x="258" y="94" text-anchor="middle" fill="#7a7898" font-size="8">論理が協調的</text>
+        <text x="316" y="82" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">2F</text>
+        <text x="316" y="94" text-anchor="middle" fill="#7a7898" font-size="8">物質が協調的</text>
+        <!-- 行：第3 -->
+        <rect x="0" y="100" width="340" height="35" fill="#2a1820"/>
+        <text x="46" y="122" text-anchor="middle" fill="#e87070" font-size="10">第３位</text>
+        <text x="126" y="117" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">3E</text>
+        <text x="126" y="129" text-anchor="middle" fill="#7a7898" font-size="8">感情が過敏</text>
+        <text x="192" y="117" text-anchor="middle" fill="#7b9ee8" font-size="11" font-weight="bold">3V</text>
+        <text x="192" y="129" text-anchor="middle" fill="#7a7898" font-size="8">意志が過敏</text>
+        <text x="258" y="117" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">3L</text>
+        <text x="258" y="129" text-anchor="middle" fill="#7a7898" font-size="8">論理が過敏</text>
+        <text x="316" y="117" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">3F</text>
+        <text x="316" y="129" text-anchor="middle" fill="#7a7898" font-size="8">物質が過敏</text>
+        <!-- 行：第4 -->
+        <rect x="0" y="135" width="340" height="35" fill="#2a1e10"/>
+        <text x="46" y="157" text-anchor="middle" fill="#e8a857" font-size="10">第４位</text>
+        <text x="126" y="152" text-anchor="middle" fill="#e87070" font-size="11" font-weight="bold">4E</text>
+        <text x="126" y="164" text-anchor="middle" fill="#7a7898" font-size="8">感情を委任</text>
+        <text x="192" y="152" text-anchor="middle" fill="#7b9ee8" font-size="11" font-weight="bold">4V</text>
+        <text x="192" y="164" text-anchor="middle" fill="#7a7898" font-size="8">意志を委任</text>
+        <text x="258" y="152" text-anchor="middle" fill="#5ec47a" font-size="11" font-weight="bold">4L</text>
+        <text x="258" y="164" text-anchor="middle" fill="#7a7898" font-size="8">論理を委任</text>
+        <text x="316" y="152" text-anchor="middle" fill="#e8a857" font-size="11" font-weight="bold">4F</text>
+        <text x="316" y="164" text-anchor="middle" fill="#7a7898" font-size="8">物質を委任</text>
+        <!-- グリッド線 -->
+        <line x1="85" y1="0" x2="85" y2="170" stroke="#2e3050" stroke-width="1"/>
+        <line x1="159" y1="0" x2="159" y2="170" stroke="#2e3050" stroke-width="1"/>
+        <line x1="225" y1="0" x2="225" y2="170" stroke="#2e3050" stroke-width="1"/>
+        <line x1="291" y1="0" x2="291" y2="170" stroke="#2e3050" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>📌 アクセントを使った自己理解</h3>
+      <p>例えば「私はEVLFだが、感情(E)より論理(L)が目立つと言われる」という場合、3Lアクセントの可能性があります。第３機能の脆弱性が外見上に現れやすくなっているケースです。<br><br>アクセントの特定にはタイプ同様、長期的な自己観察が必要です。診断ツールで出たタイプをベースに、「どの機能がいつも気になるか・傷つくか」を振り返るヒントとして活用してください。</p>
+    </div>
+
+    <div class="info-box">
+      ⚠️ <strong>注意</strong><br>
+      アクセントはアファナシエフの原典には存在せず、後の研究者によって拡張された概念です。当サイトの簡易診断ではアクセントを考慮していません。より詳細な分析には専門的なタイピングが必要です。
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- =================== TYPES =================== -->
+<div id="t-types" class="tab-content">
+<div class="container">
+  <div class="section-title">全タイプ一覧</div>
+  <div class="section-subtitle">タップで各タイプの性格説明を開けます</div>
+  <div class="type-filter-row" id="type-filters"></div>
+  <div class="type-list" id="type-list"></div>
+</div>
+</div>
+
+<!-- =================== COMPAT =================== -->
+<div id="t-compat" class="tab-content">
+<div class="container">
+  <div class="section-title">相性論</div>
+  <div class="section-subtitle">機能間関係による4種類の相性</div>
+
+  <!-- DIAGRAM: 相性の仕組み -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">▶ 相性の決まり方（2人の機能位置の対応）</div>
+    <svg class="diag" viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg">
+      <!-- Person A -->
+      <text x="65" y="20" text-anchor="middle" fill="#a89cf5" font-size="11" font-weight="bold">Aさん</text>
+      <rect x="15" y="28" width="100" height="24" rx="6" fill="#7b6ff050" stroke="#7b6ff0" stroke-width="1"/>
+      <text x="65" y="45" text-anchor="middle" fill="#c4b8ff" font-size="10">第１機能（強・確信）</text>
+      <rect x="15" y="58" width="100" height="24" rx="6" fill="#5ec47a30" stroke="#5ec47a" stroke-width="1"/>
+      <text x="65" y="75" text-anchor="middle" fill="#5ec47a" font-size="10">第２機能（強・対話）</text>
+      <rect x="15" y="88" width="100" height="24" rx="6" fill="#e8707030" stroke="#e87070" stroke-width="1"/>
+      <text x="65" y="105" text-anchor="middle" fill="#e87070" font-size="10">第３機能（弱・過敏）</text>
+      <rect x="15" y="118" width="100" height="24" rx="6" fill="#e8a85730" stroke="#e8a857" stroke-width="1"/>
+      <text x="65" y="135" text-anchor="middle" fill="#e8a857" font-size="10">第４機能（弱・受容）</text>
+
+      <!-- Person B -->
+      <text x="275" y="20" text-anchor="middle" fill="#a89cf5" font-size="11" font-weight="bold">Bさん</text>
+      <rect x="225" y="28" width="100" height="24" rx="6" fill="#7b6ff050" stroke="#7b6ff0" stroke-width="1"/>
+      <text x="275" y="45" text-anchor="middle" fill="#c4b8ff" font-size="10">第１機能（強・確信）</text>
+      <rect x="225" y="58" width="100" height="24" rx="6" fill="#5ec47a30" stroke="#5ec47a" stroke-width="1"/>
+      <text x="275" y="75" text-anchor="middle" fill="#5ec47a" font-size="10">第２機能（強・対話）</text>
+      <rect x="225" y="88" width="100" height="24" rx="6" fill="#e8707030" stroke="#e87070" stroke-width="1"/>
+      <text x="275" y="105" text-anchor="middle" fill="#e87070" font-size="10">第３機能（弱・過敏）</text>
+      <rect x="225" y="118" width="100" height="24" rx="6" fill="#e8a85730" stroke="#e8a857" stroke-width="1"/>
+      <text x="275" y="135" text-anchor="middle" fill="#e8a857" font-size="10">第４機能（弱・受容）</text>
+
+      <!-- ライン 1↔1 フィリア -->
+      <line x1="115" y1="40" x2="225" y2="40" stroke="#88aaff" stroke-width="1.5"/>
+      <text x="170" y="37" text-anchor="middle" fill="#88aaff" font-size="9">フィリア</text>
+      <!-- ライン 2↔3 アガペー -->
+      <line x1="115" y1="70" x2="225" y2="100" stroke="#c088e8" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="170" y="82" text-anchor="middle" fill="#c088e8" font-size="9">アガペー</text>
+      <!-- ライン 1↔3 エロス -->
+      <line x1="115" y1="40" x2="225" y2="100" stroke="#e06060" stroke-width="1" stroke-dasharray="2,3"/>
+      <!-- ライン 4↔4 フィリア -->
+      <line x1="115" y1="130" x2="225" y2="130" stroke="#88aaff" stroke-width="1.5"/>
+    </svg>
+    <p style="font-size:11px;color:var(--text3);text-align:center;margin-top:6px;">同じ機能（E/V/L/F）が2人のどの位置にあるかで関係が決まる</p>
+  </div>
+
+  <div class="info-box">
+    サイコソフィアの相性は「同じ機能（E/V/L/F）が、お互いに何番目の位置にあるか」で決まります。4つの機能それぞれについて関係性が生じ、その組み合わせで総合的な相性が決まります。
+  </div>
+
+  <div class="compat-grid">
+    <div class="compat-card philia">
+      <div class="compat-hd"><div class="compat-icon">🤝</div><div class="compat-name">フィリア（Philia）</div></div>
+      <div class="compat-rule">同じ位置同士（1↔1 / 2↔2 / 3↔3 / 4↔4）</div>
+      <div class="compat-desc">全機能の順序が完全一致。「友愛」の意。初対面でも自然な親近感が生まれ、価値観や行動パターンが酷似。「この人わかる！」という感覚が強い。<br><br>課題：同じ弱点（第３機能）を持つため互いの苦手を補えない。刺激が少なく、成長の余地が小さくなることも。</div>
+      <div class="stars-row"><span class="stars-label">快適さ</span><span class="stars">⭐⭐⭐⭐⭐</span><span class="stars-label" style="margin-left:10px">成長性</span><span class="stars">⭐⭐☆☆☆</span></div>
+    </div>
+    <div class="compat-card quasi">
+      <div class="compat-hd"><div class="compat-icon">👬</div><div class="compat-name">準フィリア（Quasi）</div></div>
+      <div class="compat-rule">多くの機能が同じ位置（部分的一致）</div>
+      <div class="compat-desc">フィリアほど完全ではないが多くの共通点を持つ。かなり近い価値観で違和感なく付き合える。フィリアより少し立場に違いがあり、程よい刺激になる。<br><br>課題：似ているようで微妙なズレが積み重なると摩擦になることも。</div>
+      <div class="stars-row"><span class="stars-label">快適さ</span><span class="stars">⭐⭐⭐⭐☆</span><span class="stars-label" style="margin-left:10px">成長性</span><span class="stars">⭐⭐⭐☆☆</span></div>
+    </div>
+    <div class="compat-card eros">
+      <div class="compat-hd"><div class="compat-icon">⚡</div><div class="compat-name">エロス（Eros）</div></div>
+      <div class="compat-rule">1↔3 または 2↔4 の対応</div>
+      <div class="compat-desc">一方の強い機能（1・2位）が相手の弱い機能（3・4位）と対応する非対称な関係。「情熱の愛」の意。<br><br>強い引き付けがある（特に1↔3）。しかし1位の強さが3位の弱さを無意識に批判・圧倒してしまう。3位側は自分の弱点を常に突かれているような感覚になり、愛憎入り混じる「甘苦い」関係になりがち。</div>
+      <div class="stars-row"><span class="stars-label">快適さ</span><span class="stars">⭐⭐☆☆☆</span><span class="stars-label" style="margin-left:10px">引力</span><span class="stars">⭐⭐⭐⭐⭐</span></div>
+    </div>
+    <div class="compat-card agape">
+      <div class="compat-hd"><div class="compat-icon">💜</div><div class="compat-name">アガペー（Agape）</div></div>
+      <div class="compat-rule">2↔3 の対応（理想的な補完）</div>
+      <div class="compat-desc">一方の第２機能（強・対話的）と相手の第３機能（弱・傷つきやすい）が同じ機能で対応。「無条件の慈愛」の意。<br><br>最も理想的な補完関係。2位側は相手の弱い部分をサポートできる。3位側は最も不安定な部分で支えてもらえる感覚を得られる。最初は気づかないが時間をかけて深まる関係。</div>
+      <div class="stars-row"><span class="stars-label">快適さ</span><span class="stars">⭐⭐⭐⭐☆</span><span class="stars-label" style="margin-left:10px">長期安定</span><span class="stars">⭐⭐⭐⭐⭐</span></div>
+    </div>
+  </div>
+
+  <!-- 相性スコア診断 -->
+  <h2 class="sh">2人の相性チェック</h2>
+  <div class="card">
+    <h3>タイプを選んで相性を確認</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">自分のタイプ</div>
+        <select id="compat-a" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:13px;-webkit-appearance:none;cursor:pointer;"></select>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">相手のタイプ</div>
+        <select id="compat-b" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:13px;-webkit-appearance:none;cursor:pointer;"></select>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="calcCompat()" style="width:100%;margin-top:12px;">相性を診断する</button>
+    <div id="compat-result" style="margin-top:14px;"></div>
+  </div>
+
+  <h2 class="sh">相性の総合判断</h2>
+  <div class="card">
+    <p>2人の相性は4つの機能（E/V/L/F）それぞれの関係を確認して判断します。同じセクスタのタイプとは自然と相性が良いとされます。<br><br>⚠️ 相性はあくまで参考です。エロス関係でも良い人間関係を築いている例は多く、相性よりも互いの理解と配慮が大切です。</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  <div>サイコソフィア理論 © A. U. Afanasyev, 1990s | 参考：casual-typology.blogspot.com</div>
+  <div style="margin-top:4px;">このサイトは学習・参考目的で作成されています</div>
+</footer>
+
+<script>
+// ========== TAB CONTROL ==========
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function showInner(id,btn){
+  document.querySelectorAll('.inner-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.inner-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ========== TYPE DATA (参考サイトに基づき修正) ==========
+const TYPES=[
+  // セクスタ1
+  {code:'EVLF',name:'ガザーリー',sexta:1,
+   desc:'感情的な豊かさと美的感覚を第一に置くタイプ。芸術や美への傾倒が強く、物質的な価値よりも精神的・感情的な充足を優先します。外向的な共感力と表現力を持ちながら、日常的な実務や形式的な論理には関心を持ちにくい傾向があります。情熱的で魅力的ですが、現実的な適応は限定的です。',
+   funcs:'感情的刺激に最も敏感。他者の感情に強い影響を与え、芸術的表現を深く好む。意志は穏やかで協調的。論理は感情的共鳴を優先するため体系的思考が苦手。物質的快適さへの関心は最も薄い。'},
+  {code:'FLVE',name:'アリスティッポス',sexta:1,
+   desc:'物質的な快適さと論理的な思考を優先するタイプ。効率性と合理性を重んじ、感情的な交流よりも実利や成果を重視します。現実的で分析的な視点を持ちますが、感情への冷淡さが周囲に距離を感じさせることもあります。社会的地位や物質的利益を目指し、短期的な成果を優先する傾向があります。',
+   funcs:'物質的豊かさや快適さを最重視。贅沢と効率を両立する。論理は明晰で分析的・説得力がある。意志は強く社会的状況を冷静に見極める。感情は抑制的で状況に応じて合わせる程度。'},
+  {code:'FVLE',name:'ゲーテ',sexta:1,
+   desc:'物質的な安定を土台に、確かな意志と責任感で環境に働きかけるタイプ。現実的かつ実用的な判断を好み、抽象的な議論や感情的な動揺には距離を保ちます。生活における秩序と安全を重視し、安定した成果を積み重ねることで信頼を得ます。外見は落ち着いて控えめですが内面には粘り強さと統率力を秘めています。',
+   funcs:'身体感覚と実用性を重視。日常の基盤を整える能力に優れる。意志が強く困難に直面しても動じない公正な判断者。論理は経験と実用性を優先し抽象的議論には慎重。感情は抑制的で穏やかさを保つ。'},
+  {code:'ELVF',name:'アンデルセン',sexta:1,
+   desc:'感情の豊かさと繊細さが際立つタイプ。強い感受性と創造性を持ち、内面世界を深く探求します。感情と論理が上位にあるため心の動きに敏感でありながら物事を分析する力も備えています。意志と物質が下位のため決断や行動の継続が難しく、生活面がおろそかになりやすい傾向があります。',
+   funcs:'感受性と共感力が圧倒的に強く、他者の心の動きを繊細に捉える。論理は感情を整理し独創的な視点で物事を捉える力がある。意志は弱く自己主張や決断に自信を持ちにくい。物質的側面への関心は最も低い。'},
+  // セクスタ2
+  {code:'EFVL',name:'ゴーゴリ',sexta:2,
+   desc:'感情的表現力と物質的感覚を強みとし、社交的でコミュニティを大切にするタイプ。感情豊かで人々を惹きつけ、現実的な問題に共感力を持って取り組みます。長引いた議論や言い争いを好まず、建設的で友好的な対話を心がけます。',
+   funcs:'感情表現が豊かで社交的な雰囲気を作る。物質的センスと快適さへの共感力も高い。意志は対話的で協調を重視。論理への関心は最も薄い。'},
+  {code:'LVFE',name:'ダンテ',sexta:2,
+   desc:'論理的思考と意志の力を組み合わせた分析的実行者。複雑な問題を体系的に解決し、持続可能な計画を立てることが得意です。感情より論理と行動を優先しますが、物質的なことへも現実的に取り組みます。',
+   funcs:'論理分析が最も強く、体系的・理論的思考が中心。意志は対話的でチームと協力しながら目標達成。物質的には現実的で実用的な行動を取る。感情表現は最も少ない。'},
+  {code:'LFVE',name:'ダヴィンチ',sexta:2,
+   desc:'論理と物質感覚を組み合わせた実践的知性派。理論を現実に応用し、美的センスと分析力を融合させます。好奇心旺盛で多方面に才能を発揮しますが、感情表現には不器用なことがあります。',
+   funcs:'論理が最も強く、ものごとを体系的に整理する。物質的センスが高く実用的な美を追求。意志は現実的な判断を補助。感情は必要に応じて表現するが優先度は低い。'},
+  {code:'EVFL',name:'ロモノーソフ',sexta:2,
+   desc:'感情と意志を強みとし、情熱と行動力で目標を達成するタイプ。人を動かす力と実行力を持ち合わせていますが、論理よりも感情と直感で判断することが多いです。',
+   funcs:'感情が最も強く、情熱的に行動を動機づける。意志は対話的で他者と協力して実行。物質的には実践的な行動を取る。論理は最も後回しにされる。'},
+  // セクスタ3
+  {code:'VLFE',name:'レーニン',sexta:3,
+   desc:'強い意志と論理で物事を推進するリーダー型。明確なビジョンを持ち、システムの構築が得意。感情表現よりも目標達成と結果を重視します。組織化・管理・統制に優れ、高い理想のために行動し続ける力があります。',
+   funcs:'意志が最も強く、明確な目標に向かって迷わず行動する。論理は対話的で戦略立案・議論を楽しむ。物質的には必要に応じて実行。感情表現は最も少なく、目標達成が優先。'},
+  {code:'EFLV',name:'ヘミングウェイ',sexta:3,
+   desc:'感情的な深みと物質的な感覚を持ち、感覚的・実体験的な価値を重んじるタイプ。鋭い感受性で物事の本質を見抜きますが、論理的な体系化よりも経験と感情を優先します。',
+   funcs:'感情が最も強く、感受性と表現力に優れる。物質的感覚も高く、身体や現実との関わりを大切にする。論理は必要に応じて使うが体系化は苦手。意志は最も低い。'},
+  {code:'ELFV',name:'プラトン',sexta:3,
+   desc:'感情と論理が上位にある思想家・哲学者型。感受性と分析力を持ち合わせ、精神的・知的な探求に情熱を注ぎます。物質的なことよりも理念や精神的価値を優先し、意志力はあまり強くありません。',
+   funcs:'感情が最も強く、深い共感と感受性を持つ。論理は感情を整理し哲学的思考を支える。物質的感覚は必要に応じて活用。意志は最も弱く、他者の決定を受け入れやすい。'},
+  {code:'VFLE',name:'ナポレオン',sexta:3,
+   desc:'強い意志と物質的実行力を持つ行動派リーダー。目標達成のために果断に動き、現実的な結果を優先します。論理より行動を、感情より意志を重視します。強さと決断力で周囲を圧倒するカリスマ性があります。',
+   funcs:'意志が最も強く、決断と行動が中心。物質的実行力が高く現実的な成果を出す。論理は行動の補助として使う。感情表現は最も少ない。'},
+  // セクスタ4
+  {code:'VEFL',name:'トルストイ',sexta:4,
+   desc:'意志と感情が上位にある深い思索者。強い理念と豊かな感受性を持ち、精神的・文化的な価値を追求します。物質よりも精神を、現実よりも理想を重視する傾向があります。論理への関心は低めです。',
+   funcs:'意志が最も強く、強い理念と信念を持つ。感情は対話的で深い共感と感受性を表現する。物質的には必要に応じて対応。論理は最も後回しにされる。'},
+  {code:'LFEV',name:'ガンジー',sexta:4,
+   desc:'論理と物質感覚を土台に、感情と意志で調整するタイプ。現実的な分析と実用的な行動を軸にしながら、感情的な共感でバランスを取ります。穏やかで受け入れやすい姿勢を持ちます。',
+   funcs:'論理が最も強く、体系的思考と分析が中心。物質的には現実的で実用的。感情は補助的に共感に使う。意志は最も低く他者の方針に従いやすい。'},
+  {code:'LEFV',name:'カント',sexta:4,
+   desc:'論理と感情が上位にある哲学的思考者。理性的な分析と感受性を組み合わせて、深い洞察を生み出します。意志と物質への関心は薄く、精神的・知的な世界を優先します。',
+   funcs:'論理が最も強く、理性的分析と概念操作が中心。感情は対話的で他者との知的交流を楽しむ。物質は必要に応じて対応。意志は最も低く決断より思索を好む。'},
+  {code:'VFEL',name:'トワルドフスキー',sexta:4,
+   desc:'強い意志と物質感覚を持つ実行者。精神的な価値を大切にしながら現実的な力で目標を達成します。感情表現は少なく、論理より実践を重視します。',
+   funcs:'意志が最も強く、明確な方向性を持って行動する。物質的実行力が高く現実的な成果を出す。感情は必要に応じて表現。論理は最も低い。'},
+  // セクスタ5
+  {code:'VLEF',name:'ソクラテス',sexta:5,
+   desc:'意志と論理が上位にある対話的探求者。強い信念と体系的な思考を持ち、対話を通じて真理を追求します。感情より論理を、物質より精神を重視します。',
+   funcs:'意志が最も強く、信念に基づいて主張する。論理は対話的で議論と探求を楽しむ。感情は補助的に表現。物質は最も低く、日常的な快適さへの関心は薄い。'},
+  {code:'FELV',name:'プーシキン',sexta:5,
+   desc:'物質感覚と感情が上位にある感覚的表現者。身体的・美的な体験を重視し、感情豊かに表現します。論理より感覚と感情を、意志より行動を優先します。',
+   funcs:'物質的感覚が最も強く、美的センスと実践力に優れる。感情は対話的で豊かな表現力を持つ。論理は補助的に使う。意志は最も低く流れに身を任せやすい。'},
+  {code:'FLEV',name:'バルザック',sexta:5,
+   desc:'物質感覚と論理が上位にある現実的知識人。実用的な分析と具体的な行動を組み合わせます。感情表現は少なく、意志よりも現実の論理に従います。',
+   funcs:'物質的感覚が最も強く実践的行動が中心。論理は対話的で分析と議論を楽しむ。感情は補助的表現。意志は最も低い。'},
+  {code:'VELF',name:'アフマートヴァ',sexta:5,
+   desc:'意志と感情が上位にある情熱的な表現者。強い信念と豊かな感受性を持ち、感情的なビジョンで人を動かします。論理より感情と意志を、物質より精神を重視します。',
+   funcs:'意志が最も強く、信念に基づいた強い推進力を持つ。感情は対話的で豊かな感受性と表現力。論理は補助的使用。物質は最も低く生活管理は苦手。'},
+  // セクスタ6
+  {code:'FEVL',name:'デュマ',sexta:6,
+   desc:'物質感覚と感情が上位にある行動的社交家。現実的な快適さを大切にしながら、温かい感情で人々と関わります。意志はやや弱く、論理よりも感覚と感情で判断します。',
+   funcs:'物質的感覚が最も強く、快適さと実践力に優れる。感情は対話的で社交的な温かさを持つ。意志は補助的判断に使う。論理は最も低い。'},
+  {code:'LVEF',name:'ボルジア',sexta:6,
+   desc:'論理と意志が上位にある戦略的行動者。分析力と実行力を組み合わせて目標を達成します。感情よりも論理と行動を重視します。',
+   funcs:'論理が最も強く、戦略的思考と分析が中心。意志は対話的で目標達成に向けて協調する。感情は補助的表現。物質は最も低い。'},
+  {code:'LEVF',name:'モーツァルト',sexta:6,
+   desc:'論理と感情が上位にある知性的感性派。分析力と感受性を融合させ、知的・芸術的な創造をします。意志はやや弱く物質への関心は低いです。',
+   funcs:'論理が最も強く概念的思考と分析に優れる。感情は対話的で豊かな感受性を表現する。意志は補助的に使用。物質は最も低い。'},
+  {code:'FVEL',name:'チェーホフ',sexta:6,
+   desc:'物質感覚と意志が上位にある実践的リーダー。現実的な行動と強い意志で環境を変えます。感情表現は少なく、論理への関心も低めです。',
+   funcs:'物質的感覚が最も強く実践力と行動力に優れる。意志は対話的で協調しながら目標を達成する。感情は補助的表現。論理は最も低い。'},
+];
+
+// タイプコードのカラー表示
+function colorCode(code){
+  const c={E:'var(--E)',V:'var(--V)',L:'var(--L)',F:'var(--F)'};
+  return code.split('').map(ch=>`<span style="color:${c[ch]}">${ch}</span>`).join('');
+}
+function colorCodeLarge(code){
+  const c={E:'var(--E)',V:'var(--V)',L:'var(--L)',F:'var(--F)'};
+  return code.split('').map(ch=>`<span style="color:${c[ch]}">${ch}</span>`).join('');
+}
+
+// ========== TYPES TAB ==========
+function buildTypes(){
+  const filterRow=document.getElementById('type-filters');
+  const listEl=document.getElementById('type-list');
+
+  // フィルターボタン
+  let fhtml=`<button class="flt-btn active" onclick="filterTypes(0,this)">全て</button>`;
+  for(let s=1;s<=6;s++) fhtml+=`<button class="flt-btn" onclick="filterTypes(${s},this)">第${s}セクスタ</button>`;
+  filterRow.innerHTML=fhtml;
+
+  // タイプリスト
+  const names={'E':'感情','V':'意志','L':'論理','F':'物質'};
+  let lhtml='';
+  TYPES.forEach((t,i)=>{
+    lhtml+=`<div class="type-item" id="ti-${i}" data-s="${t.sexta}">
+      <div class="type-item-header" onclick="toggleType(${i})">
+        <div class="type-code-big">${colorCode(t.code)}</div>
+        <div class="type-meta">
+          <div class="type-person">${t.name}</div>
+          <div class="type-sexta-badge">第${t.sexta}セクスタ</div>
+        </div>
+        <div class="type-chevron">▼</div>
+      </div>
+      <div class="type-body">
+        <div class="type-funcs">
+          ${t.code.split('').map((c,idx)=>`
+            <div class="tf ${c}">
+              <div class="tf-rank">第${idx+1}</div>
+              <div class="tf-letter ${c}">${c}</div>
+              <div class="tf-name">${names[c]}</div>
+            </div>`).join('')}
+        </div>
+        <div class="type-desc"><strong style="color:var(--accent2)">◆ 性格の概要</strong><br>${t.desc}<br><br><strong style="color:var(--text3)">◆ 各機能の働き</strong><br>${t.funcs}</div>
+      </div>
+    </div>`;
+  });
+  listEl.innerHTML=lhtml;
+}
+function toggleType(i){
+  const el=document.getElementById('ti-'+i);
+  el.classList.toggle('open');
+}
+function filterTypes(s,btn){
+  document.querySelectorAll('.flt-btn').forEach(b=>{b.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.type-item').forEach(el=>{
+    el.style.display=(s===0||parseInt(el.dataset.s)===s)?'':'none';
+  });
+}
+buildTypes();
+
+// ========== COMPAT CHECK ==========
+function buildCompatSelects(){
+  const sa=document.getElementById('compat-a');
+  const sb=document.getElementById('compat-b');
+  let opts='<option value="">選択してください</option>';
+  TYPES.forEach(t=>{ opts+=`<option value="${t.code}">${t.code} (${t.name})</option>`; });
+  sa.innerHTML=opts; sb.innerHTML=opts;
+}
+buildCompatSelects();
+
+function getRelation(posA,posB){
+  if(posA===posB) return 'philia';
+  if((posA===1&&posB===3)||(posA===3&&posB===1)||(posA===2&&posB===4)||(posA===4&&posB===2)) return 'eros';
+  if((posA===2&&posB===3)||(posA===3&&posB===2)) return 'agape';
+  return 'quasi';
+}
+function getRelationLabel(r){
+  return {philia:'フィリア 🤝',quasi:'準フィリア 👬',eros:'エロス ⚡',agape:'アガペー 💜'}[r];
+}
+function getRelationScore(r){
+  return {philia:9,quasi:3,eros:-4,agape:6}[r];
+}
+function calcCompat(){
+  const cA=document.getElementById('compat-a').value;
+  const cB=document.getElementById('compat-b').value;
+  const res=document.getElementById('compat-result');
+  if(!cA||!cB){res.innerHTML='<p style="color:var(--text3);font-size:13px;">両方のタイプを選択してください</p>';return;}
+  if(cA===cB){
+    res.innerHTML=`<div class="info-box">同じタイプ同士です。全機能で<strong>フィリア</strong>の関係になります。完全な鏡のような存在です。</div>`;
+    return;
+  }
+  const tA=TYPES.find(t=>t.code===cA);
+  const tB=TYPES.find(t=>t.code===cB);
+  const funcs=['E','V','L','F'];
+  let rows='';let totalScore=0;
+  funcs.forEach(f=>{
+    const posA=cA.indexOf(f)+1;
+    const posB=cB.indexOf(f)+1;
+    const rel=getRelation(posA,posB);
+    const sc=getRelationScore(rel);
+    totalScore+=sc;
+    const borderCols={philia:'#2e4080',quasi:'#2e5a30',eros:'#703030',agape:'#5a3080'};
+    rows+=`<div style="background:var(--bg3);border:1px solid ${borderCols[rel]};border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+      <span style="font-family:serif;font-size:18px;color:${{E:'var(--E)',V:'var(--V)',L:'var(--L)',F:'var(--F)'}[f]};min-width:22px;">${f}</span>
+      <span style="font-size:11px;color:var(--text3);min-width:60px;">${{'E':'感情','V':'意志','L':'論理','F':'物質'}[f]}</span>
+      <span style="font-size:12px;color:var(--text2);">${cA}の第${posA}位 ↔ ${cB}の第${posB}位</span>
+      <span style="margin-left:auto;font-size:12px;">${getRelationLabel(rel)}</span>
+      <span style="font-size:11px;color:${sc>0?'var(--L)':sc<0?'var(--E)':'var(--text3)'};">${sc>0?'+':''}${sc}</span>
+    </div>`;
+  });
+  const sameS=tA.sexta===tB.sexta;
+  const sTotal=totalScore+(sameS?5:0);
+  const grade=sTotal>=20?'とても良い ✨':sTotal>=10?'良い 👍':sTotal>=0?'普通 😐':sTotal>=-10?'難しめ ⚠️':'かなり難しい 🔥';
+  res.innerHTML=`
+    <div style="margin-bottom:12px;display:grid;gap:7px;">${rows}</div>
+    ${sameS?`<div style="font-size:12px;color:var(--gold);margin-bottom:8px;">✦ 同じセクスタ（第${tA.sexta}セクスタ）：価値観が近く親和性あり +5</div>`:''}
+    <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:14px;text-align:center;">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">総合スコア</div>
+      <div style="font-family:serif;font-size:28px;color:${sTotal>=10?'var(--L)':sTotal>=0?'var(--gold2)':'var(--E)'};">${sTotal>0?'+':''}${sTotal}</div>
+      <div style="font-size:14px;color:var(--text);margin-top:4px;">${grade}</div>
+    </div>`;
+}
+
+// ========== QUIZ ==========
+const questions=[
+  {text:"感情を表現することについて、あなたはどう感じますか？",options:[
+    {text:"自然に感情を表現でき、他者の感情にも敏感。感情は大切なコミュニケーション手段だ。",sc:{E:3,V:0,L:0,F:0}},
+    {text:"感情は表現できるが、相手の気持ちを考えながら慎重に行う。感情表現は対話のひとつ。",sc:{E:2,V:0,L:1,F:0}},
+    {text:"感情表現は難しい。自分の気持ちをうまく言葉にできないことが多い。",sc:{E:-1,V:0,L:1,F:0}},
+    {text:"感情表現より、論理や行動で示すほうが自分らしい。",sc:{E:-2,V:1,L:1,F:1}},
+  ]},
+  {text:"意思決定について、あなたのスタイルに近いのは？",options:[
+    {text:"自分の信念に基づき、迷わず決断できる。他人の意見より自分の判断を優先する。",sc:{E:0,V:3,L:0,F:0}},
+    {text:"人の意見を参考にしながら自分で決める。柔軟に最適解を探す。",sc:{E:0,V:2,L:1,F:0}},
+    {text:"なかなか決断できず、後悔することが多い。決める責任感が重く感じる。",sc:{E:0,V:-1,L:0,F:0}},
+    {text:"誰かに決めてもらうほうが楽。方向性を示してもらうと動ける。",sc:{E:0,V:-2,L:0,F:1}},
+  ]},
+  {text:"論理的な思考・分析についてはどうですか？",options:[
+    {text:"物事を論理的に整理・分析するのが得意で好き。概念や理論の探求が楽しい。",sc:{E:0,V:0,L:3,F:0}},
+    {text:"論理は大切だと思い、積極的に他者と議論・情報交換をする。",sc:{E:0,V:0,L:2,F:0}},
+    {text:"論理的に話すのは得意でない。感覚や直感で動くことが多い。",sc:{E:1,V:0,L:-1,F:0}},
+    {text:"分析よりも実践が先。考えすぎず行動したほうがよい。",sc:{E:0,V:0,L:-2,F:2}},
+  ]},
+  {text:"身体感覚・物質的な快適さについては？",options:[
+    {text:"美的感覚や身体の快適さをとても重視する。食事・睡眠・見た目など細部にこだわる。",sc:{E:0,V:0,L:0,F:3}},
+    {text:"快適さは大切だが、他者の好みも尊重し、環境作りを楽しむ。",sc:{E:0,V:0,L:0,F:2}},
+    {text:"身体管理や物質的なことはあまり得意でない。つい後回しにしてしまう。",sc:{E:0,V:0,L:0,F:-1}},
+    {text:"物質より精神・思考・感情のほうが自分にとって重要。",sc:{E:1,V:0,L:1,F:-2}},
+  ]},
+  {text:"「あなたは感情的すぎる」「冷たい」などと言われたとき？",options:[
+    {text:"「それは違う」とすぐ反発する。感情評価を他者に指図されたくない。",sc:{E:3,V:0,L:0,F:0}},
+    {text:"傷つくが、話し合いで解決しようとする。",sc:{E:2,V:0,L:0,F:0}},
+    {text:"かなり傷つく。感情のことを批判されると立ち直れないほどショックを受ける。",sc:{E:-1,V:0,L:0,F:0}},
+    {text:"「そうかもしれない」と素直に受け入れる。感情面は人に頼ってもよい。",sc:{E:-2,V:0,L:0,F:0}},
+  ]},
+  {text:"「あなたの判断は間違っている」と強く言われたとき？",options:[
+    {text:"強く反発する。自分の決断は自分が一番わかっている。",sc:{E:0,V:3,L:0,F:0}},
+    {text:"一度は聞くが、最終的には自分の判断を貫く。対話で説得しようとする。",sc:{E:0,V:2,L:0,F:0}},
+    {text:"「自分が間違っているのかも」と揺らいでしまう。",sc:{E:0,V:-1,L:0,F:0}},
+    {text:"「そうですか、じゃあお任せします」と受け入れやすい。",sc:{E:0,V:-2,L:0,F:0}},
+  ]},
+  {text:"「論理的でない」と言われたとき？",options:[
+    {text:"「それは違う」とすぐ反論できる。自分の論理に強い自信がある。",sc:{E:0,V:0,L:3,F:0}},
+    {text:"話し合いで自分の論理を説明しようとする。",sc:{E:0,V:0,L:2,F:0}},
+    {text:"「確かに自分は論理的でないかも」と落ち込む。",sc:{E:0,V:0,L:-1,F:0}},
+    {text:"「そうかもしれない。論理は苦手なので」と素直に認める。",sc:{E:0,V:0,L:-2,F:0}},
+  ]},
+  {text:"「身だしなみがだらしない」「生活力がない」と言われたとき？",options:[
+    {text:"「何が問題なの？」と反発する。物質的なことへの干渉を嫌う。",sc:{E:0,V:0,L:0,F:3}},
+    {text:"話し合い、自分なりの快適さの基準を説明する。",sc:{E:0,V:0,L:0,F:2}},
+    {text:"かなり気になる。うまく管理できていないと落ち込む。",sc:{E:0,V:0,L:0,F:-1}},
+    {text:"「確かに苦手…」と認める。物質的な管理は不得意。",sc:{E:0,V:0,L:0,F:-2}},
+  ]},
+  {text:"グループの中でのあなたの自然な役割は？",options:[
+    {text:"全体の雰囲気を作り、みんなの感情をまとめる存在。",sc:{E:2,V:1,L:0,F:0}},
+    {text:"方向性を示し、率先して決断するリーダー役。",sc:{E:0,V:2,L:1,F:0}},
+    {text:"情報を集めて分析し、最適な選択肢を提案する参謀役。",sc:{E:0,V:0,L:2,F:1}},
+    {text:"実際に動いて成果を出す実行役。環境を整えるのが得意。",sc:{E:0,V:1,L:0,F:2}},
+  ]},
+  {text:"ストレスがたまったときの対処法は？",options:[
+    {text:"誰かに話を聞いてもらい、感情を吐き出すことで楽になる。",sc:{E:2,V:0,L:0,F:1}},
+    {text:"目標を立て直して行動することで乗り越える。",sc:{E:0,V:2,L:0,F:1}},
+    {text:"原因を分析して論理的に解決策を見つける。",sc:{E:0,V:0,L:2,F:1}},
+    {text:"身体を動かしたり、美味しいものを食べたりして解放する。",sc:{E:0,V:0,L:0,F:3}},
+  ]},
+  {text:"仕事や勉強で一番モチベーションになるのは？",options:[
+    {text:"人から感謝されたり、感情的な繋がりが生まれること。",sc:{E:3,V:0,L:0,F:0}},
+    {text:"目標を達成し、自分の意志を貫いた満足感。",sc:{E:0,V:3,L:0,F:0}},
+    {text:"知識が深まり、新しいことを理解できた充実感。",sc:{E:0,V:0,L:3,F:0}},
+    {text:"目に見える成果・結果・報酬が得られること。",sc:{E:0,V:0,L:0,F:3}},
+  ]},
+  {text:"初対面の人と話すとき、どんなことを意識しますか？",options:[
+    {text:"相手が感情的に居心地よく感じてもらえるかを気にする。",sc:{E:2,V:0,L:0,F:1}},
+    {text:"自分のことを正確に伝え、主張すべきことははっきり伝える。",sc:{E:0,V:2,L:1,F:0}},
+    {text:"共通の話題や知識を見つけ、知的な会話を楽しむ。",sc:{E:0,V:0,L:2,F:1}},
+    {text:"相手の好みや状況に合わせ、快適な空間を作ることを考える。",sc:{E:0,V:0,L:0,F:2}},
+  ]},
+  {text:"芸術・音楽・映画など創作物に触れたとき、どこに一番反応しますか？",options:[
+    {text:"登場人物の感情の動き、共感できるドラマに感動する。",sc:{E:3,V:0,L:0,F:0}},
+    {text:"主人公の意志・信念・覚悟の物語に引き込まれる。",sc:{E:0,V:3,L:0,F:0}},
+    {text:"構造の巧みさ、アイデアの斬新さ、論理的な完成度に惹かれる。",sc:{E:0,V:0,L:3,F:0}},
+    {text:"映像美・音楽・雰囲気など感覚的・身体的な心地よさを重視する。",sc:{E:0,V:0,L:0,F:3}},
+  ]},
+  {text:"最も立ち直りにくい批判はどれですか？",options:[
+    {text:"「あなたは感情的すぎる」「無神経だ」など感情面への批判。",sc:{E:-2,V:0,L:0,F:0}},
+    {text:"「意志が弱い」「優柔不断だ」という意志への批判。",sc:{E:0,V:-2,L:0,F:0}},
+    {text:"「論理的でない」「考えが浅い」という論理への批判。",sc:{E:0,V:0,L:-2,F:0}},
+    {text:"「身だしなみが悪い」「生活力がない」という物質面への批判。",sc:{E:0,V:0,L:0,F:-2}},
+  ]},
+  {text:"チームで作業するとき、どんな役割が自然と回ってきますか？",options:[
+    {text:"みんなの感情や関係性のケア、場の空気を和ませる役。",sc:{E:3,V:0,L:0,F:0}},
+    {text:"全体の方向性を決め、メンバーを引っ張る意思決定者。",sc:{E:0,V:3,L:0,F:0}},
+    {text:"情報を集めて戦略を立てるアナリスト。",sc:{E:0,V:0,L:3,F:0}},
+    {text:"実際に手を動かして形にする、段取りや環境を整える人。",sc:{E:0,V:0,L:0,F:3}},
+  ]},
+  {text:"「自分らしさ」を最も感じるのはどんな瞬間ですか？",options:[
+    {text:"誰かと深く心が繋がったとき、感情を共有できたとき。",sc:{E:3,V:0,L:0,F:0}},
+    {text:"自分の信念を貫いて達成したとき、強さを発揮できたとき。",sc:{E:0,V:3,L:0,F:0}},
+    {text:"何かを深く理解したとき、知的なひらめきがあったとき。",sc:{E:0,V:0,L:3,F:0}},
+    {text:"美しいもの・心地よいものを作ったり感じたりしたとき。",sc:{E:0,V:0,L:0,F:3}},
+  ]},
+  {text:"感情的な相談を受けたとき、あなたは？",options:[
+    {text:"自然と寄り添い、感情で共鳴してサポートする。感情の扱いは得意。",sc:{E:2,V:0,L:0,F:0}},
+    {text:"「どう行動するか」という解決策・次のステップを一緒に考える。",sc:{E:0,V:2,L:0,F:0}},
+    {text:"状況を整理し、論理的な原因分析をしようとする。",sc:{E:0,V:0,L:2,F:0}},
+    {text:"具体的・物質的なサポート（食事・環境・行動）で助けたい。",sc:{E:0,V:0,L:0,F:2}},
+  ]},
+  {text:"あなたが最も「疲れる」のはどんな状況ですか？",options:[
+    {text:"感情が通じ合わない・表現を求められる場面が続く環境。",sc:{E:-1,V:0,L:0,F:0}},
+    {text:"自分の意志や判断を尊重されず、決定権のない状況が続く。",sc:{E:0,V:-1,L:0,F:0}},
+    {text:"論理的に説明できない・理解されない場面が続く。",sc:{E:0,V:0,L:-1,F:0}},
+    {text:"身体的・物質的な不快が続いたり、整理できない環境が続く。",sc:{E:0,V:0,L:0,F:-1}},
+  ]},
+  {text:"将来の夢や目標について、あなたのスタイルは？",options:[
+    {text:"感情的なビジョン（「こんな世界にしたい」）が軸になる。",sc:{E:2,V:1,L:0,F:0}},
+    {text:"明確な目標を立て、強い意志で達成しようとする。",sc:{E:0,V:3,L:0,F:0}},
+    {text:"理想の理論や知識を深め、それを活かせるポジションを目指す。",sc:{E:0,V:0,L:3,F:0}},
+    {text:"生活の質や物質的な安定・豊かさを実現することを重視する。",sc:{E:0,V:0,L:0,F:2}},
+  ]},
+  {text:"友人関係についてどう思いますか？",options:[
+    {text:"感情的なつながりが大切。心が通じ合える関係を深く大切にする。",sc:{E:2,V:0,L:0,F:1}},
+    {text:"目標や活動を一緒に行う仲間が自分に合っている。",sc:{E:0,V:2,L:0,F:1}},
+    {text:"知的な議論や情報共有ができる関係が心地よい。",sc:{E:0,V:0,L:2,F:1}},
+    {text:"楽しく一緒に過ごせる、居心地のよい関係が好き。",sc:{E:1,V:0,L:0,F:2}},
+  ]},
+];
+
+let curQ=0,ans=[],sc={E:0,V:0,L:0,F:0};
+
+function renderQ(){
+  const q=questions[curQ];
+  document.getElementById('prog').style.width=(curQ/questions.length*100)+'%';
+  const sel=ans[curQ];
+  document.getElementById('quiz-area').innerHTML=`
+    <div class="q-card">
+      <div class="q-step">質問 ${curQ+1} / ${questions.length}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="opts">${q.options.map((o,i)=>`<button class="opt-btn${sel===i?' selected':''}" onclick="selectA(${i})">${o.text}</button>`).join('')}</div>
+    </div>
+    <div class="nav-btns">
+      ${curQ>0?`<button class="btn btn-ghost" onclick="prevQ()">← 前へ</button>`:''}
+      <button class="btn btn-primary" id="nxt" onclick="nextQ()"${sel===undefined?' disabled':''}>${curQ<questions.length-1?'次へ →':'結果を見る ✨'}</button>
+    </div>`;
+}
+function selectA(i){
+  ans[curQ]=i;
+  document.querySelectorAll('.opt-btn').forEach((b,idx)=>b.classList.toggle('selected',idx===i));
+  document.getElementById('nxt').disabled=false;
+}
+function nextQ(){
+  if(ans[curQ]===undefined)return;
+  if(curQ<questions.length-1){curQ++;renderQ();}else showResult();
+}
+function prevQ(){if(curQ>0){curQ--;renderQ();}}
+
+function showResult(){
+  let scores={E:0,V:0,L:0,F:0};
+  ans.forEach((a,qi)=>{if(a!==undefined){const s=questions[qi].options[a].sc;Object.keys(s).forEach(k=>scores[k]+=s[k]);}});
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const ranking=sorted.map(([k])=>k);
+  const typeCode=ranking.join('');
+  const found=TYPES.find(t=>t.code===typeCode)||TYPES.find(t=>t.code[0]===ranking[0])||TYPES[0];
+  document.getElementById('prog').style.width='100%';
+  document.getElementById('quiz-area').style.display='none';
+  document.getElementById('result-area').style.display='block';
+  const mx=Math.max(...Object.values(scores));
+  const mn=Math.min(...Object.values(scores));
+  const rng=mx-mn||1;
+  document.getElementById('result-area').innerHTML=`
+    <div class="result-hero">
+      <div class="result-type">${colorCodeLarge(typeCode)}</div>
+      <div class="result-name">${found.name} タイプ（第${found.sexta}セクスタ）</div>
+      <div class="result-desc">${found.desc}</div>
+    </div>
+    <div class="scores-grid">
+      ${sorted.map(([k,v],i)=>`
+        <div class="sc-card ${k}">
+          <div class="sc-label"><div class="sc-dot ${k}"></div><div class="sc-lname">${{'E':'感情','V':'意志','L':'論理','F':'物質'}[k]}</div></div>
+          <div class="sc-rank ${k}">第${i+1}位</div>
+          <div class="sc-bar-wrap"><div class="sc-bar ${k}" style="width:${Math.max(10,(v-mn)/rng*100)}%"></div></div>
+        </div>`).join('')}
+    </div>
+    <div class="result-extras">
+      <div class="ex-card"><div class="ex-label">セクスタ</div><div class="ex-value">第${found.sexta}セクスタ</div><div class="ex-sub">${['','開拓者','建設者','統治者','文化人','消費者','革新者'][found.sexta]}</div></div>
+      <div class="ex-card"><div class="ex-label">第１機能（強・確信）</div><div class="ex-value">${{'E':'感情 E','V':'意志 V','L':'論理 L','F':'物質 F'}[ranking[0]]}</div><div class="ex-sub">I＋ You－</div></div>
+      <div class="ex-card"><div class="ex-label">第２機能（対話的）</div><div class="ex-value">${{'E':'感情 E','V':'意志 V','L':'論理 L','F':'物質 F'}[ranking[1]]}</div><div class="ex-sub">I＋ You＋</div></div>
+      <div class="ex-card"><div class="ex-label">第３機能（傷つきやすい）</div><div class="ex-value">${{'E':'感情 E','V':'意志 V','L':'論理 L','F':'物質 F'}[ranking[2]]}</div><div class="ex-sub">I－ You－</div></div>
+    </div>
+    <div class="card"><h3>📌 この結果について</h3><p>この診断は簡易版です。実際のサイコソフィア診断は長時間の自己観察が必要で、質問票だけでは正確に決まらないとされています。「どの機能が自分にとって強く・弱いか」を考えるきっかけとして活用してください。</p></div>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="restartQuiz()">🔄 もう一度</button>
+      <button class="btn btn-primary" onclick="showTab('t-types',document.querySelectorAll('.tab-btn')[2])">📋 タイプ詳細を見る</button>
+    </div>`;
+}
+function restartQuiz(){
+  curQ=0;ans=[];sc={E:0,V:0,L:0,F:0};
+  document.getElementById('quiz-area').style.display='block';
+  document.getElementById('result-area').style.display='none';
+  document.getElementById('prog').style.width='0%';
+  renderQ();
+}
+renderQ();
+</script>
+</body>
+</html>
