@@ -290,6 +290,7 @@ h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
   <button class="tab-btn" onclick="switchTab('modelG',this)">モデルG</button>
   <button class="tab-btn" onclick="switchTab('quadra',this)">クアドラ</button>
   <button class="tab-btn" onclick="switchTab('types',this)">16タイプ</button>
+  <button class="tab-btn" onclick="switchTab('dichotomies',this)">二分法</button>
   <button class="tab-btn" onclick="switchTab('relations',this)">関係論</button>
   <button class="tab-btn" onclick="switchTab('tools',this)">ツール集</button>
 </nav>
@@ -539,6 +540,257 @@ h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
       <h3>1次元（スロット④⑤）</h3>
       <p>経験からのみ学べる最低次元。説明を受けても消化しにくく、失敗からしか学べない傾向がある。</p>
     </div>
+  </div>
+
+  <h2 class="sh">16タイプ 機能スタック一覧</h2>
+  <div class="info-box">
+    各タイプの①〜⑧スロットに割り当てられる情報要素の一覧です。クアドラ別に色分けしています。
+    認知スタイル・ロマンススタイルはGulenkoのモデルG拡張理論による分類です。
+  </div>
+
+  <!-- スクロール可能なテーブルラッパー -->
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;border-radius:var(--radius-sm);border:1px solid var(--border);box-shadow:var(--shadow);">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:700px;">
+      <thead>
+        <tr style="background:var(--bg2);">
+          <th style="padding:9px 10px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--ink2);white-space:nowrap;">タイプ</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--ego);white-space:nowrap;">① 主導</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--ego);white-space:nowrap;">② 創造</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--superego);white-space:nowrap;">③ 規範</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--superego);white-space:nowrap;">④ 脆弱</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--superid);white-space:nowrap;">⑤ 暗示</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--superid);white-space:nowrap;">⑥ 動員</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--id);white-space:nowrap;">⑦ 無視</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--id);white-space:nowrap;">⑧ 証明</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--ink3);white-space:nowrap;">認知スタイル</th>
+          <th style="padding:9px 8px;border:1px solid var(--border);text-align:center;font-weight:500;font-size:11px;color:var(--ink3);white-space:nowrap;">ロマンス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- α クアドラ -->
+        <tr><td colspan="11" style="padding:5px 10px;background:var(--alpha-bg);font-size:10px;font-weight:500;color:var(--alpha);letter-spacing:1px;border:1px solid var(--border);">α アルファクアドラ</td></tr>
+        <tr style="background:#fff;">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--alpha);text-align:center;">ILE</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">因果的決定論的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">子供</td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--alpha);text-align:center;">SEI</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">弁証法的アルゴリズム的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">保護者</td>
+        </tr>
+        <tr style="background:#fff;">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--alpha);text-align:center;">ESE</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">ヴォーティカル・シナジェティクス的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">保護者</td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--alpha);text-align:center;">LII</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">ホログラフィック・パノラマ的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">子供</td>
+        </tr>
+        <!-- β クアドラ -->
+        <tr><td colspan="11" style="padding:5px 10px;background:var(--beta-bg);font-size:10px;font-weight:500;color:var(--beta);letter-spacing:1px;border:1px solid var(--border);">β ベータクアドラ</td></tr>
+        <tr style="background:#fff;">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--beta);text-align:center;">SLE</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">因果的決定論的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">侵略者</td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--beta);text-align:center;">IEI</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">弁証法的アルゴリズム的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">犠牲者</td>
+        </tr>
+        <tr style="background:#fff;">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--beta);text-align:center;">EIE</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">ヴォーティカル・シナジェティクス的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">犠牲者</td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--beta);text-align:center;">LSI</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">ホログラフィック・パノラマ的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">侵略者</td>
+        </tr>
+        <!-- γ クアドラ -->
+        <tr><td colspan="11" style="padding:5px 10px;background:var(--gamma-bg);font-size:10px;font-weight:500;color:var(--gamma);letter-spacing:1px;border:1px solid var(--border);">γ ガンマクアドラ</td></tr>
+        <tr style="background:#fff;">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--gamma);text-align:center;">SEE</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">因果的決定論的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">侵略者</td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--gamma);text-align:center;">ILI</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">弁証法的アルゴリズム的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">犠牲者</td>
+        </tr>
+        <tr style="background:#fff;">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--gamma);text-align:center;">LIE</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">ヴォーティカル・シナジェティクス的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">犠牲者</td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--gamma);text-align:center;">ESI</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">ホログラフィック・パノラマ的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">侵略者</td>
+        </tr>
+        <!-- Δ クアドラ -->
+        <tr><td colspan="11" style="padding:5px 10px;background:var(--delta-bg);font-size:10px;font-weight:500;color:var(--delta);letter-spacing:1px;border:1px solid var(--border);">Δ デルタクアドラ</td></tr>
+        <tr style="background:#fff;">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--delta);text-align:center;">IEE</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">ホログラフィック・パノラマ的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">侵略者</td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--delta);text-align:center;">SLI</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">ヴォーティカル・シナジェティクス的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">犠牲者</td>
+        </tr>
+        <tr style="background:#fff;">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--delta);text-align:center;">LSE</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ni</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">弁証法的アルゴリズム的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">保護者</td>
+        </tr>
+        <tr style="background:var(--surface2);">
+          <td style="padding:7px 10px;border:1px solid var(--border);font-weight:500;color:var(--delta);text-align:center;">EII</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);font-weight:500;">Fi</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--ego);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Te</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superego);">Se</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Ti</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--superid);">Si</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Fe</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;color:var(--id);">Ne</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">因果的決定論的</td>
+          <td style="padding:7px 8px;border:1px solid var(--border);text-align:center;font-size:11px;color:var(--ink3);">子供</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn-box" style="margin-bottom:28px;">
+    <strong>認知スタイル・ロマンススタイルについて：</strong>
+    これらはViktor Gulenko（モデルG）の拡張理論による分類です。Wikisocionや英語圏コミュニティではモデルAの8スロット構造が主流ですが、
+    Gulenkoの小グループ理論は日本語圏でも参照されることがあります。タイプ判定の根拠としてではなく、補助的な視点としてご参照ください。
   </div>
 
   <h2 class="sh">モデルA例：LSE（ESTj相当）</h2>
@@ -810,6 +1062,181 @@ h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
 
   <div class="types16-grid" id="types16Grid"></div>
   <div id="typeDetailWrap"></div>
+</div>
+</div>
+
+<!-- ══════ TAB: DICHOTOMIES ══════ -->
+<div class="tab-content" id="tab-dichotomies">
+<div class="container">
+  <p class="sec-title">ソシオニクス二分法</p>
+  <p class="sec-label">Socionics Dichotomies — Reinin Traits & Small Groups</p>
+
+  <div class="info-box">
+    ソシオニクスでは4つの基本二分法（外向/内向・直観/感覚・論理/倫理・合理/非合理）に加え、
+    Grigory Reinin が数学的に導出した<strong>15対の二分法（Reinin特性）</strong>があります。
+    Gulenkoはこれを小グループ理論として整理し、タイプの記述に活用しています。
+  </div>
+
+  <!-- グループ1：エネルギー・態度系 -->
+  <h2 class="sh">エネルギー・態度系（外向/内向 軸）</h2>
+
+  <div class="card">
+    <h3>外向 / 内向</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">外向</strong>：外部の人・状況・活動に意識が向き、外部から活力を得る。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">内向</strong>：内面の思考・感覚・価値観に焦点を当て、内部から力を蓄える。</p>
+    <p style="font-size:12px;color:var(--ink3);">人付き合いのスタイルやエネルギーの充電方法に影響を与える。態度の控えめさと積極性の違いを表す。</p>
+  </div>
+
+  <div class="card">
+    <h3>周辺（賢明） / 中心（果敢）</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">周辺型</strong>：環境に溶け込み、調整や適応を重んじる。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">中心型</strong>：自分の意思を強く押し出し、状況を動かそうとする。</p>
+    <p style="font-size:12px;color:var(--ink3);">守りか攻めかの志向の違いを表す。</p>
+    <div style="margin-top:10px;padding:8px 12px;background:var(--bg2);border-radius:var(--radius-sm);font-size:12px;">
+      <strong>α・δ</strong>（ILE,SEI,ESE,LII,IEE,SLI,LSE,EII）→ 周辺型　／　<strong>β・γ</strong>（SLE,IEI,EIE,LSI,SEE,ILI,LIE,ESI）→ 中心型
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>資源 / 利益</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">資源型</strong>：安定・安全・維持を優先する。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">利益型</strong>：効率・成果・拡大を追求する。</p>
+    <p style="font-size:12px;color:var(--ink3);">守りか攻めかの志向の違いを表す。</p>
+  </div>
+
+  <div class="card">
+    <h3>臨機 / 先見</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">臨機型</strong>：状況に応じた即応を得意とする。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">先見型</strong>：あらかじめ予測し、準備して動く。</p>
+    <p style="font-size:12px;color:var(--ink3);">「今対応する」か「先を読んで構える」かの違い。</p>
+  </div>
+
+  <!-- グループ2：情報処理系 -->
+  <h2 class="sh">情報処理系（直観/感覚 軸）</h2>
+
+  <div class="card">
+    <h3>直観 / 感覚</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">直観</strong>：可能性や未来、抽象的な関連性に注意を向ける。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">感覚</strong>：現在の状況や具体的な事実、実際的な体験に基づいて判断する。</p>
+    <p style="font-size:12px;color:var(--ink3);">情報をどう捉えるか、想像力と現実感覚のバランスを示す。</p>
+  </div>
+
+  <div class="card">
+    <h3>構成 / 情緒</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">構成型</strong>：体系的で秩序立った思考を重んじる。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">情緒型</strong>：流動的で感情的なつながりを優先する。</p>
+    <p style="font-size:12px;color:var(--ink3);">堅実な計画性か、気分や雰囲気を大事にするかの差。</p>
+  </div>
+
+  <div class="card">
+    <h3>静的 / 動的</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">静型</strong>：安定・落ち着き・固定した枠組みを重んじる。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">動型</strong>：変化・発展・流れを好む。</p>
+    <p style="font-size:12px;color:var(--ink3);">物事を「止まって見る」か「動かして見る」かの違い。</p>
+  </div>
+
+  <div class="card">
+    <h3>プロセス / 結果</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">プロセス型</strong>：途中の経過や進み方を重視する。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">結果型</strong>：最終成果や結論に焦点を当てる。</p>
+    <p style="font-size:12px;color:var(--ink3);">「どう進んだか」か「何を得たか」に注目する違い。</p>
+  </div>
+
+  <!-- グループ3：判断系 -->
+  <h2 class="sh">判断・価値系（論理/倫理 軸）</h2>
+
+  <div class="card">
+    <h3>論理 / 倫理</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">論理</strong>：客観的な法則や因果関係を重視し、合理性に基づいて判断する。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">倫理</strong>：人間関係や価値観を重視し、調和や善悪を基準にする。</p>
+    <p style="font-size:12px;color:var(--ink3);">意思決定における「事実か価値か」の違いを表す。</p>
+  </div>
+
+  <div class="card">
+    <h3>主観 / 客観</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">主観型</strong>：自身の視点や解釈を基準に行動する。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">客観型</strong>：外部の基準や状況に合わせて判断する。</p>
+    <p style="font-size:12px;color:var(--ink3);">「自分の物差しか、外界の物差しか」の違いを表す。</p>
+    <div style="margin-top:10px;padding:8px 12px;background:var(--bg2);border-radius:var(--radius-sm);font-size:12px;">
+      <strong>α・β</strong>（ILE,SEI,ESE,LII,SLE,IEI,EIE,LSI）→ 主観型　／　<strong>γ・δ</strong>（SEE,ILI,LIE,ESI,IEE,SLI,LSE,EII）→ 客観型
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>民主 / 貴族</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">民主型</strong>：仲間意識や平等な立場を重んじる。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">貴族型</strong>：序列や区別を意識し、役割に基づく関係を取る。</p>
+    <p style="font-size:12px;color:var(--ink3);">横のつながりか縦のつながりかで人間関係を捉える。</p>
+  </div>
+
+  <div class="card">
+    <h3>肯定 / 否定</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">肯定型</strong>：物事を前向きにとらえ、可能性や価値を見出す。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">否定型</strong>：問題点や矛盾を探し、修正や改善に向かう。</p>
+    <p style="font-size:12px;color:var(--ink3);">プラス思考か批判思考かという傾向を表す。</p>
+  </div>
+
+  <!-- グループ4：行動・コミュニケーション系 -->
+  <h2 class="sh">行動・コミュニケーション系（合理/非合理 軸）</h2>
+
+  <div class="card">
+    <h3>合理 / 非合理</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">合理</strong>：判断機能（論理・倫理）を優先し、結論や安定を求める。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">非合理</strong>：知覚機能（直観・感覚）を優先し、流れや変化を受け入れる。</p>
+    <p style="font-size:12px;color:var(--ink3);">計画的に進めるか、柔軟に適応するかの違いを示す。</p>
+  </div>
+
+  <div class="card">
+    <h3>戦術 / 戦略</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">戦術型</strong>：目の前の状況に柔軟に対応し、現場感覚に強い。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">戦略型</strong>：長期的視点や全体像を重視し、未来を見据えて行動する。</p>
+    <p style="font-size:12px;color:var(--ink3);">短期適応か長期計画かのスタイルを示す。</p>
+  </div>
+
+  <div class="card">
+    <h3>質問 / 宣言</h3>
+    <p style="margin-bottom:8px;"><strong style="color:var(--accent);">質問型</strong>：対話的で「相手から引き出す」スタイルを取る。</p>
+    <p style="margin-bottom:8px;"><strong style="color:var(--info);">宣言型</strong>：一方的に「自分から伝える」スタイルを好む。</p>
+    <p style="font-size:12px;color:var(--ink3);">会話の主導権の取り方に差が出る。</p>
+  </div>
+
+  <!-- 16タイプ二分法一覧表 -->
+  <h2 class="sh">16タイプ 二分法一覧表</h2>
+  <div class="info-box">
+    各タイプが持つ15の二分法属性を一覧にしています。横スクロールでご確認ください。
+  </div>
+
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;border-radius:var(--radius-sm);border:1px solid var(--border);box-shadow:var(--shadow);">
+    <table id="dichoTable" style="width:100%;border-collapse:collapse;font-size:11px;min-width:900px;">
+      <thead>
+        <tr style="background:var(--bg2);">
+          <th style="padding:8px 10px;border:1px solid var(--border);font-weight:500;color:var(--ink2);white-space:nowrap;position:sticky;left:0;background:var(--bg2);z-index:2;">タイプ</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">外向/内向</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">直観/感覚</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">論理/倫理</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">合理/非合理</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">周辺/中心</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">構成/情緒</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">主観/客観</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">戦術/戦略</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">資源/利益</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">静的/動的</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">民主/貴族</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">質問/宣言</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">臨機/先見</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">プロセス/結果</th>
+          <th style="padding:8px 7px;border:1px solid var(--border);font-weight:500;color:var(--ink3);white-space:nowrap;">肯定/否定</th>
+        </tr>
+      </thead>
+      <tbody id="dichoBody"></tbody>
+    </table>
+  </div>
+
+  <div class="warn-box">
+    <strong>注意：</strong>二分法（特にReinin特性）の一部は研究者間で解釈が異なり、特定の属性（質問/宣言、肯定/否定など）については
+    実証的根拠が議論中のものもあります。Wikisocionでは「Reinin特性の有効性には留保が必要」との注記があります。
+    参考情報として活用してください。
+  </div>
 </div>
 </div>
 
@@ -1119,6 +1546,55 @@ if(rg){
         <div class="rel-pairs">${pairsHtml}</div>
       </div>`;
     rg.appendChild(div);
+  });
+}
+// ══════ 二分法テーブル生成 ══════
+const DICHO_DATA = [
+  // タイプ, クアドラ, 外向/内向, 直観/感覚, 論理/倫理, 合理/非合理, 周辺/中心, 構成/情緒, 主観/客観, 戦術/戦略, 資源/利益, 静的/動的, 民主/貴族, 質問/宣言, 臨機/先見, プロセス/結果, 肯定/否定
+  ['ILE','α','外向','直観','論理','非合理','周辺','構成','主観','戦術','資源','静的','民主','質問','臨機','プロセス','肯定'],
+  ['SEI','α','内向','感覚','倫理','非合理','周辺','情緒','主観','戦術','資源','動的','民主','宣言','臨機','プロセス','否定'],
+  ['ESE','α','外向','感覚','倫理','合理','周辺','構成','主観','戦術','利益','動的','民主','宣言','先見','結果','肯定'],
+  ['LII','α','内向','直観','論理','合理','周辺','情緒','主観','戦術','利益','静的','民主','質問','先見','結果','否定'],
+  ['SLE','β','外向','感覚','論理','非合理','中心','構成','主観','戦略','資源','動的','貴族','宣言','臨機','プロセス','肯定'],
+  ['IEI','β','内向','直観','倫理','非合理','中心','情緒','主観','戦略','資源','静的','貴族','質問','臨機','プロセス','否定'],
+  ['EIE','β','外向','直観','倫理','合理','中心','構成','主観','戦略','利益','動的','貴族','宣言','先見','結果','肯定'],
+  ['LSI','β','内向','感覚','論理','合理','中心','情緒','主観','戦略','利益','静的','貴族','質問','先見','結果','否定'],
+  ['SEE','γ','外向','感覚','倫理','非合理','中心','構成','客観','戦略','資源','動的','民主','宣言','臨機','プロセス','肯定'],
+  ['ILI','γ','内向','直観','論理','非合理','中心','情緒','客観','戦略','資源','静的','民主','質問','臨機','プロセス','否定'],
+  ['LIE','γ','外向','直観','論理','合理','中心','構成','客観','戦略','利益','動的','民主','宣言','先見','結果','肯定'],
+  ['ESI','γ','内向','感覚','倫理','合理','中心','情緒','客観','戦略','利益','静的','民主','質問','先見','結果','否定'],
+  ['IEE','δ','外向','直観','倫理','非合理','周辺','構成','客観','戦術','資源','動的','貴族','宣言','臨機','プロセス','肯定'],
+  ['SLI','δ','内向','感覚','論理','非合理','周辺','情緒','客観','戦術','資源','静的','貴族','質問','臨機','プロセス','否定'],
+  ['LSE','δ','外向','感覚','論理','合理','周辺','構成','客観','戦術','利益','動的','貴族','宣言','先見','結果','肯定'],
+  ['EII','δ','内向','直観','倫理','合理','周辺','情緒','客観','戦術','利益','静的','貴族','質問','先見','結果','否定'],
+];
+
+const QUADRA_COL = {α:'var(--alpha)',β:'var(--beta)',γ:'var(--gamma)',δ:'var(--delta)'};
+const QUADRA_BG  = {α:'var(--alpha-bg)',β:'var(--beta-bg)',γ:'var(--gamma-bg)',δ:'var(--delta-bg)'};
+
+const dichoBody = document.getElementById('dichoBody');
+if(dichoBody){
+  let prevQ = '';
+  DICHO_DATA.forEach((row, i) => {
+    const [type, q, ...attrs] = row;
+    // クアドラ区切り行
+    if(q !== prevQ){
+      const sep = document.createElement('tr');
+      sep.innerHTML = `<td colspan="17" style="padding:5px 10px;background:${QUADRA_BG[q]};font-size:10px;font-weight:500;color:${QUADRA_COL[q]};letter-spacing:1px;border:1px solid var(--border);">${q} クアドラ</td>`;
+      dichoBody.appendChild(sep);
+      prevQ = q;
+    }
+    const bg = i % 2 === 0 ? '#fff' : 'var(--surface2)';
+    const tr = document.createElement('tr');
+    tr.style.background = bg;
+    const cells = attrs.map(v => {
+      // 1系の属性（外向・直観・論理・合理など）は accent 色、2系は info 色
+      const isFirst = ['外向','直観','論理','合理','周辺','構成','主観','戦術','資源','静的','民主','質問','臨機','プロセス','肯定'].includes(v);
+      const col = isFirst ? 'var(--accent)' : 'var(--info)';
+      return `<td style="padding:6px 7px;border:1px solid var(--border);text-align:center;color:${col};font-size:11px;white-space:nowrap;">${v}</td>`;
+    }).join('');
+    tr.innerHTML = `<td style="padding:6px 10px;border:1px solid var(--border);font-weight:500;color:${QUADRA_COL[q]};text-align:center;position:sticky;left:0;background:${bg};z-index:1;">${type}</td>${cells}`;
+    dichoBody.appendChild(tr);
   });
 }
 </script>
