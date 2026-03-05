@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>エニアグラム — 9つの動機と人格 | 類型界隈ポータル</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#faf6f1; --bg2:#f3ece3; --bg3:#ece1d4;
+  --surface:#ffffff; --surface2:#fdf9f5;
+  --border:#ddd0c0; --border2:#c8b89a;
+  --ink:#201808; --ink2:#4a3820; --ink3:#7a6040; --ink4:#aa9070;
+  --accent:#b85c28; --accent2:#d4834a; --accent3:#f0aa78;
+  --accent-bg:#fdf3ec; --accent-mid:#d4834a;
+  --gold:#b8943a; --gold-lt:#d4b060; --gold-bg:#fdf8ee;
+  --ok:#2a7a58; --ok-bg:#ecf7f2;
+  --warn:#2d5fa8; --warn-bg:#eef3fc;
+  /* センターカラー */
+  --gut:#c04830;  --gut-bg:#fdf0ee;
+  --heart:#d4884a;--heart-bg:#fef5ee;
+  --head:#4a80c4; --head-bg:#eef4fc;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 2px 16px rgba(80,40,10,.07);
+  --shadow-lg:0 8px 40px rgba(80,40,10,.13);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden;font-size:14px;}
+
+/* TOPBAR */
+.topbar{background:rgba(250,246,241,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;position:sticky;top:0;z-index:300;}
+.topbar-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink3);text-decoration:none;padding:5px 0;transition:color .2s;}
+.topbar-back:hover{color:var(--accent);}
+.topbar-back svg{width:14px;height:14px;}
+.topbar-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:.06em;color:var(--ink);}
+.topbar-right{width:80px;text-align:right;font-size:11px;color:var(--ink4);}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#f5ede0 0%,#faf6f1 50%,#fdf0e8 100%);border-bottom:1px solid var(--border);padding:44px 20px 36px;position:relative;overflow:hidden;text-align:center;}
+.hero::before{content:'⬡';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:500px;color:var(--accent);opacity:.03;pointer-events:none;line-height:1;}
+.hero-eyebrow{display:inline-block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500;padding:4px 14px;border:1px solid var(--border2);border-radius:20px;background:var(--surface);margin-bottom:16px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,9vw,72px);font-weight:300;color:var(--ink);line-height:1.0;margin-bottom:8px;letter-spacing:.04em;}
+.hero h1 em{font-style:italic;color:var(--accent2);}
+.hero-sub{font-size:12px;color:var(--ink3);letter-spacing:1.5px;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--ink3);}
+
+/* TABS */
+.tabs-nav{display:flex;justify-content:center;gap:0;background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:48px;z-index:200;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tab-btn{font-size:12px;font-weight:400;padding:12px 15px;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;font-family:'Noto Sans JP',sans-serif;margin-bottom:-2px;}
+.tab-btn:hover{color:var(--ink2);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* CONTAINER */
+.container{max-width:860px;margin:0 auto;padding:28px 16px calc(60px + var(--safe-bottom));}
+
+/* TYPOGRAPHY */
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,28px);font-weight:400;color:var(--ink);margin-bottom:4px;}
+.sec-label{font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+h2.sh{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--ink);margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;margin-bottom:14px;box-shadow:var(--shadow);}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;color:var(--ink);margin-bottom:8px;}
+.card p,.card li{font-size:13px;color:var(--ink2);line-height:1.8;}
+.card ul{padding-left:18px;}
+.info-box{background:var(--accent-bg);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--ink2);line-height:1.7;}
+.info-box:first-child{flex-shrink:0;}
+.info-box:last-child{flex:1;min-width:0;word-break:break-word;}
+.ok-box{background:var(--ok-bg);border:1px solid #a0d4b8;border-left:3px solid var(--ok);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#1a4a30;line-height:1.7;}
+.warn-box{background:var(--warn-bg);border:1px solid #b0c8e8;border-left:3px solid var(--warn);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#1a3060;line-height:1.7;}
+.warn-box strong{color:var(--warn);}
+
+/* DIAGRAM */
+.diagram-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:20px;overflow:hidden;}
+.diagram-title{font-size:11px;color:var(--ink4);letter-spacing:2px;margin-bottom:12px;text-align:center;text-transform:uppercase;}
+
+/* INNER TABS */
+.inner-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto;scrollbar-width:none;}
+.inner-tabs::-webkit-scrollbar{display:none;}
+.inner-tab{font-size:12px;padding:8px 13px;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;font-family:'Noto Sans JP',sans-serif;margin-bottom:-1px;}
+.inner-tab.active{color:var(--accent2);border-bottom-color:var(--accent2);}
+.inner-panel{display:none;}
+.inner-panel.active{display:block;}
+
+/* TYPE CARDS (9types) */
+.type9-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+@media(max-width:500px){.type9-grid{grid-template-columns:repeat(3,1fr);gap:8px;}}
+.type9-chip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s;}
+.type9-chip:hover{border-color:var(--accent2);background:var(--accent-bg);transform:translateY(-2px);}
+.type9-chip.active{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 0 2px #d4834a40;}
+.type9-chip .tn{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--accent);display:block;line-height:1.2;}
+.type9-chip .tl{font-size:10px;color:var(--ink3);display:block;margin-top:3px;}
+
+/* TYPE DETAIL */
+.type-detail{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px 18px;margin-top:16px;box-shadow:var(--shadow);display:none;}
+.type-detail.active{display:block;}
+.td-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px;}
+.td-num{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;color:var(--accent);line-height:1;letter-spacing:.02em;}
+.td-meta h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--ink);margin-bottom:4px;}
+.td-meta p{font-size:12px;color:var(--ink3);line-height:1.6;}
+.td-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.td-tag{font-size:11px;padding:3px 9px;border-radius:20px;background:var(--bg2);border:1px solid var(--border);color:var(--ink3);}
+.td-tag.center-gut{background:var(--gut-bg);border-color:#e0a090;color:var(--gut);}
+.td-tag.center-heart{background:var(--heart-bg);border-color:#e8c090;color:#8a5010;}
+.td-tag.center-head{background:var(--head-bg);border-color:#a0c0e8;color:var(--head);}
+.td-section{margin-bottom:14px;}
+.td-section h4{font-size:12px;font-weight:500;color:var(--ink3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.td-section p{font-size:13px;color:var(--ink2);line-height:1.8;}
+.td-arrows{display:flex;gap:10px;flex-wrap:wrap;}
+.td-arrow{font-size:12px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);}
+.td-arrow.int{background:var(--ok-bg);border-color:#a0d4b8;color:var(--ok);}
+.td-arrow.dis{background:#fdf0ee;border-color:#e0a090;color:var(--gut);}
+
+/* CENTER BANDS */
+.center-band{border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:12px;border:1px solid;}
+.center-band.gut{background:var(--gut-bg);border-color:#e0a890;}
+.center-band.heart{background:var(--heart-bg);border-color:#e8c890;}
+.center-band.head{background:var(--head-bg);border-color:#a0c0e8;}
+.center-band h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;margin-bottom:6px;}
+.center-band.gut h3{color:var(--gut);}
+.center-band.heart h3{color:#8a5010;}
+.center-band.head h3{color:var(--head);}
+.center-band p{font-size:12px;line-height:1.8;}
+.center-band.gut p{color:#5a2010;}
+.center-band.heart p{color:#5a3010;}
+.center-band.head p{color:#1a3060;}
+.center-types{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.ct{font-size:12px;padding:3px 10px;border-radius:20px;border:1px solid;}
+.ct.gut{background:#f8e8e4;border-color:#d09080;color:var(--gut);}
+.ct.heart{background:#fef0e0;border-color:#d8b070;color:#8a5010;}
+.ct.head{background:#e8f0fc;border-color:#90b0e0;color:var(--head);}
+
+/* WING */
+.wing-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+@media(max-width:480px){.wing-grid{grid-template-columns:1fr;}}
+.wing-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;}
+.wing-code{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--accent);margin-bottom:4px;}
+.wing-name{font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:6px;}
+.wing-desc{font-size:12px;color:var(--ink3);line-height:1.7;}
+
+/* TRITYPE */
+.tritype-viz{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px;}
+.tritype-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+.tritype-block{border-radius:var(--radius-sm);padding:10px 14px;text-align:center;min-width:80px;}
+.tritype-block.gut{background:var(--gut-bg);border:1px solid #e0a890;}
+.tritype-block.heart{background:var(--heart-bg);border:1px solid #e8c890;}
+.tritype-block.head{background:var(--head-bg);border:1px solid #a0c0e8;}
+.tritype-block .tbn{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;}
+.tritype-block.gut .tbn{color:var(--gut);}
+.tritype-block.heart .tbn{color:#8a5010;}
+.tritype-block.head .tbn{color:var(--head);}
+.tritype-block .tbl{font-size:10px;color:var(--ink4);}
+.tritype-plus{font-size:20px;color:var(--ink4);}
+.tritype-eq{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--accent);padding:8px 14px;background:var(--accent-bg);border:1px solid var(--border2);border-radius:var(--radius-sm);}
+.tritype-example{margin-bottom:16px;}
+.tritype-example h4{font-size:12px;font-weight:500;color:var(--ink3);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;}
+.tt-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.tt-chip{font-size:12px;padding:5px 12px;border-radius:20px;background:var(--bg2);border:1px solid var(--border);color:var(--ink2);cursor:default;}
+
+/* INSTINCT */
+.inst-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;}
+.inst-card{border-radius:var(--radius);padding:18px 16px;border:1px solid;}
+.inst-card.sp{background:#f0faf5;border-color:#90d8b0;}
+.inst-card.sx{background:#fff0f5;border-color:#f0a0c0;}
+.inst-card.so{background:#f0f5ff;border-color:#a0b8f0;}
+.inst-icon{font-size:28px;margin-bottom:8px;}
+.inst-code{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:4px;}
+.inst-card.sp .inst-code{color:#1a7a48;}
+.inst-card.sx .inst-code{color:#c01060;}
+.inst-card.so .inst-code{color:#1a40a8;}
+.inst-name{font-size:13px;font-weight:500;margin-bottom:8px;}
+.inst-card.sp .inst-name{color:#1a5a38;}
+.inst-card.sx .inst-name{color:#8a0848;}
+.inst-card.so .inst-name{color:#0a2880;}
+.inst-desc{font-size:12px;line-height:1.8;color:var(--ink2);}
+.inst-kw{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.inst-kw span{font-size:10px;padding:2px 8px;border-radius:12px;background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.1);color:var(--ink3);}
+
+.stack-example{margin-bottom:20px;}
+.stack-example h4{font-size:12px;color:var(--ink3);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;font-weight:500;}
+.stack-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.stack-badge{font-size:12px;padding:4px 12px;border-radius:20px;font-weight:500;min-width:44px;text-align:center;}
+.stack-badge.dom{background:var(--accent);color:white;}
+.stack-badge.sec{background:var(--accent-bg);color:var(--accent);border:1px solid var(--border2);}
+.stack-badge.trd{background:var(--bg2);color:var(--ink3);border:1px solid var(--border);}
+.stack-desc{font-size:12px;color:var(--ink2);line-height:1.6;}
+
+/* QUIZ */
+.quiz-wrap{max-width:680px;margin:0 auto;}
+.quiz-progress{height:4px;background:var(--bg3);border-radius:2px;margin-bottom:24px;overflow:hidden;}
+.quiz-progress-bar{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;}
+.quiz-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--ink4);margin-bottom:20px;}
+.quiz-q{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;margin-bottom:16px;box-shadow:var(--shadow);}
+.quiz-q-num{font-size:11px;color:var(--accent);letter-spacing:2px;margin-bottom:10px;}
+.quiz-q-text{font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:20px;font-weight:400;}
+.quiz-options{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;cursor:pointer;transition:all .18s;font-size:13px;color:var(--ink2);}
+.quiz-opt:hover{border-color:var(--accent2);background:var(--accent-bg);}
+.quiz-opt.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);}
+.quiz-opt-radio{width:18px;height:18px;border:2px solid var(--border2);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.quiz-opt.selected .quiz-opt-radio{border-color:var(--accent);background:var(--accent);}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px;}
+.quiz-btn{padding:10px 24px;border-radius:var(--radius-sm);font-size:13px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:all .2s;border:none;font-weight:500;}
+.quiz-btn-next{background:var(--accent);color:white;}
+.quiz-btn-next:hover{background:#8f4418;}
+.quiz-btn-next:disabled{background:var(--bg3);color:var(--ink4);cursor:not-allowed;}
+.quiz-btn-prev{background:transparent;color:var(--ink3);border:1px solid var(--border);}
+.quiz-btn-prev:hover{background:var(--bg2);}
+
+/* RESULT */
+.quiz-result{display:none;text-align:center;padding:20px 0;}
+.quiz-result.active{display:block;}
+.result-type{font-family:'Cormorant Garamond',serif;font-size:100px;font-weight:300;color:var(--accent);line-height:1;margin-bottom:6px;}
+.result-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--ink);margin-bottom:6px;}
+.result-center{font-size:12px;color:var(--ink3);margin-bottom:20px;letter-spacing:1px;}
+.result-scores{max-width:420px;margin:0 auto 20px;}
+.score-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.score-label{font-size:12px;color:var(--ink3);width:24px;text-align:center;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;}
+.score-track{flex:1;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;}
+.score-fill{height:100%;border-radius:4px;background:var(--accent);transition:width .9s ease;}
+.score-val{font-size:11px;color:var(--ink3);width:30px;text-align:left;}
+.result-wing{font-size:13px;color:var(--ink3);margin-bottom:8px;}
+.result-inst{font-size:13px;color:var(--ink3);margin-bottom:16px;}
+.result-desc{font-size:13px;color:var(--ink2);line-height:1.8;margin:0 auto 20px;max-width:500px;text-align:left;}
+.result-retry{padding:10px 24px;border-radius:var(--radius-sm);font-size:13px;background:transparent;border:1px solid var(--border2);color:var(--ink3);cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s;}
+.result-retry:hover{background:var(--bg2);}
+
+/* FOOTER */
+.page-footer{background:var(--ink);color:rgba(255,255,255,.5);padding:36px 20px 24px;}
+.footer-inner{max-width:860px;margin:0 auto;}
+.footer-nav-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.footer-nav-link{font-size:12px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);text-decoration:none;transition:all .2s;}
+.footer-nav-link:hover{background:rgba(255,255,255,.12);color:white;}
+.footer-bottom{font-size:11px;color:rgba(255,255,255,.3);}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.hero>*{animation:fadeInUp .6s ease both;}
+.hero>*:nth-child(1){animation-delay:.1s;}
+.hero>*:nth-child(2){animation-delay:.2s;}
+.hero>*:nth-child(3){animation-delay:.3s;}
+.hero>*:nth-child(4){animation-delay:.38s;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m5-5-5 5 5 5"/></svg>
+    ポータルへ
+  </a>
+  <span class="topbar-title">エニアグラム</span>
+  <span class="topbar-right">Phase 3</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Core Motivations · 9 Types</div>
+  <h1><em>エニアグラム</em></h1>
+  <p class="hero-sub">Enneagram of Personality — 動機と恐れの類型論</p>
+  <div class="hero-badges">
+    <span class="hero-badge">9タイプ</span>
+    <span class="hero-badge">3センター</span>
+    <span class="hero-badge">ウィング</span>
+    <span class="hero-badge">トライタイプ</span>
+    <span class="hero-badge">生得本能</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<nav class="tabs-nav" id="mainTabs">
+  <button class="tab-btn active" onclick="switchTab('theory',this)">理論解説</button>
+  <button class="tab-btn" onclick="switchTab('wing',this)">ウィング</button>
+  <button class="tab-btn" onclick="switchTab('tritype',this)">トライタイプ</button>
+  <button class="tab-btn" onclick="switchTab('instinct',this)">生得本能</button>
+  <button class="tab-btn" onclick="switchTab('types',this)">9タイプ詳細</button>
+  <button class="tab-btn" onclick="switchTab('quiz',this)">簡易診断</button>
+</nav>
+
+<!-- ══════════ TAB: THEORY ══════════ -->
+<div class="tab-content active" id="tab-theory">
+<div class="container">
+  <p class="sec-title">エニアグラムとは</p>
+  <p class="sec-label">Overview — Enneagram of Personality</p>
+
+  <div class="info-box">
+    エニアグラム（Enneagram of Personality）は、人間の性格を<strong>9つの根本的な動機・恐れ・欲求</strong>から記述する類型論です。
+    「エニア（9）＋グラム（図）」の名の通り、9点の円環図を基本構造とします。
+    グルジェフやオスカー・イチャーソが20世紀に体系化し、ドン・リチャード・リソ&ラス・ハドソン（The Enneagram Institute）らが現代的な形に整備しました。
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ MBTIとの大きな違い</strong><br>
+    エニアグラムは「行動様式」ではなく<strong>「核となる動機・恐れ」</strong>を扱います。
+    同じタイプでも成長レベル（健全〜不健全）によって行動は大きく変わります。
+    外側から見える行動よりも、<strong>「なぜそう行動するのか」</strong>という内的動機こそが分類の核心です。
+  </div>
+
+  <!-- 3センター -->
+  <h2 class="sh">3つのセンター（知性の中枢）</h2>
+  <p style="font-size:13px;color:var(--ink2);margin-bottom:16px;line-height:1.8;">
+    9タイプは「本能（腸）センター」「感情（心）センター」「思考（頭）センター」の
+    3つのグループに分かれます。各センターは特有の中心感情を持ちます。
+  </p>
+
+  <div class="center-band gut">
+    <h3>🔴 本能（腸）センター — タイプ 8・9・1</h3>
+    <p>中心感情は<strong>「怒り・憤り」</strong>。身体感覚・本能的反応・力と自律を軸にします。
+    タイプ8は怒りを外に表出し、タイプ9は内に抑圧し、タイプ1は制御しようとします。</p>
+    <div class="center-types">
+      <span class="ct gut">タイプ8 — 挑戦者</span>
+      <span class="ct gut">タイプ9 — 平和主義者</span>
+      <span class="ct gut">タイプ1 — 改革者</span>
+    </div>
+  </div>
+  <div class="center-band heart">
+    <h3>🟠 感情（心）センター — タイプ 2・3・4</h3>
+    <p>中心感情は<strong>「悲しみ・恥」</strong>。アイデンティティ・イメージ・他者からの承認を軸にします。
+    タイプ2は他者に感情を向け、タイプ3はイメージを演出し、タイプ4は内省します。</p>
+    <div class="center-types">
+      <span class="ct heart">タイプ2 — 援助者</span>
+      <span class="ct heart">タイプ3 — 達成者</span>
+      <span class="ct heart">タイプ4 — 個人主義者</span>
+    </div>
+  </div>
+  <div class="center-band head">
+    <h3>🔵 思考（頭）センター — タイプ 5・6・7</h3>
+    <p>中心感情は<strong>「恐れ・不安」</strong>。情報収集・安全・未来への備えを軸にします。
+    タイプ5は知識で不安に対処し、タイプ6はサポートを求め、タイプ7は回避します。</p>
+    <div class="center-types">
+      <span class="ct head">タイプ5 — 研究者</span>
+      <span class="ct head">タイプ6 — 忠実者</span>
+      <span class="ct head">タイプ7 — 熱狂者</span>
+    </div>
+  </div>
+
+  <!-- 円環図 -->
+  <h2 class="sh">エニアグラムの円環図と矢印（統合・分裂）</h2>
+  <div class="diagram-wrap">
+    <div class="diagram-title">Enneagram Circle — 統合（→ 成長）/ 分裂（→ ストレス）</div>
+    <svg id="ennSvg" viewBox="0 0 360 360" style="width:100%;max-width:360px;display:block;margin:0 auto;">
+      <!-- 外円 -->
+      <circle cx="180" cy="180" r="155" fill="none" stroke="#ddd0c0" stroke-width="1"/>
+      <circle cx="180" cy="180" r="120" fill="none" stroke="#ece1d4" stroke-width="1" stroke-dasharray="4,4"/>
+    </svg>
+  </div>
+  <p style="font-size:12px;color:var(--ink3);line-height:1.8;margin-bottom:20px;">
+    各タイプには<strong>統合（成長）の方向</strong>と<strong>分裂（ストレス）の方向</strong>があります。
+    健全に成長するとき、そのタイプは統合先のポジティブな特徴を取り込みます。
+    逆にストレス下では分裂先のネガティブな面が現れやすくなります。
+  </p>
+
+  <div class="card">
+    <h3>矢印の読み方（例：タイプ1）</h3>
+    <p>タイプ1の<strong>統合方向はタイプ7</strong>：健全な1は7の自発的・楽しさを受け入れ、
+    完璧主義から解放されます。<br>
+    タイプ1の<strong>分裂方向はタイプ4</strong>：ストレス下では4の自己陶酔・メランコリーが現れます。</p>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════ TAB: WING ══════════ -->
+<div class="tab-content" id="tab-wing">
+<div class="container">
+  <p class="sec-title">ウィング</p>
+  <p class="sec-label">Wing Theory</p>
+
+  <div class="info-box">
+    ウィング（Wing）とは、コアタイプの<strong>隣接タイプ</strong>の影響を表す概念です。
+    タイプ4なら「4w3（ウィング3）」か「4w5（ウィング5）」のどちらかが強くなります。
+    ウィングはコアタイプを変えるのではなく、そのタイプの<em>表れ方を修飾</em>します。
+    両隣のウィングが均等な「イコール・ウィング」を持つ人も存在します。
+  </div>
+
+  <h2 class="sh">全タイプのウィング一覧</h2>
+  <div id="wingGrid" class="wing-grid"></div>
+
+  <h2 class="sh">ウィングの活用</h2>
+  <div class="card">
+    <h3>なぜウィングを知るのか</h3>
+    <p>同じタイプ4でも、4w3は社交的で表現力豊か（3の影響）、
+    4w5は知的で内省的（5の影響）と、外見上の行動パターンが大きく変わります。
+    タイプだけでは説明しにくい「同タイプなのに全然違う」という現象の多くは、
+    ウィングの差異で説明されます。</p>
+  </div>
+  <div class="ok-box">
+    ウィングは一つとは限らず、状況によって両側の特徴が出ることもあります。
+    「どちらが優勢か」を見分けるには、<strong>どちらの隣タイプの特徴が自分に自然に感じられるか</strong>を内省することが有効です。
+  </div>
+</div>
+</div>
+
+<!-- ══════════ TAB: TRITYPE ══════════ -->
+<div class="tab-content" id="tab-tritype">
+<div class="container">
+  <p class="sec-title">トライタイプ</p>
+  <p class="sec-label">Tritype® Theory — Katherine Fauvre</p>
+
+  <div class="info-box">
+    トライタイプはキャサリン・フォーヴルが体系化した概念です。
+    人は3つのセンター（腸・心・頭）それぞれに<strong>一つずつ支配的タイプ</strong>を持ち、
+    その3タイプの組み合わせが「トライタイプ」を形成するとされます。
+    コアタイプが同じでもトライタイプが異なれば、行動パターンや悩みのパターンが大きく変わります。
+  </div>
+
+  <h2 class="sh">構造</h2>
+  <div class="tritype-viz">
+    <div class="tritype-row">
+      <div class="tritype-block gut"><div class="tbn">8/9/1</div><div class="tbl">腸センター</div></div>
+      <div class="tritype-plus">+</div>
+      <div class="tritype-block heart"><div class="tbn">2/3/4</div><div class="tbl">心センター</div></div>
+      <div class="tritype-plus">+</div>
+      <div class="tritype-block head"><div class="tbn">5/6/7</div><div class="tbl">頭センター</div></div>
+      <div class="tritype-plus">=</div>
+      <div class="tritype-eq">トライタイプ</div>
+    </div>
+    <p style="font-size:12px;color:var(--ink3);line-height:1.7;margin-top:8px;">
+      例：コアタイプ4（心センター）＋腸センターで8が優勢＋頭センターで5が優勢 → トライタイプ <strong>485</strong>（最初の数字がコアタイプ）
+    </p>
+  </div>
+
+  <h2 class="sh">主要なトライタイプの例</h2>
+  <div class="tritype-example">
+    <h4>腸センターが8の場合（8xx）</h4>
+    <div class="tt-chips">
+      <span class="tt-chip">8-2-6（保護的リーダー）</span>
+      <span class="tt-chip">8-3-7（達成主導型）</span>
+      <span class="tt-chip">8-4-5（強烈な個）</span>
+    </div>
+  </div>
+  <div class="tritype-example">
+    <h4>心センターが4の場合（x4x）</h4>
+    <div class="tt-chips">
+      <span class="tt-chip">1-4-5（完璧主義の内省者）</span>
+      <span class="tt-chip">8-4-5（激しい個人主義者）</span>
+      <span class="tt-chip">9-4-7（夢想的な自由人）</span>
+    </div>
+  </div>
+  <div class="tritype-example">
+    <h4>頭センターが5の場合（xx5）</h4>
+    <div class="tt-chips">
+      <span class="tt-chip">1-4-5（分析的理想家）</span>
+      <span class="tt-chip">5-3-9（静かな効率家）</span>
+      <span class="tt-chip">6-2-5（慎重な援助者）</span>
+    </div>
+  </div>
+
+  <h2 class="sh">コアタイプとトライタイプの関係</h2>
+  <div class="card">
+    <h3>「同じ4なのに全然違う」を解決する</h3>
+    <p>
+      4w3-845（コア4・腸8・頭5）は野心的で攻撃的な側面を持つ独自性の強い人物像を形成します。<br>
+      4w5-469（コア4・腸9・頭6）は穏やかで不安傾向の強い、内省的で調和志向の人物像になります。<br><br>
+      コアタイプだけでは説明できない細かな差異を、トライタイプが補完します。
+      <strong>コアタイプ→ウィング→トライタイプ→生得本能スタック</strong>と層を重ねることで
+      より精緻な自己像が浮かびます。
+    </p>
+  </div>
+
+  <div class="ok-box">
+    <strong>注意：</strong>トライタイプはエニアグラムの<em>派生理論</em>であり、
+    公式化された研究機関による検証は限られています。
+    キャサリン・フォーヴルの研究（Tritype®）を出典とする非公式な拡張理論ですが、
+    類型界隈では広く使われている概念です。
+  </div>
+</div>
+</div>
+
+<!-- ══════════ TAB: INSTINCT ══════════ -->
+<div class="tab-content" id="tab-instinct">
+<div class="container">
+  <p class="sec-title">生得本能（Instinctual Variants）</p>
+  <p class="sec-label">sp · sx · so — Instinctual Subtypes</p>
+
+  <div class="info-box">
+    生得本能（Instinctual Variants / 本能的サブタイプ）は、
+    人間が本能的に優先する3つの生存領域を示す概念です。
+    コアタイプと組み合わさることで、同タイプの中での行動差異を説明します。
+    優先度の高い順に並べた「スタック（積み重ね）」が重要で、
+    <strong>最下位の本能が最も盲点</strong>になりやすいとされます。
+  </div>
+
+  <div class="inst-grid">
+    <div class="inst-card sp">
+      <div class="inst-icon">🛡️</div>
+      <div class="inst-code">sp</div>
+      <div class="inst-name">自己保存（Self-Preservation）</div>
+      <div class="inst-desc">個人の安全・健康・物質的安定・快適さを優先する。食・住・財・体調に敏感で、日常の安全基盤を整えることに意識が向く。</div>
+      <div class="inst-kw"><span>安全</span><span>健康</span><span>資源</span><span>節約</span><span>計画性</span></div>
+    </div>
+    <div class="inst-card sx">
+      <div class="inst-icon">⚡</div>
+      <div class="inst-code">sx</div>
+      <div class="inst-name">セクシュアル（Sexual / One-to-One）</div>
+      <div class="inst-desc">強烈な1対1の繋がり・化学反応・魅力と吸引力を優先する。「この人と深く繋がりたい」という衝動が行動の根底にある。</div>
+      <div class="inst-kw"><span>強度</span><span>魅力</span><span>深い繋がり</span><span>情熱</span><span>刺激</span></div>
+    </div>
+    <div class="inst-card so">
+      <div class="inst-icon">🌐</div>
+      <div class="inst-code">so</div>
+      <div class="inst-name">ソーシャル（Social）</div>
+      <div class="inst-desc">集団・コミュニティ・社会的役割・帰属意識を優先する。集団の中での立ち位置・貢献・社会的意味に意識が向く。</div>
+      <div class="inst-kw"><span>帰属</span><span>役割</span><span>貢献</span><span>評判</span><span>共同体</span></div>
+    </div>
+  </div>
+
+  <h2 class="sh">スタック（優先順位）</h2>
+  <p style="font-size:13px;color:var(--ink2);margin-bottom:16px;line-height:1.8;">
+    3つの本能は必ず優先順位を持ちます。上位から「支配的（dom）」「二次（sec）」「劣位（trd）」と呼ばれ、
+    6通りのスタックが存在します。<strong>スタックの最後に来る本能が最も使えない・意識外になりやすい</strong>とされます。
+  </p>
+
+  <div class="stack-example">
+    <h4>6通りのスタックと傾向</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="card" style="padding:14px 14px;margin-bottom:0;">
+        <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="stack-badge dom">sp</span>
+          <span class="stack-badge sec">sx</span>
+          <span class="stack-badge trd">so</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink3);line-height:1.6;">個人の安全と強烈な繋がりを重視。社会的意識が薄くなりがち。</p>
+      </div>
+      <div class="card" style="padding:14px 14px;margin-bottom:0;">
+        <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="stack-badge dom">sp</span>
+          <span class="stack-badge sec">so</span>
+          <span class="stack-badge trd">sx</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink3);line-height:1.6;">安全基盤と社会参加を重視。1対1の強烈な繋がりには不慣れなことも。</p>
+      </div>
+      <div class="card" style="padding:14px 14px;margin-bottom:0;">
+        <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="stack-badge dom" style="background:#c01060;">sx</span>
+          <span class="stack-badge sec" style="color:#c01060;border-color:var(--border2);">sp</span>
+          <span class="stack-badge trd">so</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink3);line-height:1.6;">強烈な繋がりと安全を重視。集団よりも特定の人との深みを求める。</p>
+      </div>
+      <div class="card" style="padding:14px 14px;margin-bottom:0;">
+        <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="stack-badge dom" style="background:#c01060;">sx</span>
+          <span class="stack-badge sec" style="color:#0a2880;border-color:var(--border2);">so</span>
+          <span class="stack-badge trd">sp</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink3);line-height:1.6;">情熱と社会参加を重視。自己管理・日常の安全基盤が盲点になりやすい。</p>
+      </div>
+      <div class="card" style="padding:14px 14px;margin-bottom:0;">
+        <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="stack-badge dom" style="background:#1a40a8;">so</span>
+          <span class="stack-badge sec" style="color:var(--accent);border-color:var(--border2);">sp</span>
+          <span class="stack-badge trd" style="color:#c01060;">sx</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink3);line-height:1.6;">社会参加と安全を重視。強烈な1対1の化学反応への関心が薄くなりがち。</p>
+      </div>
+      <div class="card" style="padding:14px 14px;margin-bottom:0;">
+        <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+          <span class="stack-badge dom" style="background:#1a40a8;">so</span>
+          <span class="stack-badge sec" style="color:#c01060;border-color:var(--border2);">sx</span>
+          <span class="stack-badge trd">sp</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink3);line-height:1.6;">社会参加と人間関係の深みを重視。身体的・物質的安全への配慮が薄くなりがち。</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sh">コアタイプ×生得本能の例（タイプ6）</h2>
+  <div class="card">
+    <h3>6sp・6sx・6so — 同じ6でもこれだけ違う</h3>
+    <p><strong>6sp（自己保存6）：</strong>暖かみがあり、準備・備蓄・安全確保に積極的。反権威的な独立心が強く、「信頼できる人だけ」の小さなサークルを大切にする。<br>
+    <strong>6sx（セクシュアル6）：</strong>強さ・権力・凄みで不安を打ち消そうとする。恐怖を感じると逆に攻撃的・反骨精神が出る（カウンターフォビック傾向）。<br>
+    <strong>6so（ソーシャル6）：</strong>規則・権威・集団の方針に依拠することで安心感を得る。義務感が強く、体制への帰属で不安を安定させる。</p>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ TAB: TYPES ══════════ -->
+<div class="tab-content" id="tab-types">
+<div class="container">
+  <p class="sec-title">9タイプ詳細</p>
+  <p class="sec-label">All 9 Types — Tap to expand</p>
+
+  <div class="info-box">タイプをタップすると詳細（核の恐れ・欲求・統合/分裂・傾向）が展開されます。</div>
+
+  <div class="type9-grid" id="types9Grid"></div>
+  <div id="typeDetailWrap"></div>
+</div>
+</div>
+
+<!-- ══════════ TAB: QUIZ ══════════ -->
+<div class="tab-content" id="tab-quiz">
+<div class="container">
+  <p class="sec-title">簡易コアタイプ診断</p>
+  <p class="sec-label">27-Question Assessment</p>
+
+  <div class="warn-box">
+    <strong>⚠️ この診断について</strong><br>
+    27問の質問から9タイプそれぞれのスコアを算出し、最も高得点のタイプを推定します。
+    エニアグラムの自己判定は難しく、<strong>最終的には自己内省・理論の深読みが不可欠</strong>です。
+    結果はあくまで出発点として使ってください。
+  </div>
+
+  <div class="quiz-wrap" id="quizWrap">
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quizBar" style="width:0%"></div></div>
+    <div class="quiz-meta">
+      <span id="quizCounter">問 1 / 27</span>
+      <span id="quizType"></span>
+    </div>
+    <div id="quizQArea"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn quiz-btn-prev" id="btnPrev" onclick="quizPrev()" disabled>← 前の問</button>
+      <button class="quiz-btn quiz-btn-next" id="btnNext" onclick="quizNext()" disabled>次の問 →</button>
+    </div>
+  </div>
+
+  <div class="quiz-result" id="quizResult">
+    <div class="result-type" id="resultType">—</div>
+    <div class="result-name" id="resultName">—</div>
+    <div class="result-center" id="resultCenter">—</div>
+    <div class="result-scores" id="resultScores"></div>
+    <div class="result-wing" id="resultWing"></div>
+    <div class="result-desc" id="resultDesc"></div>
+    <button class="result-retry" onclick="resetQuiz()">← やり直す</button>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-inner">
+    <div class="footer-nav-row">
+      <a href="index.html" class="footer-nav-link">← ポータルへ</a>
+      <a href="mbti.html" class="footer-nav-link">MBTI</a>
+      <a href="socionics.html" class="footer-nav-link">ソシオニクス</a>
+      <a href="bigfive.html" class="footer-nav-link">ビッグファイブ</a>
+      <a href="psychosofia.html" class="footer-nav-link">サイコソフィア</a>
+    </div>
+    <p class="footer-bottom">このページは学習・参考目的です。医学的・臨床的診断ではありません。</p>
+  </div>
+</footer>
+
+<script>
+// ─── TAB SWITCH ───
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: document.getElementById('mainTabs').offsetTop - 50, behavior:'smooth'});
+}
+
+// ─── 9 TYPE DATA ───
+const T9 = {
+  1:{name:'改革者',alt:'The Reformer',center:'gut',fear:'不完全・悪であること',desire:'善く・正しくあること',integration:7,disintegration:4,desc:'誠実さと原則を持ち、世界をより良くしようとする理想主義者。内なる批判者（内なる評論家）を持ち、自分と世界に高い基準を課す。',traits:['誠実','原則的','自己批判的','改革志向','倫理的']},
+  2:{name:'援助者',alt:'The Helper',center:'heart',fear:'愛されないこと・不要であること',desire:'愛されること・必要とされること',integration:4,disintegration:8,desc:'温かく思いやりがあり、他者のニーズに敏感。自分のニーズを抑えて他者を助けることで価値を感じる。感情の操作に気づかれないことが課題。',traits:['思いやり','寛大','他者志向','世話焼き','感情豊か']},
+  3:{name:'達成者',alt:'The Achiever',center:'heart',fear:'価値のない存在・失敗者であること',desire:'価値ある存在・成功者であること',integration:6,disintegration:9,desc:'目標志向で適応力があり、成功を体現しようとする。イメージ管理と効率を重視し、何者であるかよりも何を達成するかを中心に置く。',traits:['目標志向','適応力','効率的','カリスマ','競争心']},
+  4:{name:'個人主義者',alt:'The Individualist',center:'heart',fear:'アイデンティティを持たないこと',desire:'独自の意味ある存在であること',integration:1,disintegration:2,desc:'感受性が豊かで表現力があり、深い感情と美の世界を持つ。失われたものへの憧れと、自分の独自性へのこだわりが中心にある。',traits:['感受性','創造的','真正性重視','内省的','理想主義']},
+  5:{name:'研究者',alt:'The Investigator',center:'head',fear:'無力・無能・不要であること',desire:'有能で理解すること',integration:8,disintegration:7,desc:'洞察力があり、思慮深く、複雑なアイデアの探求に没頭する。知識と理解を蓄積することで安心感を得る。エネルギーの管理と他者との距離が課題。',traits:['洞察力','分析的','孤独を好む','独創的','客観的']},
+  6:{name:'忠実者',alt:'The Loyalist',center:'head',fear:'支えを失うこと・導きなしで進むこと',desire:'安全・支え・確実性',integration:9,disintegration:3,desc:'責任感があり、警戒心が強く、信頼できる支えを求める。不安を原動力にしており、問題を事前に想定して準備する。フォビックとカウンターフォビックの2タイプが存在。',traits:['責任感','忠実','警戒心','信頼性','疑問を持つ']},
+  7:{name:'熱狂者',alt:'The Enthusiast',center:'head',fear:'痛み・欠乏・制限されること',desire:'満足・充実・満たされること',integration:5,disintegration:1,desc:'多才で自発的、楽観的な快楽主義者。可能性と体験への貪欲さを持ち、痛みや制限を回避しようとする。散漫さと逃避の傾向が課題。',traits:['楽観的','多才','自発的','外向的','冒険心']},
+  8:{name:'挑戦者',alt:'The Challenger',center:'gut',fear:'他者に支配・傷つけられること',desire:'自分の人生を守り支配すること',integration:2,disintegration:5,desc:'自信があり、決断力があり、存在感が強い。弱さを見せることを嫌い、自分と弱者を守るために力を行使する。強さと脆弱性のバランスが成長の鍵。',traits:['強い意志','保護的','直接的','自己主張','リーダー']},
+  9:{name:'平和主義者',alt:'The Peacemaker',center:'gut',fear:'失うこと・分離・断絶',desire:'内的平和・調和',integration:3,disintegration:6,desc:'受容的で穏やかで、支持的。他者の視点に自分を溶け込ませる傾向があり、自分のアジェンダを後回しにしてしまう。自己忘却と惰性が課題。',traits:['穏やか','受容的','調和志向','忍耐強い','共感力']},
+};
+
+const CENTER_LABEL = {gut:'本能（腸）センター',heart:'感情（心）センター',head:'思考（頭）センター'};
+const CENTER_CLS = {gut:'center-gut',heart:'center-heart',head:'center-head'};
+
+// Build 9 type chips
+const g9 = document.getElementById('types9Grid');
+if(g9){
+  Object.entries(T9).forEach(([n,d])=>{
+    g9.innerHTML += `<div class="type9-chip" onclick="showTypeDetail(${n})" id="chip-${n}">
+      <span class="tn">${n}</span>
+      <span class="tl">${d.name}</span>
+    </div>`;
+  });
+}
+
+let activeType = null;
+function showTypeDetail(n) {
+  if(activeType===n){
+    document.getElementById('chip-'+n)?.classList.remove('active');
+    document.getElementById('typeDetailWrap').innerHTML='';
+    activeType=null; return;
+  }
+  if(activeType) document.getElementById('chip-'+activeType)?.classList.remove('active');
+  activeType=n;
+  document.getElementById('chip-'+n)?.classList.add('active');
+  const d=T9[n];
+  document.getElementById('typeDetailWrap').innerHTML=`
+    <div class="type-detail active">
+      <div class="td-head">
+        <div class="td-num">${n}</div>
+        <div class="td-meta">
+          <h3>${d.name}</h3>
+          <p style="font-style:italic;color:var(--ink4);">${d.alt}</p>
+        </div>
+      </div>
+      <div class="td-tags">
+        <span class="td-tag ${CENTER_CLS[d.center]}">${CENTER_LABEL[d.center]}</span>
+      </div>
+      <div class="td-section"><h4>核となる恐れ</h4><p>${d.fear}</p></div>
+      <div class="td-section"><h4>核となる欲求</h4><p>${d.desire}</p></div>
+      <div class="td-section"><h4>概要</h4><p>${d.desc}</p></div>
+      <div class="td-section"><h4>矢印</h4>
+        <div class="td-arrows">
+          <span class="td-arrow int">統合（成長） → タイプ${d.integration}</span>
+          <span class="td-arrow dis">分裂（ストレス） → タイプ${d.disintegration}</span>
+        </div>
+      </div>
+      <div class="td-section"><h4>ウィングの違い</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+          ${(()=>{const prev=n===1?9:n-1,next=n===9?1:n+1;
+            const wa=WINGS[`${n}w${prev}`],wb=WINGS[`${n}w${next}`];
+            return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--accent);margin-bottom:4px;">${n}w${prev} — ${wa?wa.name:''}</div>
+              <div style="font-size:12px;color:var(--ink3);line-height:1.7;">${wa?wa.desc:''}</div>
+            </div>
+            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--accent);margin-bottom:4px;">${n}w${next} — ${wb?wb.name:''}</div>
+              <div style="font-size:12px;color:var(--ink3);line-height:1.7;">${wb?wb.desc:''}</div>
+            </div>`;
+          })()}
+        </div>
+      </div>
+      <div class="td-tags" style="margin-top:12px;">${d.traits.map(t=>`<span class="td-tag">${t}</span>`).join('')}</div>
+    </div>`;
+  setTimeout(()=>document.getElementById('typeDetailWrap').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+}
+
+// ─── WING DATA ───
+const WINGS = {
+  '1w9':{name:'理想主義者',desc:'タイプ9の穏やかさ・中立性が加わり、温和で客観的な改革者。'},
+  '1w2':{name:'支持者',desc:'タイプ2の援助欲求が加わり、原則的で関わりを持ちたい改革者。'},
+  '2w1':{name:'奉仕者',desc:'タイプ1の原則性が加わり、理想的な援助・倫理的サポートを重視。'},
+  '2w3':{name:'ホスト/ホステス',desc:'タイプ3の達成欲が加わり、社交的・野心的・魅力的な援助者。'},
+  '3w2':{name:'魅力者',desc:'タイプ2の対人配慮が加わり、温かく人を惹きつけるリーダー像。'},
+  '3w4':{name:'プロフェッショナル',desc:'タイプ4の内省性が加わり、独自のスタイルを持つ達成者。'},
+  '4w3':{name:'貴族',desc:'タイプ3の達成志向が加わり、表現力豊かで世間に働きかける個人主義者。'},
+  '4w5':{name:'ボヘミアン',desc:'タイプ5の知的探求が加わり、内省的で独創的な世界観を持つ個人主義者。'},
+  '5w4':{name:'アイコノクラスト',desc:'タイプ4の感受性が加わり、独創的で芸術的な知性人。'},
+  '5w6':{name:'問題解決者',desc:'タイプ6の責任感が加わり、実用的・系統的な研究者。'},
+  '6w5':{name:'守護者',desc:'タイプ5の分析性が加わり、独立心が強く思慮深い忠実者。'},
+  '6w7':{name:'友人',desc:'タイプ7の楽観性が加わり、親しみやすく社交的な忠実者。'},
+  '7w6':{name:'エンターテイナー',desc:'タイプ6の責任感が加わり、社交的で信頼性のある熱狂者。'},
+  '7w8':{name:'現実主義者',desc:'タイプ8の力強さが加わり、実行力のある自己主張の強い熱狂者。'},
+  '8w7':{name:'無敵の人',desc:'タイプ7の楽観性が加わり、積極的・エネルギッシュな挑戦者。'},
+  '8w9':{name:'熊',desc:'タイプ9の穏やかさが加わり、保護的・落ち着いた存在感を持つ挑戦者。'},
+  '9w8':{name:'放浪者',desc:'タイプ8の力強さが加わり、存在感とエネルギーを持つ平和主義者。'},
+  '9w1':{name:'夢想家',desc:'タイプ1の理想主義が加わり、理念と調和を重んじる静かな平和主義者。'},
+};
+
+const wg = document.getElementById('wingGrid');
+if(wg) {
+  Object.entries(WINGS).forEach(([code,d])=>{
+    wg.innerHTML += `<div class="wing-card">
+      <div class="wing-code">${code}</div>
+      <div class="wing-name">${d.name}</div>
+      <div class="wing-desc">${d.desc}</div>
+    </div>`;
+  });
+}
+
+// ─── ENNEAGRAM SVG ───
+(function(){
+  const svg = document.getElementById('ennSvg');
+  if(!svg) return;
+  const cx=180,cy=180,R=145,ri=105;
+  const angles=[270,30,60+30,120+30,150+30,210+30,240+30,300+30,360+30-30];
+  // 9点の角度（12時=タイプ9から時計回り）
+  const typeAngles = {
+    9: 270, 1: 270+40, 2: 270+80, 3: 270+120, 4: 270+160,
+    5: 270+200, 6: 270+240, 7: 270+280, 8: 270+320
+  };
+  const pts={};
+  [1,2,3,4,5,6,7,8,9].forEach(n=>{
+    const a=(typeAngles[n])*Math.PI/180;
+    pts[n]={x:cx+R*Math.cos(a),y:cy+R*Math.sin(a)};
+  });
+
+  // 統合矢印（緑）
+  const integLines = [[1,7],[2,4],[3,6],[4,1],[5,8],[6,9],[7,5],[8,2],[9,3]];
+  // 分裂矢印（赤）
+  const disLines = [[1,4],[2,8],[3,9],[4,2],[5,7],[6,3],[7,1],[8,5],[9,6]];
+
+  let svgH = '';
+  // 内側ヘキサグラム線（1-4-2-8-5-7-1）
+  const hexa=[1,4,2,8,5,7];
+  for(let i=0;i<hexa.length;i++){
+    const a=pts[hexa[i]],b=pts[hexa[(i+1)%hexa.length]];
+    svgH+=`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="#ddd0c0" stroke-width="1" stroke-dasharray="3,3"/>`;
+  }
+  // 内側三角（3-6-9）
+  [[3,6],[6,9],[9,3]].forEach(([a,b])=>{
+    svgH+=`<line x1="${pts[a].x}" y1="${pts[a].y}" x2="${pts[b].x}" y2="${pts[b].y}" stroke="#ddd0c0" stroke-width="1" stroke-dasharray="3,3"/>`;
+  });
+
+  // 統合矢印
+  integLines.forEach(([a,b])=>{
+    const dx=pts[b].x-pts[a].x,dy=pts[b].y-pts[a].y;
+    const len=Math.sqrt(dx*dx+dy*dy);
+    const ex=pts[a].x+dx*0.85,ey=pts[a].y+dy*0.85;
+    svgH+=`<line x1="${pts[a].x}" y1="${pts[a].y}" x2="${ex}" y2="${ey}" stroke="#2a7a58" stroke-width="1.2" opacity=".5" marker-end="url(#arrG)"/>`;
+  });
+
+  svg.innerHTML = `
+    <defs>
+      <marker id="arrG" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L6,3 Z" fill="#2a7a58" opacity=".7"/>
+      </marker>
+    </defs>
+    <circle cx="${cx}" cy="${cy}" r="155" fill="none" stroke="#ddd0c0" stroke-width="1"/>
+    ${svgH}
+    ${Object.entries(pts).map(([n,p])=>{
+      const d=T9[parseInt(n)];
+      const cc={gut:'#c04830',heart:'#d4884a',head:'#4a80c4'}[d.center];
+      return `<circle cx="${p.x}" cy="${p.y}" r="18" fill="${cc}" opacity=".15" stroke="${cc}" stroke-width="1.5"/>
+        <text x="${p.x}" y="${p.y+1}" font-family="Cormorant Garamond,serif" font-size="16" fill="${cc}" text-anchor="middle" dominant-baseline="middle" font-weight="400">${n}</text>
+        <text x="${p.x}" y="${p.y+14}" font-size="8.5" fill="${cc}" text-anchor="middle" opacity=".8">${d.name}</text>`;
+    }).join('')}
+  `;
+})();
+
+// ─── QUIZ ───
+const QUESTIONS = [
+  // 3問×9タイプ = 27問
+  {q:'自分や周囲の「不完全さ」が気になり、改善したいという衝動が常にある。',t:1},
+  {q:'正しいことと間違ったことの区別は明確で、妥協することが難しい。',t:1},
+  {q:'内なる批評家の声が常にあり、自分の行動を厳しく評価している。',t:1},
+  {q:'人が困っていると、自分のことを後回しにしてでも助けたくなる。',t:2},
+  {q:'人から感謝・承認されることが、自分の価値確認につながっている。',t:2},
+  {q:'自分のニーズを後回しにすることが多く、相手に合わせすぎてしまう。',t:2},
+  {q:'目標を設定し、それに向かって効率よく動くことに充実感を感じる。',t:3},
+  {q:'他者からどう見られるかが気になり、イメージを意識することが多い。',t:3},
+  {q:'成功・成果・実績で自分の価値を証明したいという欲求がある。',t:3},
+  {q:'自分はどこか違う・特別だという感覚があり、普通でいることが苦痛。',t:4},
+  {q:'欠如感・失われたものへの憧れが常にあり、深い感情の世界に生きている。',t:4},
+  {q:'感情の波が激しく、自分の感情を深く掘り下げることを大切にする。',t:4},
+  {q:'物事の仕組みや深い理解を得るために、一人で調べる時間が何より大切。',t:5},
+  {q:'エネルギーを節約し、必要以上の関わりを避けたいという気持ちがある。',t:5},
+  {q:'知識・理解・能力を蓄積することで安心感と充実感を得ている。',t:5},
+  {q:'先のことを想定し、リスクや問題を事前に考えておかないと不安になる。',t:6},
+  {q:'信頼できる人・グループへの帰属意識が強く、忠誠心を大切にする。',t:6},
+  {q:'物事の裏側や意図を疑うことが多く、「本当に信頼できるか？」と考える。',t:6},
+  {q:'多くの選択肢・可能性・楽しいことを同時追求したく、退屈が最大の敵。',t:7},
+  {q:'ネガティブな感情・痛み・制限を回避し、良いものに焦点を当てたい。',t:7},
+  {q:'アイデアが次々と浮かび、計画するより行動することで充実感を得る。',t:7},
+  {q:'自分の力と意志で人生をコントロールし、他者に支配されたくない。',t:8},
+  {q:'弱さを見せることを嫌い、強くあることが自分のアイデンティティの核。',t:8},
+  {q:'不正義・不公平を見ると怒りが湧き、対決することをいとわない。',t:8},
+  {q:'争いや摩擦を避け、平穏な環境の中で全員が満足できる状態を望む。',t:9},
+  {q:'相手の意見に自分の意見を溶け込ませてしまい、自分の主張が薄れる。',t:9},
+  {q:'大切なことを後回しにする惰性があり、変化を起こすのに時間がかかる。',t:9},
+];
+
+let qIdx=0, answers=Array(27).fill(null);
+
+function renderQuestion(){
+  const q=QUESTIONS[qIdx];
+  const pct=(qIdx/QUESTIONS.length)*100;
+  document.getElementById('quizBar').style.width=pct+'%';
+  document.getElementById('quizCounter').textContent=`問 ${qIdx+1} / ${QUESTIONS.length}`;
+  document.getElementById('quizType').textContent=`タイプ${q.t}に関する設問`;
+  const sel=answers[qIdx];
+  document.getElementById('quizQArea').innerHTML=`
+    <div class="quiz-q">
+      <div class="quiz-q-num">Q${qIdx+1} — タイプ${q.t}「${T9[q.t].name}」</div>
+      <p class="quiz-q-text">${q.q}</p>
+      <div class="quiz-options">
+        ${['4','3','2','1'].map((v,i)=>{
+          const lb=['非常にそう思う','ある程度そう思う','あまり思わない','まったく思わない'];
+          return `<label class="quiz-opt${sel==v?' selected':''}" onclick="selectOpt('${v}',this)">
+            <div class="quiz-opt-radio">${sel==v?`<div style="width:6px;height:6px;border-radius:50%;background:white;margin:auto;"></div>`:''}
+            </div><span>${lb[i]}</span></label>`;
+        }).join('')}
+      </div>
+    </div>`;
+  document.getElementById('btnPrev').disabled=qIdx===0;
+  document.getElementById('btnNext').disabled=answers[qIdx]===null;
+  document.getElementById('btnNext').textContent=qIdx<QUESTIONS.length-1?'次の問 →':'結果を見る';
+}
+
+function selectOpt(val,el){
+  answers[qIdx]=val;
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btnNext').disabled=false;
+}
+function quizNext(){if(answers[qIdx]===null)return;if(qIdx<QUESTIONS.length-1){qIdx++;renderQuestion();}else showResult();}
+function quizPrev(){if(qIdx>0){qIdx--;renderQuestion();}}
+
+function showResult(){
+  const sc={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+  QUESTIONS.forEach((q,i)=>{sc[q.t]+=parseInt(answers[i])||1;});
+  const sorted=Object.entries(sc).sort((a,b)=>b[1]-a[1]);
+  const top=parseInt(sorted[0][0]);
+  const d=T9[top];
+
+  document.getElementById('quizWrap').style.display='none';
+  const res=document.getElementById('quizResult');
+  res.classList.add('active');
+  document.getElementById('resultType').textContent=top;
+  document.getElementById('resultName').textContent=d.name;
+  document.getElementById('resultCenter').textContent=CENTER_LABEL[d.center];
+  document.getElementById('resultDesc').textContent=d.desc;
+
+  const maxScore=12; // 3問×4点
+  const scHtml=sorted.map(([n,s])=>{
+    const pct=Math.round(s/maxScore*100);
+    const cc={gut:'#c04830',heart:'#d4884a',head:'#4a80c4'}[T9[parseInt(n)].center];
+    return `<div class="score-row">
+      <span class="score-label">${n}</span>
+      <div class="score-track"><div class="score-fill" style="width:${pct}%;background:${cc};"></div></div>
+      <span class="score-val">${s}点</span>
+    </div>`;
+  }).join('');
+  document.getElementById('resultScores').innerHTML=scHtml;
+
+  // Wing suggestion
+  const prev=top===1?9:top-1, next=top===9?1:top+1;
+  const sprev=sc[prev]||0, snext=sc[next]||0;
+  const wing=sprev>snext?prev:next;
+  document.getElementById('resultWing').textContent=`推定ウィング：${top}w${wing}`;
+}
+
+function resetQuiz(){
+  qIdx=0;answers=Array(27).fill(null);
+  document.getElementById('quizWrap').style.display='block';
+  document.getElementById('quizResult').classList.remove('active');
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>

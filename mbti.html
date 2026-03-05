@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>MBTI — 認知機能と16タイプ | 類型界隈ポータル</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f4f6fb; --bg2:#eaeff8; --bg3:#dde5f4;
+  --surface:#ffffff; --surface2:#f8faff;
+  --border:#cdd7ec; --border2:#b0c0e0;
+  --ink:#18202e; --ink2:#384060; --ink3:#6070a0; --ink4:#9aaace;
+  --accent:#2d5fa8; --accent2:#4a7fd0; --accent3:#7aaef8;
+  --accent-bg:#eef3fc; --accent-mid:#6a9dd4;
+  --gold:#b8943a; --gold-lt:#d4b060; --gold-bg:#fdf8ee;
+  --warn:#d4502a; --warn-bg:#fdf0ec;
+  --ok:#2a7a58; --ok-bg:#ecf7f2;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 2px 16px rgba(30,60,120,.07);
+  --shadow-lg:0 8px 40px rgba(30,60,120,.13);
+  --safe-bottom: env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden;font-size:14px;}
+
+/* ─ TOPBAR ─ */
+.topbar{
+  background:rgba(244,246,251,.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:48px;position:sticky;top:0;z-index:300;
+}
+.topbar-back{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--ink3);text-decoration:none;
+  padding:5px 0;transition:color .2s;
+}
+.topbar-back:hover{color:var(--accent);}
+.topbar-back svg{width:14px;height:14px;}
+.topbar-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:.06em;color:var(--ink);}
+.topbar-right{width:80px;text-align:right;font-size:11px;color:var(--ink4);}
+
+/* ─ HERO ─ */
+.hero{
+  background:linear-gradient(160deg,#e8eef8 0%,#f4f6fb 50%,#eef3fc 100%);
+  border-bottom:1px solid var(--border);
+  padding:44px 20px 36px;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.hero::before{
+  content:'MBTI';
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Cormorant Garamond',serif;
+  font-size:240px;font-weight:300;letter-spacing:.1em;
+  color:var(--accent);opacity:.04;white-space:nowrap;pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-block;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--accent);font-weight:500;
+  padding:4px 14px;border:1px solid var(--border2);
+  border-radius:20px;background:var(--surface);margin-bottom:16px;
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,9vw,72px);font-weight:300;
+  color:var(--ink);line-height:1.0;margin-bottom:8px;letter-spacing:.04em;
+}
+.hero h1 em{font-style:italic;color:var(--accent2);}
+.hero-sub{font-size:12px;color:var(--ink3);letter-spacing:1.5px;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.hero-badge{
+  font-size:11px;padding:4px 12px;border-radius:20px;
+  background:var(--surface);border:1px solid var(--border);color:var(--ink3);
+}
+
+/* ─ TABS ─ */
+.tabs-nav{
+  display:flex;justify-content:center;gap:0;
+  background:var(--surface);border-bottom:2px solid var(--border);
+  position:sticky;top:48px;z-index:200;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  font-size:12px;font-weight:400;padding:12px 15px;
+  background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--ink3);cursor:pointer;transition:all .2s;
+  white-space:nowrap;flex-shrink:0;letter-spacing:.5px;
+  font-family:'Noto Sans JP',sans-serif;
+  margin-bottom:-2px;
+}
+.tab-btn:hover{color:var(--ink2);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* ─ CONTAINER ─ */
+.container{max-width:860px;margin:0 auto;padding:28px 16px calc(60px + var(--safe-bottom));}
+
+/* ─ SECTION HEADERS ─ */
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(20px,5vw,28px);font-weight:400;
+  color:var(--ink);margin-bottom:4px;
+}
+.sec-label{font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+h2.sh{
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;
+  color:var(--ink);margin:32px 0 12px;padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+h3.sub{font-size:14px;font-weight:500;color:var(--ink2);margin:20px 0 8px;}
+
+/* ─ CARDS ─ */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 16px;margin-bottom:14px;
+  box-shadow:var(--shadow);
+}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;color:var(--ink);margin-bottom:8px;}
+.card p,.card li{font-size:13px;color:var(--ink2);line-height:1.8;}
+.card ul{padding-left:18px;}
+
+.info-box{
+  background:var(--accent-bg);border:1px solid var(--border2);
+  border-left:3px solid var(--accent);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:14px 16px;margin-bottom:16px;
+  font-size:13px;color:var(--ink2);line-height:1.7;
+}
+.warn-box{
+  background:var(--warn-bg);border:1px solid #e8b4a0;
+  border-left:3px solid var(--warn);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:14px 16px;margin-bottom:16px;
+  font-size:13px;color:#6a2010;line-height:1.7;
+}
+.warn-box strong{color:var(--warn);}
+.ok-box{
+  background:var(--ok-bg);border:1px solid #a0d4b8;
+  border-left:3px solid var(--ok);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:14px 16px;margin-bottom:16px;
+  font-size:13px;color:#1a4a30;line-height:1.7;
+}
+
+/* ─ INNER TABS ─ */
+.inner-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto;scrollbar-width:none;}
+.inner-tabs::-webkit-scrollbar{display:none;}
+.inner-tab{
+  font-size:12px;padding:8px 13px;background:none;border:none;
+  border-bottom:2px solid transparent;color:var(--ink3);
+  cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;
+  font-family:'Noto Sans JP',sans-serif;margin-bottom:-1px;
+}
+.inner-tab.active{color:var(--accent2);border-bottom-color:var(--accent2);}
+.inner-panel{display:none;}
+.inner-panel.active{display:block;}
+
+/* ─ COGNITIVE FUNCTIONS GRID ─ */
+.func-axis{margin-bottom:28px;}
+.axis-label{
+  display:flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:12px;
+}
+.axis-label::before,.axis-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.func-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+@media(max-width:500px){.func-grid{grid-template-columns:1fr;}}
+
+.func-card{
+  border-radius:var(--radius-sm);padding:14px 16px;
+  border:1px solid;position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;cursor:default;
+}
+.func-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.func-card::after{
+  content:attr(data-code);
+  position:absolute;right:-6px;top:-4px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:70px;font-weight:300;opacity:.08;
+  line-height:1;pointer-events:none;
+}
+
+/* 外向き機能 */
+.fc-Te{background:#eef6ff;border-color:#b0d0f0;color:#1a3a6a;}
+.fc-Te::after{color:#1a3a6a;}
+.fc-Fe{background:#fff0f5;border-color:#f0b0c8;color:#6a1a3a;}
+.fc-Fe::after{color:#6a1a3a;}
+.fc-Se{background:#f0fff0;border-color:#a0d8a0;color:#1a5a1a;}
+.fc-Se::after{color:#1a5a1a;}
+.fc-Ne{background:#fffaee;border-color:#e8d080;color:#5a4000;}
+.fc-Ne::after{color:#5a4000;}
+/* 内向き機能 */
+.fc-Ti{background:#f0f4ff;border-color:#c0cef8;color:#20308a;}
+.fc-Ti::after{color:#20308a;}
+.fc-Fi{background:#fff4f0;border-color:#f0c0b0;color:#7a2010;}
+.fc-Fi::after{color:#7a2010;}
+.fc-Si{background:#f4fff4;border-color:#b0e0b0;color:#1a4a2a;}
+.fc-Si::after{color:#1a4a2a;}
+.fc-Ni{background:#f8f0ff;border-color:#d0b0f0;color:#4a1a7a;}
+.fc-Ni::after{color:#4a1a7a;}
+
+.func-code{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;line-height:1;margin-bottom:4px;}
+.func-name{font-size:12px;font-weight:500;margin-bottom:6px;opacity:.85;}
+.func-alt{font-size:11px;opacity:.55;margin-bottom:8px;font-style:italic;}
+.func-desc{font-size:12px;line-height:1.7;opacity:.8;}
+.func-ex{font-size:11px;opacity:.6;margin-top:6px;border-top:1px solid currentColor;border-opacity:.2;padding-top:6px;font-style:italic;}
+
+/* ─ STACK TABLE ─ */
+.stack-wrap{overflow-x:auto;margin-bottom:20px;}
+.stack-table{width:100%;border-collapse:collapse;font-size:12px;min-width:560px;}
+.stack-table th{
+  background:var(--bg2);color:var(--ink3);font-weight:500;
+  padding:8px 10px;text-align:center;border:1px solid var(--border);font-size:11px;letter-spacing:.5px;
+}
+.stack-table td{padding:8px 10px;border:1px solid var(--border);text-align:center;vertical-align:middle;}
+.stack-table tr:nth-child(even) td{background:var(--surface2);}
+.stack-table td.type-code{
+  font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;
+  color:var(--accent);letter-spacing:1px;font-weight:500;
+}
+.pos-1{color:#1a3a6a;font-weight:500;}
+.pos-2{color:#2a5a28;font-weight:400;}
+.pos-3{color:#6a4a00;font-weight:400;}
+.pos-4{color:#6a1a3a;font-weight:400;}
+
+/* ─ 16 PERSONALITIES DIFF ─ */
+.diff-grid{display:grid;gap:12px;margin-bottom:20px;}
+.diff-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;
+}
+.diff-cell{padding:14px 16px;}
+.diff-cell.label{
+  background:var(--bg2);font-size:11px;font-weight:500;
+  color:var(--ink3);letter-spacing:1px;text-transform:uppercase;
+  display:flex;align-items:center;
+  grid-column:1/-1;border-bottom:1px solid var(--border);
+}
+.diff-cell.left{background:var(--warn-bg);}
+.diff-cell.right{background:var(--ok-bg);border-left:1px solid var(--border);}
+.diff-cell h4{font-size:12px;font-weight:500;margin-bottom:5px;}
+.diff-cell h4.bad{color:var(--warn);}
+.diff-cell h4.good{color:var(--ok);}
+.diff-cell p{font-size:12px;color:var(--ink2);line-height:1.7;}
+
+/* ─ 16 TYPES GRID ─ */
+.types-grid-16{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:8px;margin-bottom:20px;
+}
+@media(max-width:480px){.types-grid-16{grid-template-columns:repeat(2,1fr);}}
+
+.type-chip{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:12px 8px;
+  text-align:center;cursor:pointer;transition:all .2s;
+}
+.type-chip:hover{border-color:var(--accent2);background:var(--accent-bg);transform:translateY(-2px);}
+.type-chip.active{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 0 2px var(--accent2)40;}
+.type-chip .tc{
+  font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;
+  color:var(--accent);letter-spacing:1px;display:block;line-height:1.2;
+}
+.type-chip .tn{font-size:10px;color:var(--ink3);display:block;margin-top:3px;}
+.type-chip .grp-NT{color:#2d5fa8;}
+.type-chip .grp-NF{color:#7b5ea8;}
+.type-chip .grp-SJ{color:#2a7a58;}
+.type-chip .grp-SP{color:#b85c28;}
+
+/* GROUP LABELS */
+.group-header{
+  font-size:11px;letter-spacing:2px;color:var(--ink4);
+  text-transform:uppercase;grid-column:1/-1;
+  margin-top:12px;padding-bottom:6px;border-bottom:1px solid var(--border);
+}
+.group-header:first-child{margin-top:0;}
+
+/* ─ TYPE DETAIL PANEL ─ */
+.type-detail{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:var(--radius);padding:20px 18px;margin-top:16px;
+  box-shadow:var(--shadow);display:none;
+}
+.type-detail.active{display:block;}
+.td-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px;}
+.td-code{
+  font-family:'Cormorant Garamond',serif;font-size:52px;
+  font-weight:300;color:var(--accent);line-height:1;letter-spacing:.05em;
+}
+.td-meta h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--ink);margin-bottom:4px;}
+.td-meta p{font-size:12px;color:var(--ink3);}
+.td-stack{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.td-fn{
+  font-size:12px;padding:4px 10px;border-radius:20px;
+  background:var(--bg2);border:1px solid var(--border);color:var(--ink2);
+}
+.td-fn.dom{background:var(--accent);color:white;border-color:var(--accent);}
+.td-fn.aux{background:var(--accent-bg);color:var(--accent);border-color:var(--border2);}
+.td-desc{font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:12px;}
+.td-traits{display:flex;flex-wrap:wrap;gap:6px;}
+.td-trait{font-size:11px;padding:3px 9px;border-radius:20px;background:var(--bg2);border:1px solid var(--border);color:var(--ink3);}
+
+/* ─ QUIZ ─ */
+.quiz-wrap{max-width:680px;margin:0 auto;}
+.quiz-progress{
+  height:4px;background:var(--bg3);border-radius:2px;margin-bottom:24px;overflow:hidden;
+}
+.quiz-progress-bar{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;}
+.quiz-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--ink4);margin-bottom:20px;}
+
+.quiz-q{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:24px 20px;margin-bottom:16px;
+  box-shadow:var(--shadow);
+}
+.quiz-q-num{font-size:11px;color:var(--accent);letter-spacing:2px;margin-bottom:10px;}
+.quiz-q-text{font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:20px;font-weight:400;}
+
+.quiz-options{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{
+  display:flex;align-items:center;gap:12px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:12px 16px;
+  cursor:pointer;transition:all .18s;font-size:13px;color:var(--ink2);
+}
+.quiz-opt:hover{border-color:var(--accent2);background:var(--accent-bg);}
+.quiz-opt.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);}
+.quiz-opt-radio{
+  width:18px;height:18px;border:2px solid var(--border2);border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:all .18s;
+}
+.quiz-opt.selected .quiz-opt-radio{border-color:var(--accent);background:var(--accent);}
+.quiz-opt.selected .quiz-opt-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:white;}
+
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px;}
+.quiz-btn{
+  padding:10px 24px;border-radius:var(--radius-sm);font-size:13px;
+  font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:all .2s;border:none;font-weight:500;
+}
+.quiz-btn-next{background:var(--accent);color:white;}
+.quiz-btn-next:hover{background:#1e4a8a;}
+.quiz-btn-next:disabled{background:var(--bg3);color:var(--ink4);cursor:not-allowed;}
+.quiz-btn-prev{background:transparent;color:var(--ink3);border:1px solid var(--border);}
+.quiz-btn-prev:hover{background:var(--bg2);}
+
+/* RESULT */
+.quiz-result{display:none;text-align:center;}
+.quiz-result.active{display:block;}
+.result-type{
+  font-family:'Cormorant Garamond',serif;
+  font-size:80px;font-weight:300;color:var(--accent);
+  line-height:1;margin-bottom:8px;letter-spacing:.1em;
+}
+.result-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--ink);margin-bottom:12px;}
+.result-bars{max-width:400px;margin:0 auto 20px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.bar-label{font-size:11px;color:var(--ink3);width:28px;text-align:right;flex-shrink:0;font-weight:500;}
+.bar-track{flex:1;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width .8s ease;}
+.bar-val{font-size:11px;color:var(--ink3);width:30px;text-align:left;flex-shrink:0;}
+.bar-E{background:var(--accent);}
+.bar-I{background:var(--ink3);}
+.bar-N{background:#7b5ea8;}
+.bar-S{background:#2a7a58;}
+.bar-T{background:#1a6080;}
+.bar-F{background:#b85c28;}
+.bar-J{background:#2d5fa8;}
+.bar-P{background:#b8943a;}
+
+.result-desc{font-size:13px;color:var(--ink2);line-height:1.8;margin:16px 0;text-align:left;max-width:500px;margin-left:auto;margin-right:auto;}
+.result-stack{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.rs-fn{font-size:13px;padding:5px 12px;border-radius:20px;background:var(--bg2);border:1px solid var(--border);color:var(--ink2);}
+.rs-fn.dom{background:var(--accent);color:white;border-color:var(--accent);}
+.rs-fn.aux{background:var(--accent-bg);color:var(--accent);border-color:var(--border2);}
+.result-retry{
+  padding:10px 24px;border-radius:var(--radius-sm);font-size:13px;
+  background:transparent;border:1px solid var(--border2);color:var(--ink3);
+  cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s;
+}
+.result-retry:hover{background:var(--bg2);color:var(--ink);}
+
+/* ─ DISCLAIMER ─ */
+.disclaimer-bar{
+  background:var(--gold-bg);border:1px solid #e0d0a0;
+  border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:20px;
+  font-size:12px;color:#6a5010;line-height:1.7;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.disclaimer-bar span:first-child{flex-shrink:0;}
+.disclaimer-bar span:last-child{flex:1;min-width:0;word-break:break-word;}
+
+/* ─ AXIS DIAGRAM (SVG) ─ */
+.diagram-wrap{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;margin-bottom:20px;overflow:hidden;
+}
+.diagram-title{font-size:11px;color:var(--ink4);letter-spacing:2px;margin-bottom:12px;text-align:center;text-transform:uppercase;}
+
+/* ─ COMPARE TABLE ─ */
+.compare-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px;}
+.compare-table th{background:var(--bg2);padding:9px 12px;text-align:left;border:1px solid var(--border);font-weight:500;font-size:11px;letter-spacing:.5px;color:var(--ink3);}
+.compare-table td{padding:9px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.6;}
+.compare-table tr:nth-child(even) td{background:var(--surface2);}
+.compare-table .c-head{font-weight:500;color:var(--ink2);}
+.compare-table .c-bad{color:var(--warn);}
+.compare-table .c-good{color:var(--ok);}
+
+/* ─ FOOTER ─ */
+.page-footer{background:var(--ink);color:rgba(255,255,255,.5);padding:36px 20px 24px;margin-top:0;}
+.footer-inner{max-width:860px;margin:0 auto;}
+.footer-nav-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.footer-nav-link{
+  font-size:12px;padding:5px 12px;border-radius:6px;
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);
+  text-decoration:none;transition:all .2s;
+}
+.footer-nav-link:hover{background:rgba(255,255,255,.12);color:white;}
+.footer-bottom{font-size:11px;color:rgba(255,255,255,.3);}
+
+/* ─ ANIMATIONS ─ */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.hero>*{animation:fadeInUp .6s ease both;}
+.hero>*:nth-child(1){animation-delay:.1s;}
+.hero>*:nth-child(2){animation-delay:.2s;}
+.hero>*:nth-child(3){animation-delay:.3s;}
+.hero>*:nth-child(4){animation-delay:.38s;}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5m5-5-5 5 5 5"/>
+    </svg>
+    ポータルへ
+  </a>
+  <span class="topbar-title">MBTI</span>
+  <span class="topbar-right">Phase 2</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Cognitive Functions · 16 Types</div>
+  <h1><em>MBTI</em></h1>
+  <p class="hero-sub">マイヤーズ＝ブリッグス タイプ指標</p>
+  <div class="hero-badges">
+    <span class="hero-badge">認知機能 8種</span>
+    <span class="hero-badge">16タイプ</span>
+    <span class="hero-badge">Jung理論系</span>
+    <span class="hero-badge">簡易診断あり</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<nav class="tabs-nav" id="mainTabs">
+  <button class="tab-btn active" onclick="switchTab('theory',this)">理論解説</button>
+  <button class="tab-btn" onclick="switchTab('diff',this)">16Pとの違い</button>
+  <button class="tab-btn" onclick="switchTab('types',this)">16タイプ一覧</button>
+  <button class="tab-btn" onclick="switchTab('quiz',this)">簡易診断</button>
+</nav>
+
+<!-- ══════════════ TAB: THEORY ══════════════ -->
+<div class="tab-content active" id="tab-theory">
+<div class="container">
+
+  <p class="sec-title">理論解説</p>
+  <p class="sec-label">Theory of Cognitive Functions</p>
+
+  <div class="info-box">
+    MBTIの理論的基盤はカール・グスタフ・ユングの「心理学的タイプ」（1921）です。
+    イザベル・マイヤーズとキャサリン・ブリッグスがこれを実用化し、
+    <strong>認知機能（Cognitive Functions）</strong>と呼ばれる8種の情報処理モードと、
+    4軸（E/I・N/S・T/F・J/P）からなる16タイプ分類を完成させました。
+  </div>
+
+  <!-- 4軸 -->
+  <h2 class="sh">4軸の概念</h2>
+
+  <div class="diagram-wrap">
+    <div class="diagram-title">MBTI 4軸 — 各二項対立の意味</div>
+    <svg viewBox="0 0 700 220" class="diag" style="max-height:200px;">
+      <defs>
+        <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L6,3 Z" fill="#b0c0e0"/>
+        </marker>
+      </defs>
+      <!-- 軸1 -->
+      <rect x="10" y="20" width="155" height="80" rx="10" fill="#eef3fc" stroke="#b0c0e0" stroke-width="1.2"/>
+      <text x="87" y="45" font-family="Cormorant Garamond,serif" font-size="22" fill="#2d5fa8" text-anchor="middle" font-weight="300">E ← → I</text>
+      <text x="87" y="65" font-size="10" fill="#6070a0" text-anchor="middle">外向 ↔ 内向</text>
+      <text x="87" y="82" font-size="9.5" fill="#8090b8" text-anchor="middle">エネルギーの方向性</text>
+      <text x="87" y="96" font-size="9.5" fill="#8090b8" text-anchor="middle">外部世界 vs 内的世界</text>
+      <!-- 軸2 -->
+      <rect x="185" y="20" width="155" height="80" rx="10" fill="#f4f0fa" stroke="#c8b8e8" stroke-width="1.2"/>
+      <text x="262" y="45" font-family="Cormorant Garamond,serif" font-size="22" fill="#7b5ea8" text-anchor="middle" font-weight="300">N ← → S</text>
+      <text x="262" y="65" font-size="10" fill="#7060a0" text-anchor="middle">直感 ↔ 感覚</text>
+      <text x="262" y="82" font-size="9.5" fill="#9080b8" text-anchor="middle">抽象・可能性 vs</text>
+      <text x="262" y="96" font-size="9.5" fill="#9080b8" text-anchor="middle">具体・事実重視</text>
+      <!-- 軸3 -->
+      <rect x="360" y="20" width="155" height="80" rx="10" fill="#eef8f8" stroke="#a0c8d0" stroke-width="1.2"/>
+      <text x="437" y="45" font-family="Cormorant Garamond,serif" font-size="22" fill="#1a6080" text-anchor="middle" font-weight="300">T ← → F</text>
+      <text x="437" y="65" font-size="10" fill="#3a7090" text-anchor="middle">思考 ↔ 感情</text>
+      <text x="437" y="82" font-size="9.5" fill="#6a90a0" text-anchor="middle">論理・客観 vs</text>
+      <text x="437" y="96" font-size="9.5" fill="#6a90a0" text-anchor="middle">価値・対人重視</text>
+      <!-- 軸4 -->
+      <rect x="535" y="20" width="155" height="80" rx="10" fill="#fdf8ee" stroke="#d0c080" stroke-width="1.2"/>
+      <text x="612" y="45" font-family="Cormorant Garamond,serif" font-size="22" fill="#b8943a" text-anchor="middle" font-weight="300">J ← → P</text>
+      <text x="612" y="65" font-size="10" fill="#8a7020" text-anchor="middle">判断 ↔ 知覚</text>
+      <text x="612" y="82" font-size="9.5" fill="#a09040" text-anchor="middle">計画・決断 vs</text>
+      <text x="612" y="96" font-size="9.5" fill="#a09040" text-anchor="middle">柔軟・開放維持</text>
+
+      <!-- 注意書き -->
+      <text x="350" y="140" font-size="10.5" fill="#b0c0e0" text-anchor="middle">↑ この4軸は「主機能」と「補助機能」を決定するための補助指標</text>
+      <text x="350" y="158" font-size="10.5" fill="#b0c0e0" text-anchor="middle">単独で性格を表すわけではなく、認知機能スタックと合わせて解釈します</text>
+    </svg>
+  </div>
+
+  <div class="warn-box">
+    <strong>【重要】4軸は「外側の型」に過ぎない</strong><br>
+    「E/I・N/S・T/F・J/P」の4軸は、最終的なタイプコードを導くための指標であり、
+    それ自体が性格を表すわけではありません。同じ「T」でも、Te（外向的思考）とTi（内向的思考）では思考の質がまったく異なります。
+    <strong>認知機能スタックこそが本質</strong>です。
+  </div>
+
+  <!-- 8認知機能 -->
+  <h2 class="sh">8つの認知機能</h2>
+  <p style="font-size:13px;color:var(--ink2);margin-bottom:20px;line-height:1.8;">
+    ユングの理論を拡張した「認知機能（Cognitive Functions）」は、
+    <strong>判断機能（T/F）</strong>と<strong>知覚機能（N/S）</strong>の各2つが、
+    それぞれ外向き（e）と内向き（i）の方向性を持ち、計8種になります。
+  </p>
+
+  <div class="func-axis">
+    <div class="axis-label">判断機能 — Judging Functions</div>
+    <div class="func-grid">
+      <div class="func-card fc-Te" data-code="Te">
+        <div class="func-code">Te</div>
+        <div class="func-name">外向的思考 Extroverted Thinking</div>
+        <div class="func-alt">Thinking — outward</div>
+        <div class="func-desc">外部の論理・効率・システムを重視。目標達成のために物事を組織化し、客観的な基準で意思決定する。</div>
+        <div class="func-ex">「最短ルートで結果を出すには？」という問い。計画・管理・生産性。</div>
+      </div>
+      <div class="func-card fc-Ti" data-code="Ti">
+        <div class="func-code">Ti</div>
+        <div class="func-name">内向的思考 Introverted Thinking</div>
+        <div class="func-alt">Thinking — inward</div>
+        <div class="func-desc">内的な論理的一貫性を求める。自分だけの精緻な分析フレームを構築し、矛盾がないかを検証し続ける。</div>
+        <div class="func-ex">「このモデルは本当に整合的か？」という問い。分析・解体・再構築。</div>
+      </div>
+      <div class="func-card fc-Fe" data-code="Fe">
+        <div class="func-code">Fe</div>
+        <div class="func-name">外向的感情 Extroverted Feeling</div>
+        <div class="func-alt">Feeling — outward</div>
+        <div class="func-desc">集団の感情状態・社会的調和を重視。周囲の感情に敏感で、場の雰囲気を読み調和を保とうとする。</div>
+        <div class="func-ex">「この場の空気をどう整えるか？」という問い。共感・調和・関係性維持。</div>
+      </div>
+      <div class="func-card fc-Fi" data-code="Fi">
+        <div class="func-code">Fi</div>
+        <div class="func-name">内向的感情 Introverted Feeling</div>
+        <div class="func-alt">Feeling — inward</div>
+        <div class="func-desc">内的な価値観・信念・真正性を重視。自分だけの倫理基準を持ち、それに沿った生き方を大切にする。</div>
+        <div class="func-ex">「これは本当に自分の信念に合っているか？」という問い。真正性・個の価値観。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="func-axis">
+    <div class="axis-label">知覚機能 — Perceiving Functions</div>
+    <div class="func-grid">
+      <div class="func-card fc-Se" data-code="Se">
+        <div class="func-code">Se</div>
+        <div class="func-name">外向的感覚 Extroverted Sensing</div>
+        <div class="func-alt">Sensing — outward</div>
+        <div class="func-desc">今この瞬間の感覚情報・現実を直接体験することを重視。即興性・行動力・現在への没入。</div>
+        <div class="func-ex">「今ここで何を感じ・経験できるか？」という問い。瞬発力・リアリティ・実行。</div>
+      </div>
+      <div class="func-card fc-Si" data-code="Si">
+        <div class="func-code">Si</div>
+        <div class="func-name">内向的感覚 Introverted Sensing</div>
+        <div class="func-alt">Sensing — inward</div>
+        <div class="func-desc">過去の経験・記憶・確立された方法を参照する。慣れ親しんだことの継続と安定を好む。</div>
+        <div class="func-ex">「以前うまくいった方法は何だったか？」という問い。記憶・慣習・安定。</div>
+      </div>
+      <div class="func-card fc-Ne" data-code="Ne">
+        <div class="func-code">Ne</div>
+        <div class="func-name">外向的直感 Extroverted Intuition</div>
+        <div class="func-alt">Intuition — outward</div>
+        <div class="func-desc">外部世界のパターン・可能性・つながりを探索する。多様なアイデアを次々と生成し結びつける。</div>
+        <div class="func-ex">「これにはどんな可能性が隠れているか？」という問い。発散・連想・革新。</div>
+      </div>
+      <div class="func-card fc-Ni" data-code="Ni">
+        <div class="func-code">Ni</div>
+        <div class="func-name">内向的直感 Introverted Intuition</div>
+        <div class="func-alt">Intuition — inward</div>
+        <div class="func-desc">潜在的なパターン・未来の方向性を収束的に把握する。深い洞察と長期ビジョンを生み出す。</div>
+        <div class="func-ex">「本質的に何が起きようとしているか？」という問い。洞察・予見・収束。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 機能スタック -->
+  <h2 class="sh">機能スタックの構造</h2>
+  <div class="info-box">
+    各タイプは4つの機能が優先順位を持って積み重なる「<strong>機能スタック</strong>」を持ちます。
+    ①主機能（Dominant）②補助機能（Auxiliary）③第三機能（Tertiary）④劣等機能（Inferior）の順です。
+    主機能と補助機能が「強み」の核心であり、劣等機能はしばしばストレス下に現れます。
+  </div>
+
+  <div class="diagram-wrap">
+    <div class="diagram-title">機能スタックの概念図（例：INTJ）</div>
+    <svg viewBox="0 0 640 160" class="diag" style="max-height:160px;">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#2d5fa8"/>
+          <stop offset="100%" stop-color="#4a7fd0"/>
+        </linearGradient>
+      </defs>
+      <!-- bars -->
+      <rect x="10" y="20" width="390" height="28" rx="7" fill="url(#g1)"/>
+      <text x="20" y="39" font-size="13" fill="white" font-weight="500">① 主機能 Dominant — Ni（内向的直感）</text>
+      <text x="405" y="39" font-size="11" fill="#6a9dd4">最も意識的・強力な機能</text>
+
+      <rect x="10" y="56" width="290" height="28" rx="7" fill="#4a7fd0"/>
+      <text x="20" y="75" font-size="13" fill="white" font-weight="500">② 補助機能 Auxiliary — Te（外向的思考）</text>
+      <text x="305" y="75" font-size="11" fill="#6a9dd4">主機能を支える</text>
+
+      <rect x="10" y="92" width="200" height="28" rx="7" fill="#7aaef8" opacity=".7"/>
+      <text x="20" y="111" font-size="13" fill="white">③ 第三機能 Tertiary — Fi（内向的感情）</text>
+      <text x="215" y="111" font-size="11" fill="#6a9dd4">発達が遅れがち</text>
+
+      <rect x="10" y="128" width="130" height="28" rx="7" fill="#b0c0e0" opacity=".6"/>
+      <text x="20" y="147" font-size="13" fill="#4a6090">④ 劣等機能 Inferior — Se（外向的感覚）</text>
+      <text x="145" y="147" font-size="11" fill="#6a9dd4">無意識・ストレス時に現れる</text>
+    </svg>
+  </div>
+
+  <!-- スタック表 -->
+  <h2 class="sh">全16タイプの機能スタック一覧</h2>
+  <div class="stack-wrap">
+    <table class="stack-table">
+      <thead>
+        <tr>
+          <th>タイプ</th>
+          <th>① 主機能</th>
+          <th>② 補助</th>
+          <th>③ 第三</th>
+          <th>④ 劣等</th>
+          <th>グループ</th>
+        </tr>
+      </thead>
+      <tbody id="stackTableBody">
+      </tbody>
+    </table>
+  </div>
+
+  <div class="disclaimer-bar">
+    <span>📌</span>
+    <span>このページの内容は「認知機能モデルに基づくMBTI」の解説です。診断テスト会社 16Personalities が提供するものとは理論的基盤が異なります。詳細は「16Pとの違い」タブをご参照ください。</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════ TAB: DIFF ══════════════ -->
+<div class="tab-content" id="tab-diff">
+<div class="container">
+
+  <p class="sec-title">16Personalitiesとの相違点</p>
+  <p class="sec-label">MBTI vs 16Personalities</p>
+
+  <div class="warn-box">
+    <strong>⚠️ 「16P」は公式MBTIではありません</strong><br>
+    16Personalities（16P）はMBTIに「ビッグファイブ特性論」の要素を加えた<strong>独自の派生モデル</strong>です。
+    公式MBTIとは異なる理論・異なる設計思想を持っており、同じタイプコードでも意味が変わります。
+    日本語圏では区別されずに語られることが多く、注意が必要です。
+  </div>
+
+  <h2 class="sh">主な相違点の比較</h2>
+
+  <div class="diff-grid">
+    <div class="diff-row">
+      <div class="diff-cell label">① 理論的基盤</div>
+      <div class="diff-cell left">
+        <h4 class="bad">16Personalities</h4>
+        <p>ビッグファイブ（OCEAN）の特性論を土台に、MBTI風のラベルを貼った独自モデル。ユング心理学や認知機能の理論を使っていない。</p>
+      </div>
+      <div class="diff-cell right">
+        <h4 class="good">公式MBTI / 認知機能系</h4>
+        <p>カール・ユングの「心理学的タイプ」（1921）を直接の源流とする。認知機能（8種）の優位性が理論の核心。</p>
+      </div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label">② 5軸 vs 4軸</div>
+      <div class="diff-cell left">
+        <h4 class="bad">16Personalities — 5軸</h4>
+        <p>E/I・N/S・T/F・J/Pの4軸に加え、「A/T（自己主張型/慎重型）」という<strong>5軸目</strong>を独自追加。これはビッグファイブの「神経症傾向」に対応する。</p>
+      </div>
+      <div class="diff-cell right">
+        <h4 class="good">MBTI — 4軸</h4>
+        <p>4軸のみ。A/Tに相当する概念は元々存在しない。「-A/-T」サフィックスを使ったタイプ表記（例：INTJ-A）は公式MBTIには存在しない。</p>
+      </div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label">③ 認知機能の扱い</div>
+      <div class="diff-cell left">
+        <h4 class="bad">16Personalities</h4>
+        <p>認知機能（Te/Ti/Fe/Fi/Se/Si/Ne/Ni）を理論的根拠として使用していない。タイプ記述は特性の数値分布で行われる。</p>
+      </div>
+      <div class="diff-cell right">
+        <h4 class="good">MBTI / 認知機能系</h4>
+        <p>8つの認知機能とその優先順位（機能スタック）こそが理論の中心。同じ「INTJ」でも主機能NiとTeによる記述は16Pとは大きく異なる。</p>
+      </div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label">④ タイプの安定性</div>
+      <div class="diff-cell left">
+        <h4 class="bad">16Personalities</h4>
+        <p>特性スコアは状況・気分によって変動しやすい。同じ人が数ヶ月後に別タイプ判定されることが多い。</p>
+      </div>
+      <div class="diff-cell right">
+        <h4 class="good">MBTI</h4>
+        <p>認知機能モデルでは機能スタックは本質的な傾向として安定する（ただし発達段階によって現れ方が変わる）とされる。</p>
+      </div>
+    </div>
+
+    <div class="diff-row">
+      <div class="diff-cell label">⑤ 「境界型」の扱い</div>
+      <div class="diff-cell left">
+        <h4 class="bad">16Personalities</h4>
+        <p>スコアが50%付近の場合、どちらにも近い「境界型」として扱われることがある。</p>
+      </div>
+      <div class="diff-cell right">
+        <h4 class="good">MBTI</h4>
+        <p>公式MBTIはすべての人にはっきりした選好があると考える。「均等」に近い場合でも、どちらかの選好が存在するとする。</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sh">よくある誤解と実際</h2>
+
+  <div class="card">
+    <h3>🤔 「ENFPと診断されたのにINFPっぽい」</h3>
+    <p>16Pの「ENFP」は必ずしも認知機能系の「ENFP（主機能Ne・補助Fi）」を意味しません。
+    16Pのスコアはビッグファイブの「外向性」「開放性」等の数値で決まるため、
+    外向性スコアが52%でも「ENFP」となります。認知機能でのタイプ特定は別途行う必要があります。</p>
+  </div>
+
+  <div class="card">
+    <h3>🤔 「毎回結果が変わる」</h3>
+    <p>16Pは特性スコアの測定であるため、その時の気分・状態に影響を受けます。
+    公式MBTIも完全に安定するわけではありませんが、認知機能の優位性は長期的には変わりにくいとされます。
+    「どの機能が最も自然に使えるか」を自己観察することが有効です。</p>
+  </div>
+
+  <div class="card">
+    <h3>🤔 「INTJとINFJは似ているのに機能が全然違う」</h3>
+    <p>INTJの主機能は<strong>Ni（内向的直感）＋ Te（外向的思考）</strong>、
+    INFJは<strong>Ni（内向的直感）＋ Fe（外向的感情）</strong>です。
+    主機能Niは共通しますが、補助機能がT系かF系かで行動・判断パターンが大きく異なります。
+    16Pの「感情vs思考」スコアだけで区別しようとすると見誤ることがあります。</p>
+  </div>
+
+  <h2 class="sh">活用のおすすめ</h2>
+  <div class="ok-box">
+    16Personalitiesは<strong>「入口としては有用」</strong>です。親しみやすいUIと豊富なタイプ記述で多くの人の関心を引きます。
+    しかし「自分を深く理解したい」という目的では、認知機能モデルに基づいた理解を深めることをおすすめします。
+    両者を「別物」として理解した上で使い分けるのがベストです。
+  </div>
+
+  <div class="compare-table" style="overflow-x:auto;">
+    <table class="compare-table" style="min-width:500px;">
+      <thead>
+        <tr>
+          <th>観点</th>
+          <th>16Personalities</th>
+          <th>公式MBTI / 認知機能系</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="c-head">目的</td><td>手軽なエンタメ診断・自己発見</td><td>深い自己理解・性格研究</td></tr>
+        <tr><td class="c-head">理論基盤</td><td class="c-bad">ビッグファイブ（独自派生）</td><td class="c-good">ユング心理学 / 認知機能</td></tr>
+        <tr><td class="c-head">軸の数</td><td class="c-bad">5軸（A/T含む）</td><td class="c-good">4軸</td></tr>
+        <tr><td class="c-head">認知機能</td><td class="c-bad">使用しない</td><td class="c-good">理論の中心</td></tr>
+        <tr><td class="c-head">再現性</td><td class="c-bad">変動しやすい</td><td class="c-good">比較的安定</td></tr>
+        <tr><td class="c-head">入門しやすさ</td><td class="c-good">非常に高い</td><td>やや高い学習コスト</td></tr>
+        <tr><td class="c-head">公式機関</td><td>あり（独立企業）</td><td>MBTI財団（Myers-Briggs Company）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════ TAB: TYPES ══════════════ -->
+<div class="tab-content" id="tab-types">
+<div class="container">
+
+  <p class="sec-title">16タイプ一覧</p>
+  <p class="sec-label">All 16 Types — Tap to expand</p>
+
+  <div class="info-box" style="margin-bottom:20px;">
+    タイプをタップすると詳細（機能スタック・特徴・傾向）が展開されます。
+    グループ分けは伝統的な「NT/NF/SJ/SP」四分類に基づいています。
+  </div>
+
+  <div class="types-grid-16" id="typesGrid">
+    <!-- NT -->
+    <div class="group-header">🔵 NT — 分析者グループ（Ni/Ne + T）</div>
+    <div class="type-chip" onclick="showTypeDetail('INTJ')" id="chip-INTJ">
+      <span class="tc grp-NT">INTJ</span><span class="tn">建築家</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('INTP')" id="chip-INTP">
+      <span class="tc grp-NT">INTP</span><span class="tn">論理学者</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ENTJ')" id="chip-ENTJ">
+      <span class="tc grp-NT">ENTJ</span><span class="tn">指揮官</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ENTP')" id="chip-ENTP">
+      <span class="tc grp-NT">ENTP</span><span class="tn">討論者</span>
+    </div>
+    <!-- NF -->
+    <div class="group-header">🟣 NF — 外交官グループ（Ni/Ne + F）</div>
+    <div class="type-chip" onclick="showTypeDetail('INFJ')" id="chip-INFJ">
+      <span class="tc grp-NF">INFJ</span><span class="tn">提唱者</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('INFP')" id="chip-INFP">
+      <span class="tc grp-NF">INFP</span><span class="tn">仲介者</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ENFJ')" id="chip-ENFJ">
+      <span class="tc grp-NF">ENFJ</span><span class="tn">主人公</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ENFP')" id="chip-ENFP">
+      <span class="tc grp-NF">ENFP</span><span class="tn">広報運動家</span>
+    </div>
+    <!-- SJ -->
+    <div class="group-header">🟢 SJ — 番人グループ（Si + J）</div>
+    <div class="type-chip" onclick="showTypeDetail('ISTJ')" id="chip-ISTJ">
+      <span class="tc grp-SJ">ISTJ</span><span class="tn">管理者</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ISFJ')" id="chip-ISFJ">
+      <span class="tc grp-SJ">ISFJ</span><span class="tn">擁護者</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ESTJ')" id="chip-ESTJ">
+      <span class="tc grp-SJ">ESTJ</span><span class="tn">幹部</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ESFJ')" id="chip-ESFJ">
+      <span class="tc grp-SJ">ESFJ</span><span class="tn">領事官</span>
+    </div>
+    <!-- SP -->
+    <div class="group-header">🟠 SP — 探検家グループ（Se + P）</div>
+    <div class="type-chip" onclick="showTypeDetail('ISTP')" id="chip-ISTP">
+      <span class="tc grp-SP">ISTP</span><span class="tn">巨匠</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ISFP')" id="chip-ISFP">
+      <span class="tc grp-SP">ISFP</span><span class="tn">冒険家</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ESTP')" id="chip-ESTP">
+      <span class="tc grp-SP">ESTP</span><span class="tn">起業家</span>
+    </div>
+    <div class="type-chip" onclick="showTypeDetail('ESFP')" id="chip-ESFP">
+      <span class="tc grp-SP">ESFP</span><span class="tn">エンターテイナー</span>
+    </div>
+  </div>
+
+  <!-- TYPE DETAIL -->
+  <div id="typeDetailWrap"></div>
+
+</div>
+</div>
+
+<!-- ══════════════ TAB: QUIZ ══════════════ -->
+<div class="tab-content" id="tab-quiz">
+<div class="container">
+
+  <p class="sec-title">簡易認知機能診断</p>
+  <p class="sec-label">20-Question Type Assessment</p>
+
+  <div class="warn-box" style="margin-bottom:16px;">
+    <strong>⚠️ この診断について</strong><br>
+    これは認知機能の傾向を簡易的に測定する<strong>参考ツール</strong>です。公式MBTI検査ではありません。
+    20問の質問への回答から4軸スコアを算出してタイプを推定します。
+    深い理解のためには、診断後に理論解説・各タイプ詳細も合わせてお読みください。
+  </div>
+
+  <div class="quiz-wrap" id="quizWrap">
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quizBar" style="width:0%"></div></div>
+    <div class="quiz-meta">
+      <span id="quizCounter">問 1 / 20</span>
+      <span id="quizAxis"></span>
+    </div>
+    <div id="quizQArea"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn quiz-btn-prev" id="btnPrev" onclick="quizPrev()" disabled>← 前の問</button>
+      <button class="quiz-btn quiz-btn-next" id="btnNext" onclick="quizNext()" disabled>次の問 →</button>
+    </div>
+  </div>
+
+  <div class="quiz-result" id="quizResult">
+    <div class="result-type" id="resultType">—</div>
+    <div class="result-name" id="resultName">—</div>
+    <div class="result-stack" id="resultStack"></div>
+    <div class="result-bars" id="resultBars"></div>
+    <div class="result-desc" id="resultDesc"></div>
+    <button class="result-retry" onclick="resetQuiz()">← やり直す</button>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-inner">
+    <div class="footer-nav-row">
+      <a href="index.html" class="footer-nav-link">← ポータルへ</a>
+      <a href="enneagram.html" class="footer-nav-link">エニアグラム</a>
+      <a href="socionics.html" class="footer-nav-link">ソシオニクス</a>
+      <a href="bigfive.html" class="footer-nav-link">ビッグファイブ</a>
+      <a href="psychosofia.html" class="footer-nav-link">サイコソフィア</a>
+    </div>
+    <p class="footer-bottom">このページは学習・参考目的です。医学的・臨床的診断ではありません。</p>
+  </div>
+</footer>
+
+<script>
+// ─── TAB SWITCH ───
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: document.getElementById('mainTabs').offsetTop - 50, behavior:'smooth'});
+}
+
+// ─── STACK TABLE DATA ───
+const STACKS = {
+  INTJ:['Ni','Te','Fi','Se','NT'],INTP:['Ti','Ne','Si','Fe','NT'],
+  ENTJ:['Te','Ni','Se','Fi','NT'],ENTP:['Ne','Ti','Fe','Si','NT'],
+  INFJ:['Ni','Fe','Ti','Se','NF'],INFP:['Fi','Ne','Si','Te','NF'],
+  ENFJ:['Fe','Ni','Se','Ti','NF'],ENFP:['Ne','Fi','Te','Si','NF'],
+  ISTJ:['Si','Te','Fi','Ne','SJ'],ISFJ:['Si','Fe','Ti','Ne','SJ'],
+  ESTJ:['Te','Si','Ne','Fi','SJ'],ESFJ:['Fe','Si','Ne','Ti','SJ'],
+  ISTP:['Ti','Se','Ni','Fe','SP'],ISFP:['Fi','Se','Ni','Te','SP'],
+  ESTP:['Se','Ti','Fe','Ni','SP'],ESFP:['Se','Fi','Te','Ni','SP'],
+};
+const GRP_COLOR = {NT:'#2d5fa8',NF:'#7b5ea8',SJ:'#2a7a58',SP:'#b85c28'};
+
+const tbody = document.getElementById('stackTableBody');
+if(tbody) {
+  Object.entries(STACKS).forEach(([t,[d,a,r,i,g]]) => {
+    tbody.innerHTML += `<tr>
+      <td class="type-code" style="color:${GRP_COLOR[g]}">${t}</td>
+      <td class="pos-1">${d}</td><td class="pos-2">${a}</td>
+      <td class="pos-3">${r}</td><td class="pos-4">${i}</td>
+      <td style="font-size:11px;color:${GRP_COLOR[g]};font-weight:500;">${g}</td>
+    </tr>`;
+  });
+}
+
+// ─── TYPE DETAIL DATA ───
+const TYPE_DATA = {
+  INTJ:{name:'建築家',stack:['Ni','Te','Fi','Se'],desc:'長期的なビジョンを持ち、それを実現するための体系的な計画を立てる。独立心が強く、知識の追求と戦略的思考を好む。批判的・内省的で、高い基準を自他に課す傾向がある。',traits:['独立心','戦略的','完璧主義','意志力','洞察力','内省的']},
+  INTP:{name:'論理学者',stack:['Ti','Ne','Si','Fe'],desc:'論理的一貫性と精緻な分析を重視する内向的思考者。理論・概念・システムの探求を好み、いかなる矛盾も見逃さない。知的好奇心が旺盛で、多様なアイデアを自由に連想する。',traits:['論理的','分析的','客観的','革新的','理論家','独立心']},
+  ENTJ:{name:'指揮官',stack:['Te','Ni','Se','Fi'],desc:'決断力と統率力を持つ生まれながらのリーダー。長期目標を定め、それに向かって効率的に組織を動かす。高い要求水準と直接的なコミュニケーションを好む。',traits:['リーダーシップ','決断力','戦略家','効率重視','自信家','目標指向']},
+  ENTP:{name:'討論者',stack:['Ne','Ti','Fe','Si'],desc:'知的な議論とアイデアの探求を愛するイノベーター。あらゆる概念の可能性と矛盾を見つけ出し、既成概念を覆すことに喜びを感じる。',traits:['創造的','機知に富む','議論好き','独創的','柔軟','知的好奇心']},
+  INFJ:{name:'提唱者',stack:['Ni','Fe','Ti','Se'],desc:'深い洞察と人間への共感を持つ理想主義者。内なるビジョンを持ち、それを人や社会の改善のために活かそうとする。静かながらも強い意志と価値観を持つ。',traits:['洞察力','共感力','理想主義','決意','創造的','プライベート重視']},
+  INFP:{name:'仲介者',stack:['Fi','Ne','Si','Te'],desc:'自分だけの豊かな内的世界と価値観を持つ理想主義者。真正性・意味・人間の可能性を重視し、深い共感力で他者と繋がる。創造的表現を愛する。',traits:['共感力','創造的','理想主義','真正性重視','内省的','開放的']},
+  ENFJ:{name:'主人公',stack:['Fe','Ni','Se','Ti'],desc:'人の可能性を信じ、その成長を支援することに喜びを見出す。場の雰囲気と他者の感情に敏感で、チームや集団をまとめる優れたカリスマ性を持つ。',traits:['カリスマ性','共感力','組織力','理想主義','信頼性','責任感']},
+  ENFP:{name:'広報運動家',stack:['Ne','Fi','Te','Si'],desc:'可能性と意味の探求者。人々の潜在的な才能を見抜き、熱意を持って繋がりを求める。自由な発想と温かい共感力で場を活性化させる。',traits:['熱意','創造的','共感力','自由奔放','社交的','理想主義']},
+  ISTJ:{name:'管理者',stack:['Si','Te','Fi','Ne'],desc:'誠実さと責任感を持ち、確立された方法と事実に基づいて着実に取り組む。約束を守り、義務を全うすることを重んじる。安定と秩序を好む。',traits:['責任感','誠実','几帳面','忍耐強い','実務的','信頼性']},
+  ISFJ:{name:'擁護者',stack:['Si','Fe','Ti','Ne'],desc:'献身的で温かく、大切な人の幸福のために尽力する。過去の経験と知識を活かして他者をサポートし、調和のある環境を維持しようとする。',traits:['献身的','思いやり','実務的','几帳面','忠実','慎重']},
+  ESTJ:{name:'幹部',stack:['Te','Si','Ne','Fi'],desc:'秩序・規則・伝統を重んじ、組織や集団を効率よくまとめ上げる実務家。直接的で頼りがいがあり、約束や義務に対して極めて誠実。',traits:['リーダーシップ','秩序重視','実務的','直接的','信頼性','組織力']},
+  ESFJ:{name:'領事官',stack:['Fe','Si','Ne','Ti'],desc:'人々の感情と集団の調和を最優先に考える社交的な協力者。献身的で思いやりがあり、周囲の人が必要としているものを敏感に察知する。',traits:['社交的','思いやり','協力的','忠実','献身的','実務的']},
+  ISTP:{name:'巨匠',stack:['Ti','Se','Ni','Fe'],desc:'現実世界の仕組みを探求し、道具や技術を自在に操る観察者。冷静で論理的、柔軟性があり、問題が発生した瞬間に最適な解決策を見出す。',traits:['冷静','分析的','実践的','柔軟','独立心','観察力']},
+  ISFP:{name:'冒険家',stack:['Fi','Se','Ni','Te'],desc:'穏やかで感受性豊か、今この瞬間の美と体験を大切にする芸術家。強い価値観を内に持ちながら、他者に押し付けることなく静かに自分らしく生きる。',traits:['穏やか','芸術的','感受性','柔軟','独立心','温かみ']},
+  ESTP:{name:'起業家',stack:['Se','Ti','Fe','Ni'],desc:'今この瞬間に生き、現実の問題をエネルギッシュに解決する行動者。観察力が鋭く、リスクを恐れず即断即決で動く。社交的でカリスマ的な存在感を放つ。',traits:['行動力','観察力','社交的','リスク耐性','現実的','カリスマ']},
+  ESFP:{name:'エンターテイナー',stack:['Se','Fi','Te','Ni'],desc:'人生を一つのステージと捉え、周囲を楽しませることが生きがいの自由な魂。今を全力で楽しみ、その場の雰囲気を明るくする天性の才能を持つ。',traits:['社交的','活気','即興性','温かみ','自由','楽観的']},
+};
+
+let activeType = null;
+function showTypeDetail(type) {
+  const prev = activeType;
+  if(prev) {
+    document.getElementById('chip-'+prev)?.classList.remove('active');
+  }
+  if(prev === type) {
+    activeType = null;
+    document.getElementById('typeDetailWrap').innerHTML = '';
+    return;
+  }
+  activeType = type;
+  document.getElementById('chip-'+type)?.classList.add('active');
+
+  const d = TYPE_DATA[type];
+  const [dom,aux,ter,inf] = d.stack;
+  const grp = STACKS[type][4];
+  const gc = GRP_COLOR[grp];
+
+  const fnHtml = d.stack.map((f,i) => {
+    const cls = i===0?'rs-fn dom':i===1?'rs-fn aux':'rs-fn';
+    const labels=['① 主','② 補助','③ 第三','④ 劣等'];
+    return `<span class="${cls}">${labels[i]}: ${f}</span>`;
+  }).join('');
+
+  const traitHtml = d.traits.map(t=>`<span class="td-trait">${t}</span>`).join('');
+
+  document.getElementById('typeDetailWrap').innerHTML = `
+    <div class="type-detail active">
+      <div class="td-head">
+        <div class="td-code" style="color:${gc}">${type}</div>
+        <div class="td-meta">
+          <h3>${d.name}</h3>
+          <p style="color:${gc};font-size:11px;letter-spacing:1px;">${grp}グループ</p>
+        </div>
+      </div>
+      <div class="td-stack">${fnHtml}</div>
+      <p class="td-desc">${d.desc}</p>
+      <div class="td-traits">${traitHtml}</div>
+    </div>`;
+
+  setTimeout(()=>document.getElementById('typeDetailWrap').scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+}
+
+// ─── QUIZ ───
+const QUESTIONS = [
+  {q:'パーティーや人の多い場所では、自然とエネルギーが湧いてくる。',axis:'EI',dir:'E'},
+  {q:'一人の時間は消耗するより、むしろ充電になる。',axis:'EI',dir:'I'},
+  {q:'人との会話では、まず話すよりも聴く方が心地よい。',axis:'EI',dir:'I'},
+  {q:'考えるより先に行動し、動きながら考えることが多い。',axis:'EI',dir:'E'},
+  {q:'「なぜそうなるのか」という仕組みや本質を考えるのが好きだ。',axis:'NS',dir:'N'},
+  {q:'具体的な事実や実際の経験の方が、抽象的な理論より信頼できる。',axis:'NS',dir:'S'},
+  {q:'将来の可能性や「ありうる姿」について想像するのが楽しい。',axis:'NS',dir:'N'},
+  {q:'アイデアより、実際に使える手順や方法を重視する。',axis:'NS',dir:'S'},
+  {q:'物事の判断では、論理的な一貫性を最も大切にする。',axis:'TF',dir:'T'},
+  {q:'誰かを傷つけてしまう可能性があれば、たとえ正しくても言いにくい。',axis:'TF',dir:'F'},
+  {q:'冷静に分析した結果を、感情的な反発があっても主張できる。',axis:'TF',dir:'T'},
+  {q:'議論よりも、場の雰囲気や関係性の維持を優先することが多い。',axis:'TF',dir:'F'},
+  {q:'計画を立て、それ通りに実行していくことで安心感を感じる。',axis:'JP',dir:'J'},
+  {q:'決断を早めに下すより、最後まで選択肢を開けておきたい。',axis:'JP',dir:'P'},
+  {q:'締め切りや期限は、きちんと守ることが当然だと感じる。',axis:'JP',dir:'J'},
+  {q:'状況に応じて柔軟に対応することを、事前の計画より重視する。',axis:'JP',dir:'P'},
+  {q:'何かを理解するとき、全体的なパターンや関連性が先に見える。',axis:'NS',dir:'N'},
+  {q:'感情的に動揺した場面でも、まず事実と論理で整理しようとする。',axis:'TF',dir:'T'},
+  {q:'初対面の人と話す時、自分からどんどん話題を広げる方だ。',axis:'EI',dir:'E'},
+  {q:'物事は完成させてから見せたい、中途半端な状態を人に見せたくない。',axis:'JP',dir:'J'},
+];
+
+let qIdx = 0, answers = Array(20).fill(null);
+const scores = {E:0,I:0,N:0,S:0,T:0,F:0,J:0,P:0};
+const AXIS_LABEL = {EI:'外向 / 内向',NS:'直感 / 感覚',TF:'思考 / 感情',JP:'判断 / 知覚'};
+
+function renderQuestion() {
+  const q = QUESTIONS[qIdx];
+  const pct = (qIdx / QUESTIONS.length) * 100;
+  document.getElementById('quizBar').style.width = pct + '%';
+  document.getElementById('quizCounter').textContent = `問 ${qIdx+1} / ${QUESTIONS.length}`;
+  document.getElementById('quizAxis').textContent = AXIS_LABEL[q.axis];
+
+  const sel = answers[qIdx];
+  document.getElementById('quizQArea').innerHTML = `
+    <div class="quiz-q">
+      <div class="quiz-q-num">Q${qIdx+1} — ${AXIS_LABEL[q.axis]}</div>
+      <p class="quiz-q-text">${q.q}</p>
+      <div class="quiz-options">
+        ${['4','3','2','1'].map((v,i) => {
+          const labels = ['強くそう思う','ある程度そう思う','あまり思わない','全く思わない'];
+          return `<label class="quiz-opt${sel==v?' selected':''}" onclick="selectOpt('${v}',this)">
+            <div class="quiz-opt-radio">${sel==v?'':''}
+              ${sel==v?'<div style="width:6px;height:6px;border-radius:50%;background:white;margin:auto;"></div>':''}
+            </div>
+            <span>${labels[i]}</span>
+          </label>`;
+        }).join('')}
+      </div>
+    </div>`;
+
+  document.getElementById('btnPrev').disabled = qIdx === 0;
+  document.getElementById('btnNext').disabled = answers[qIdx] === null;
+  document.getElementById('btnNext').textContent = qIdx < QUESTIONS.length - 1 ? '次の問 →' : '結果を見る';
+}
+
+function selectOpt(val, el) {
+  answers[qIdx] = val;
+  document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btnNext').disabled = false;
+}
+
+function quizNext() {
+  if(answers[qIdx] === null) return;
+  if(qIdx < QUESTIONS.length - 1) { qIdx++; renderQuestion(); }
+  else showResult();
+}
+function quizPrev() { if(qIdx > 0) { qIdx--; renderQuestion(); } }
+
+function showResult() {
+  const sc = {E:0,I:0,N:0,S:0,T:0,F:0,J:0,P:0};
+  QUESTIONS.forEach((q,i) => {
+    const v = parseInt(answers[i]) || 1;
+    const opp = {E:'I',I:'E',N:'S',S:'N',T:'F',F:'T',J:'P',P:'J'};
+    sc[q.dir] += v;
+    sc[opp[q.dir]] += (5 - v);
+  });
+
+  const E = sc.E > sc.I ? 'E' : 'I';
+  const N = sc.N > sc.S ? 'N' : 'S';
+  const T = sc.T > sc.F ? 'T' : 'F';
+  const J = sc.J > sc.P ? 'J' : 'P';
+  const type = E+N+T+J;
+
+  document.getElementById('quizWrap').style.display = 'none';
+  const res = document.getElementById('quizResult');
+  res.classList.add('active');
+
+  const d = TYPE_DATA[type] || {name:'—',stack:['—','—','—','—'],desc:'',traits:[]};
+  document.getElementById('resultType').textContent = type;
+  document.getElementById('resultName').textContent = d.name;
+
+  const pairs = [['E','I',sc.E,sc.I],['N','S',sc.N,sc.S],['T','F',sc.T,sc.F],['J','P',sc.J,sc.P]];
+  const barColors = {E:'var(--accent)',I:'var(--ink3)',N:'#7b5ea8',S:'var(--ok)',T:'#1a6080',F:'var(--enne)',J:'var(--accent)',P:'var(--gold)'};
+  const barHtml = pairs.map(([a,b,va,vb]) => {
+    const tot = va+vb; const pctA = Math.round(va/tot*100);
+    const winner = va>vb?a:b; const loser = va>vb?b:a;
+    return `<div class="bar-row">
+      <span class="bar-label">${winner}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${pctA>50?pctA:100-pctA}%;background:${barColors[winner]};"></div></div>
+      <span class="bar-val">${pctA>50?pctA:100-pctA}%</span>
+    </div>`;
+  }).join('');
+  document.getElementById('resultBars').innerHTML = barHtml;
+
+  const fnHtml = d.stack.map((f,i)=>{
+    const c=i===0?'dom':i===1?'aux':'';
+    return `<span class="rs-fn ${c}">${['① ','② ','③ ','④ '][i]}${f}</span>`;
+  }).join('');
+  document.getElementById('resultStack').innerHTML = fnHtml;
+  document.getElementById('resultDesc').textContent = d.desc || '';
+
+  setTimeout(()=>{
+    document.querySelectorAll('.bar-fill').forEach(b=>b.style.width = b.style.width);
+  },100);
+}
+
+function resetQuiz() {
+  qIdx = 0; answers = Array(20).fill(null);
+  document.getElementById('quizWrap').style.display = 'block';
+  document.getElementById('quizResult').classList.remove('active');
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
