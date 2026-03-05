@@ -164,18 +164,6 @@ body {
 .hero-inner > *:nth-child(5) { animation-delay: .44s; }
 .hero-inner > *:nth-child(6) { animation-delay: .52s; }
 
-/* STATS */
-.stats-strip { background: var(--ink); padding: 40px 24px; }
-.stats-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 32px; text-align: center;
-}
-.stat-num {
-  font-family: 'Cormorant Garamond', serif; font-size: 40px;
-  font-weight: 300; color: var(--gold-lt); line-height: 1; margin-bottom: 6px;
-}
-.stat-label { font-size: 11px; color: rgba(255,255,255,.5); letter-spacing: 2px; }
 
 /* SECTION */
 .section { padding: 80px 24px; }
@@ -414,11 +402,13 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
 <!-- NAV -->
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="portal.html" class="nav-logo">Typology Portal</a>
+    <a href="index.html" class="nav-logo">Typology Portal</a>
     <div class="nav-links">
-      <a href="#types" class="nav-link">類型システム</a>
-      <a href="#about" class="nav-link">なぜ複数の類型を？</a>
-      <a href="psychosofia.html" class="nav-link">サイコソフィア ↗</a>
+      <a href="mbti.html" class="nav-link">MBTI</a>
+      <a href="enneagram.html" class="nav-link">エニアグラム</a>
+      <a href="socionics.html" class="nav-link">ソシオニクス</a>
+      <a href="bigfive.html" class="nav-link">ビッグファイブ</a>
+      <a href="psychosofia.html" class="nav-link">サイコソフィア</a>
     </div>
   </div>
 </nav>
@@ -459,27 +449,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-strip">
-  <div class="stats-inner">
-    <div class="reveal">
-      <div class="stat-num">5</div>
-      <div class="stat-label">類型システム</div>
-    </div>
-    <div class="reveal">
-      <div class="stat-num">16+</div>
-      <div class="stat-label">タイプ診断ツール</div>
-    </div>
-    <div class="reveal">
-      <div class="stat-num">24</div>
-      <div class="stat-label">サイコソフィア タイプ</div>
-    </div>
-    <div class="reveal">
-      <div class="stat-num">9</div>
-      <div class="stat-label">エニアグラム タイプ</div>
-    </div>
-  </div>
-</div>
+
 
 <!-- TYPE CARDS -->
 <section class="section types-section" id="types">
@@ -522,7 +492,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
               <path d="M5 12h14m-5-5l5 5-5 5"/>
             </svg>
           </a>
-          <span class="card-status">Coming Soon</span>
+          <span class="card-status" style="color:var(--mbti);font-weight:500;">● 公開中</span>
         </div>
       </div>
 
@@ -553,7 +523,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
               <path d="M5 12h14m-5-5l5 5-5 5"/>
             </svg>
           </a>
-          <span class="card-status">Coming Soon</span>
+          <span class="card-status" style="color:var(--enne);font-weight:500;">● 公開中</span>
         </div>
       </div>
 
@@ -584,7 +554,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
               <path d="M5 12h14m-5-5l5 5-5 5"/>
             </svg>
           </a>
-          <span class="card-status">Coming Soon</span>
+          <span class="card-status" style="color:var(--socio);font-weight:500;">● 公開中</span>
         </div>
       </div>
 
@@ -615,7 +585,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
               <path d="M5 12h14m-5-5l5 5-5 5"/>
             </svg>
           </a>
-          <span class="card-status">Coming Soon</span>
+          <span class="card-status" style="color:var(--big5);font-weight:500;">● 公開中</span>
         </div>
       </div>
 
@@ -646,7 +616,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
               <path d="M5 12h14m-5-5l5 5-5 5"/>
             </svg>
           </a>
-          <span class="card-status" style="color:var(--socio);font-weight:500;">● 公開中</span>
+          <span class="card-status" style="color:var(--psycho);font-weight:500;">● 公開中</span>
         </div>
       </div>
 
