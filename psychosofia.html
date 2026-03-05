@@ -38,9 +38,15 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .hero-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:#fff;border:1px solid var(--border);color:var(--text3);}
 
 /* TABS */
-.tabs-nav{display:flex;justify-content:center;gap:0;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:48px;z-index:200;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs-nav-wrap{position:sticky;top:48px;z-index:200;background:#fff;border-bottom:2px solid var(--border);overflow:hidden;}
+.tabs-nav-wrap::after{content:'';position:absolute;right:0;top:0;bottom:2px;width:48px;background:linear-gradient(to right,transparent,#fff 75%);pointer-events:none;z-index:1;transition:opacity .3s;}
+.tabs-nav-wrap.at-end::after{opacity:0;}
+.tabs-scroll-hint{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1;z-index:2;pointer-events:none;animation:hint-bounce 1.6s ease-in-out infinite;transition:opacity .3s;box-shadow:0 2px 8px rgba(124,58,237,.3);}
+.tabs-nav-wrap.at-end .tabs-scroll-hint{opacity:0;pointer-events:none;}
+@keyframes hint-bounce{0%,100%{opacity:.95;transform:translateY(-50%) translateX(0);}50%{opacity:1;transform:translateY(-50%) translateX(-4px);}}
+.tabs-nav{display:flex;gap:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-behavior:smooth;touch-action:pan-x;overscroll-behavior-x:contain;}
 .tabs-nav::-webkit-scrollbar{display:none;}
-.tab-btn{font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:400;padding:12px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;margin-bottom:-2px;}
+.tab-btn{font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:400;padding:12px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;margin-bottom:-2px;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;}
 .tab-btn:hover{color:var(--text2);}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
 .tab-content{display:none;}
@@ -268,12 +274,15 @@ footer{background:var(--text);color:rgba(255,255,255,.5);padding:36px 20px calc(
   </div>
 </header>
 
-<nav class="tabs-nav">
-  <button class="tab-btn active" onclick="showTab('t-diag',this)">🔮 診断</button>
-  <button class="tab-btn" onclick="showTab('t-overview',this)">📖 理論</button>
-  <button class="tab-btn" onclick="showTab('t-types',this)">📋 タイプ一覧</button>
-  <button class="tab-btn" onclick="showTab('t-compat',this)">💞 相性</button>
-</nav>
+<div class="tabs-nav-wrap" id="tabsWrap">
+  <nav class="tabs-nav" id="mainTabs">
+    <button class="tab-btn active" onclick="showTab('t-diag',this)">🔮 診断</button>
+    <button class="tab-btn" onclick="showTab('t-overview',this)">📖 理論</button>
+    <button class="tab-btn" onclick="showTab('t-types',this)">📋 タイプ一覧</button>
+    <button class="tab-btn" onclick="showTab('t-compat',this)">💞 相性</button>
+  </nav>
+  <div class="tabs-scroll-hint" id="scrollHint">›</div>
+</div>
 
 <!-- =================== DIAGNOSIS =================== -->
 <div id="t-diag" class="tab-content active">
@@ -1011,8 +1020,31 @@ function showTab(id,btn){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  const nav = document.getElementById('mainTabs');
+  if(nav && btn){
+    const bRect = btn.getBoundingClientRect();
+    const nRect = nav.getBoundingClientRect();
+    nav.scrollTo({left: nav.scrollLeft + bRect.left - nRect.left - (nRect.width - bRect.width)/2, behavior:'smooth'});
+  }
   window.scrollTo(0,0);
 }
+
+// ─── TABS SCROLL HINT ───
+(function(){
+  const wrap = document.getElementById('tabsWrap');
+  const nav = document.getElementById('mainTabs');
+  if(!wrap || !nav) return;
+  function checkEnd(){ wrap.classList.toggle('at-end', nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 6); }
+  nav.addEventListener('scroll', checkEnd, {passive:true});
+  window.addEventListener('resize', checkEnd);
+  checkEnd();
+  setTimeout(function(){
+    if(nav.scrollWidth > nav.clientWidth + 4){
+      nav.scrollTo({left:24, behavior:'smooth'});
+      setTimeout(function(){ nav.scrollTo({left:0, behavior:'smooth'}); }, 700);
+    } else { wrap.classList.add('at-end'); }
+  }, 900);
+})();
 function showInner(id,btn){
   document.querySelectorAll('.inner-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.inner-tab').forEach(b=>b.classList.remove('active'));

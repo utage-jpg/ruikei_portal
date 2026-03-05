@@ -55,9 +55,15 @@ body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',sans-serif
 .hero-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--ink3);}
 
 /* TABS */
-.tabs-nav{display:flex;justify-content:center;gap:0;background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:48px;z-index:200;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs-nav-wrap{position:sticky;top:48px;z-index:200;background:var(--surface);border-bottom:2px solid var(--border);overflow:hidden;}
+.tabs-nav-wrap::after{content:'';position:absolute;right:0;top:0;bottom:2px;width:48px;background:linear-gradient(to right,transparent,var(--surface) 75%);pointer-events:none;z-index:1;transition:opacity .3s;}
+.tabs-nav-wrap.at-end::after{opacity:0;}
+.tabs-scroll-hint{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1;z-index:2;pointer-events:none;animation:hint-bounce 1.6s ease-in-out infinite;transition:opacity .3s;box-shadow:0 2px 8px rgba(45,95,168,.35);}
+.tabs-nav-wrap.at-end .tabs-scroll-hint{opacity:0;pointer-events:none;}
+@keyframes hint-bounce{0%,100%{opacity:.95;transform:translateY(-50%) translateX(0);}50%{opacity:1;transform:translateY(-50%) translateX(-4px);}}
+.tabs-nav{display:flex;gap:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-behavior:smooth;touch-action:pan-x;overscroll-behavior-x:contain;}
 .tabs-nav::-webkit-scrollbar{display:none;}
-.tab-btn{font-size:12px;font-weight:400;padding:12px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;font-family:'Noto Sans JP',sans-serif;margin-bottom:-2px;}
+.tab-btn{font-size:12px;font-weight:400;padding:12px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;font-family:'Noto Sans JP',sans-serif;margin-bottom:-2px;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;}
 .tab-btn:hover{color:var(--ink2);}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
 .tab-content{display:none;}
@@ -272,13 +278,16 @@ h2.sh{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;colo
 </div>
 
 <!-- TABS -->
-<nav class="tabs-nav" id="mainTabs">
-  <button class="tab-btn active" onclick="switchTab('theory',this)">理論解説</button>
-  <button class="tab-btn" onclick="switchTab('ocean',this)">5因子詳細</button>
-  <button class="tab-btn" onclick="switchTab('vs',this)">類型論との違い</button>
-  <button class="tab-btn" onclick="switchTab('mbti',this)">MBTIとの対応</button>
-  <button class="tab-btn" onclick="switchTab('quiz',this)">簡易診断</button>
-</nav>
+<div class="tabs-nav-wrap" id="tabsWrap">
+  <nav class="tabs-nav" id="mainTabs">
+    <button class="tab-btn active" onclick="switchTab('theory',this)">理論解説</button>
+    <button class="tab-btn" onclick="switchTab('ocean',this)">5因子詳細</button>
+    <button class="tab-btn" onclick="switchTab('vs',this)">類型論との違い</button>
+    <button class="tab-btn" onclick="switchTab('mbti',this)">MBTIとの対応</button>
+    <button class="tab-btn" onclick="switchTab('quiz',this)">簡易診断</button>
+  </nav>
+  <div class="tabs-scroll-hint" id="scrollHint">›</div>
+</div>
 
 <!-- ══════ TAB: THEORY ══════ -->
 <div class="tab-content active" id="tab-theory">
@@ -706,8 +715,29 @@ function switchTab(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   btn.classList.add('active');
-  window.scrollTo({top:document.getElementById('mainTabs').offsetTop-50,behavior:'smooth'});
+  const nav = document.getElementById('mainTabs');
+  const bRect = btn.getBoundingClientRect();
+  const nRect = nav.getBoundingClientRect();
+  nav.scrollTo({left: nav.scrollLeft + bRect.left - nRect.left - (nRect.width - bRect.width)/2, behavior:'smooth'});
+  window.scrollTo({top:document.getElementById('tabsWrap').offsetTop-50,behavior:'smooth'});
 }
+
+// ─── TABS SCROLL HINT ───
+(function(){
+  const wrap = document.getElementById('tabsWrap');
+  const nav = document.getElementById('mainTabs');
+  if(!wrap || !nav) return;
+  function checkEnd(){ wrap.classList.toggle('at-end', nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 6); }
+  nav.addEventListener('scroll', checkEnd, {passive:true});
+  window.addEventListener('resize', checkEnd);
+  checkEnd();
+  setTimeout(function(){
+    if(nav.scrollWidth > nav.clientWidth + 4){
+      nav.scrollTo({left:24, behavior:'smooth'});
+      setTimeout(function(){ nav.scrollTo({left:0, behavior:'smooth'}); }, 700);
+    } else { wrap.classList.add('at-end'); }
+  }, 900);
+})();
 
 // ─── QUIZ DATA ───
 // 各因子5問、dirは得点方向（+:そのまま加算 / -:逆転）
