@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ビッグファイブ — 5因子モデル | 類型界隈ポータル</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f7f8fa; --bg2:#eef0f4; --bg3:#e4e7ed;
+  --surface:#ffffff; --surface2:#f4f5f8;
+  --border:#d8dce6; --border2:#b8c0d4;
+  --ink:#1a1e2a; --ink2:#3a4060; --ink3:#6070a0; --ink4:#9aaace;
+  --accent:#3a4a7a; --accent2:#5a6fa0; --accent3:#8a9fc8;
+  --accent-bg:#edf0f8;
+
+  /* OCEAN 因子カラー */
+  --O:#6a4aa8; --O-bg:#f4f0fc; --O-border:#c8b8ec;
+  --C:#2a7a58; --C-bg:#ecf7f2; --C-border:#90d4b0;
+  --E:#c87820; --E-bg:#fdf5e8; --E-border:#e8c070;
+  --A:#2a70a8; --A-bg:#eef4fc; --A-border:#90c0e8;
+  --N:#b83830; --N-bg:#fdf0ee; --N-border:#e8a8a0;
+
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 2px 16px rgba(20,30,60,.07);
+  --shadow-lg:0 8px 40px rgba(20,30,60,.13);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden;font-size:14px;}
+
+/* TOPBAR */
+.topbar{background:rgba(247,248,250,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;position:sticky;top:0;z-index:300;}
+.topbar-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink3);text-decoration:none;transition:color .2s;}
+.topbar-back:hover{color:var(--accent);}
+.topbar-back svg{width:14px;height:14px;}
+.topbar-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:.06em;}
+.topbar-right{width:80px;text-align:right;font-size:11px;color:var(--ink4);}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#eaecf4 0%,#f7f8fa 50%,#edf0f8 100%);border-bottom:1px solid var(--border);padding:44px 20px 36px;position:relative;overflow:hidden;text-align:center;}
+.hero::before{
+  content:'OCEAN';position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-52%);
+  font-family:'Cormorant Garamond',serif;
+  font-size:180px;font-weight:300;letter-spacing:.3em;
+  color:var(--accent);opacity:.04;white-space:nowrap;pointer-events:none;
+}
+.hero-eyebrow{display:inline-block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);font-weight:500;padding:4px 14px;border:1px solid var(--border2);border-radius:20px;background:var(--surface);margin-bottom:16px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,9vw,72px);font-weight:300;color:var(--ink);line-height:1.0;margin-bottom:8px;letter-spacing:.04em;}
+.hero h1 em{font-style:italic;color:var(--accent2);}
+.hero-sub{font-size:12px;color:var(--ink3);letter-spacing:1.5px;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.hero-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--ink3);}
+
+/* TABS */
+.tabs-nav{display:flex;justify-content:center;gap:0;background:var(--surface);border-bottom:2px solid var(--border);position:sticky;top:48px;z-index:200;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tab-btn{font-size:12px;font-weight:400;padding:12px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink3);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;letter-spacing:.5px;font-family:'Noto Sans JP',sans-serif;margin-bottom:-2px;}
+.tab-btn:hover{color:var(--ink2);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* CONTAINER */
+.container{max-width:860px;margin:0 auto;padding:28px 16px calc(60px + var(--safe-bottom));}
+
+/* TYPOGRAPHY */
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,28px);font-weight:400;color:var(--ink);margin-bottom:4px;}
+.sec-label{font-size:11px;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+h2.sh{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--ink);margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+
+/* BOXES */
+.info-box{background:var(--accent-bg);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--ink2);line-height:1.7;}
+.note-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 16px;margin-bottom:16px;font-size:12px;color:var(--ink3);line-height:1.7;}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;margin-bottom:14px;box-shadow:var(--shadow);}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;color:var(--ink);margin-bottom:8px;}
+.card p,.card li{font-size:13px;color:var(--ink2);line-height:1.8;}
+.card ul{padding-left:18px;}
+
+/* ── OCEAN FACTOR CARDS ── */
+.ocean-card{border-radius:var(--radius);padding:20px 18px;border:1px solid;margin-bottom:14px;position:relative;overflow:hidden;}
+.ocean-card::before{content:attr(data-letter);position:absolute;right:-8px;top:-8px;font-family:'Cormorant Garamond',serif;font-size:140px;font-weight:300;opacity:.06;line-height:1;pointer-events:none;}
+.ocean-O{background:var(--O-bg);border-color:var(--O-border);}
+.ocean-O::before{color:var(--O);}
+.ocean-C{background:var(--C-bg);border-color:var(--C-border);}
+.ocean-C::before{color:var(--C);}
+.ocean-E{background:var(--E-bg);border-color:var(--E-border);}
+.ocean-E::before{color:var(--E);}
+.ocean-A{background:var(--A-bg);border-color:var(--A-border);}
+.ocean-A::before{color:var(--A);}
+.ocean-N{background:var(--N-bg);border-color:var(--N-border);}
+.ocean-N::before{color:var(--N);}
+
+.ocean-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.ocean-letter{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;line-height:1;}
+.ocean-O .ocean-letter{color:var(--O);}
+.ocean-C .ocean-letter{color:var(--C);}
+.ocean-E .ocean-letter{color:var(--E);}
+.ocean-A .ocean-letter{color:var(--A);}
+.ocean-N .ocean-letter{color:var(--N);}
+.ocean-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--ink);margin-bottom:3px;}
+.ocean-en{font-size:11px;color:var(--ink4);letter-spacing:.5px;}
+.ocean-desc{font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:12px;}
+
+.ocean-spectrum{margin-bottom:10px;}
+.spectrum-bar{height:6px;border-radius:3px;margin:6px 0 4px;position:relative;overflow:hidden;}
+.ocean-O .spectrum-bar{background:linear-gradient(90deg,#e0d8f8,var(--O));}
+.ocean-C .spectrum-bar{background:linear-gradient(90deg,#d0eee0,var(--C));}
+.ocean-E .spectrum-bar{background:linear-gradient(90deg,#f8e8c0,var(--E));}
+.ocean-A .spectrum-bar{background:linear-gradient(90deg,#d8ecf8,var(--A));}
+.ocean-N .spectrum-bar{background:linear-gradient(90deg,#f8d8d4,var(--N));}
+.spectrum-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--ink4);}
+.facets{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.facet{font-size:11px;padding:2px 9px;border-radius:12px;background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.08);color:var(--ink3);}
+
+/* ── 比較表 ── */
+.vs-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px;}
+.vs-table th{background:var(--bg2);padding:9px 12px;text-align:left;border:1px solid var(--border);font-weight:500;font-size:11px;letter-spacing:.5px;color:var(--ink3);}
+.vs-table td{padding:9px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.6;}
+.vs-table tr:nth-child(even) td{background:var(--surface2);}
+.vs-table .th-row td{background:var(--bg2);font-weight:500;color:var(--ink2);font-size:12px;}
+
+/* ── MBTI対応表 ── */
+.mbti-grid{display:grid;gap:10px;margin-bottom:20px;}
+.mbti-row{display:grid;grid-template-columns:1fr 2fr;gap:0;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;}
+.mbti-axis{background:var(--bg2);padding:12px 14px;display:flex;flex-direction:column;justify-content:center;}
+.mbti-axis-code{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--accent);margin-bottom:2px;}
+.mbti-axis-label{font-size:10px;color:var(--ink4);letter-spacing:.5px;}
+.mbti-body{padding:12px 14px;}
+.mbti-body p{font-size:12px;color:var(--ink2);line-height:1.7;}
+.ocean-chip{display:inline-block;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;margin-bottom:3px;font-weight:500;}
+.chip-O{background:var(--O-bg);border:1px solid var(--O-border);color:var(--O);}
+.chip-C{background:var(--C-bg);border:1px solid var(--C-border);color:var(--C);}
+.chip-E{background:var(--E-bg);border:1px solid var(--E-border);color:var(--E);}
+.chip-A{background:var(--A-bg);border:1px solid var(--A-border);color:var(--A);}
+.chip-N{background:var(--N-bg);border:1px solid var(--N-border);color:var(--N);}
+
+/* ── QUIZ ── */
+.quiz-wrap{max-width:680px;margin:0 auto;}
+.quiz-progress{height:4px;background:var(--bg3);border-radius:2px;margin-bottom:20px;overflow:hidden;}
+.quiz-progress-bar{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;}
+.quiz-meta{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink4);margin-bottom:20px;}
+.quiz-factor-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;}
+
+.quiz-q{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 18px;margin-bottom:0;box-shadow:var(--shadow);}
+.quiz-q-factor{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:8px;}
+.quiz-q-text{font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:22px;font-weight:400;}
+
+/* Likert scale */
+.likert{display:flex;flex-direction:column;gap:0;}
+.likert-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--ink4);margin-bottom:8px;padding:0 4px;}
+.likert-options{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.likert-btn{
+  background:var(--bg2);border:2px solid var(--border);border-radius:var(--radius-sm);
+  padding:10px 4px;text-align:center;cursor:pointer;transition:all .18s;
+  font-size:12px;color:var(--ink3);font-family:'Noto Sans JP',sans-serif;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+.likert-btn:hover{border-color:var(--accent3);background:var(--accent-bg);}
+.likert-btn.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);}
+.likert-btn .lb-num{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;line-height:1;}
+.likert-btn .lb-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);transition:background .18s;}
+.likert-btn.selected .lb-dot{background:var(--accent);}
+@media(max-width:420px){
+  .likert-options{grid-template-columns:repeat(7,1fr);gap:3px;}
+  .likert-btn{padding:8px 2px;}
+  .likert-btn .lb-num{font-size:15px;}
+}
+
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px;}
+.quiz-btn{padding:10px 24px;border-radius:var(--radius-sm);font-size:13px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:all .2s;border:none;font-weight:500;}
+.quiz-btn-next{background:var(--accent);color:white;}
+.quiz-btn-next:hover{background:#28366a;}
+.quiz-btn-next:disabled{background:var(--bg3);color:var(--ink4);cursor:not-allowed;}
+.quiz-btn-prev{background:transparent;color:var(--ink3);border:1px solid var(--border);}
+.quiz-btn-prev:hover{background:var(--bg2);}
+
+/* RESULT */
+.quiz-result{display:none;padding:8px 0 24px;}
+.quiz-result.active{display:block;}
+.result-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--ink);text-align:center;margin-bottom:4px;}
+.result-sub{font-size:12px;color:var(--ink3);text-align:center;margin-bottom:28px;letter-spacing:1px;}
+
+.result-bars{display:flex;flex-direction:column;gap:14px;max-width:560px;margin:0 auto 28px;}
+.rbar-row{display:grid;grid-template-columns:28px 1fr 36px;gap:10px;align-items:center;}
+.rbar-letter{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;text-align:center;}
+.rbar-track{height:12px;background:var(--bg3);border-radius:6px;overflow:visible;position:relative;}
+.rbar-fill{height:100%;border-radius:6px;transition:width 1s ease;position:relative;}
+.rbar-fill::after{content:attr(data-pct);position:absolute;right:-28px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--ink3);white-space:nowrap;}
+.rbar-pct{font-size:12px;color:var(--ink3);text-align:right;white-space:nowrap;}
+
+.rbar-O .rbar-letter{color:var(--O);}
+.rbar-C .rbar-letter{color:var(--C);}
+.rbar-E .rbar-letter{color:var(--E);}
+.rbar-A .rbar-letter{color:var(--A);}
+.rbar-N .rbar-letter{color:var(--N);}
+.rbar-O .rbar-fill{background:linear-gradient(90deg,#c8a8ec,var(--O));}
+.rbar-C .rbar-fill{background:linear-gradient(90deg,#80d4a8,var(--C));}
+.rbar-E .rbar-fill{background:linear-gradient(90deg,#f0c840,var(--E));}
+.rbar-A .rbar-fill{background:linear-gradient(90deg,#80c0e8,var(--A));}
+.rbar-N .rbar-fill{background:linear-gradient(90deg,#f0a098,var(--N));}
+
+.result-profile{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px;margin:0 auto 24px;}
+@media(max-width:500px){.result-profile{grid-template-columns:1fr;}}
+.rp-card{border-radius:var(--radius-sm);padding:13px 14px;border:1px solid;}
+.rp-card h4{font-size:12px;font-weight:500;margin-bottom:5px;}
+.rp-card p{font-size:12px;color:var(--ink3);line-height:1.7;}
+.rp-O{background:var(--O-bg);border-color:var(--O-border);}
+.rp-O h4{color:var(--O);}
+.rp-C{background:var(--C-bg);border-color:var(--C-border);}
+.rp-C h4{color:var(--C);}
+.rp-E{background:var(--E-bg);border-color:var(--E-border);}
+.rp-E h4{color:var(--E);}
+.rp-A{background:var(--A-bg);border-color:var(--A-border);}
+.rp-A h4{color:var(--A);}
+.rp-N{background:var(--N-bg);border-color:var(--N-border);}
+.rp-N h4{color:var(--N);}
+
+.result-mbti{background:var(--accent-bg);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:14px 16px;max-width:560px;margin:0 auto 20px;font-size:13px;color:var(--ink2);line-height:1.8;}
+.result-mbti strong{color:var(--accent);}
+
+.result-retry{display:block;width:fit-content;margin:0 auto;padding:10px 28px;border-radius:var(--radius-sm);font-size:13px;background:transparent;border:1px solid var(--border2);color:var(--ink3);cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s;}
+.result-retry:hover{background:var(--bg2);}
+
+/* FOOTER */
+.page-footer{background:var(--ink);color:rgba(255,255,255,.5);padding:36px 20px 24px;}
+.footer-inner{max-width:860px;margin:0 auto;}
+.footer-nav-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.footer-nav-link{font-size:12px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);text-decoration:none;transition:all .2s;}
+.footer-nav-link:hover{background:rgba(255,255,255,.12);color:white;}
+.footer-bottom{font-size:11px;color:rgba(255,255,255,.3);}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.hero>*{animation:fadeInUp .6s ease both;}
+.hero>*:nth-child(1){animation-delay:.1s;}
+.hero>*:nth-child(2){animation-delay:.2s;}
+.hero>*:nth-child(3){animation-delay:.3s;}
+.hero>*:nth-child(4){animation-delay:.38s;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m5-5-5 5 5 5"/></svg>
+    ポータルへ
+  </a>
+  <span class="topbar-title">ビッグファイブ</span>
+  <span class="topbar-right">Phase 5</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Five-Factor Model · Academic Trait Theory</div>
+  <h1>Big <em>Five</em></h1>
+  <p class="hero-sub">ビッグファイブ / OCEAN — 5因子特性論</p>
+  <div class="hero-badges">
+    <span class="hero-badge">学術的基盤</span>
+    <span class="hero-badge">特性論</span>
+    <span class="hero-badge">OCEAN</span>
+    <span class="hero-badge">連続スコア</span>
+    <span class="hero-badge">MBTIとの対応</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<nav class="tabs-nav" id="mainTabs">
+  <button class="tab-btn active" onclick="switchTab('theory',this)">理論解説</button>
+  <button class="tab-btn" onclick="switchTab('ocean',this)">5因子詳細</button>
+  <button class="tab-btn" onclick="switchTab('vs',this)">類型論との違い</button>
+  <button class="tab-btn" onclick="switchTab('mbti',this)">MBTIとの対応</button>
+  <button class="tab-btn" onclick="switchTab('quiz',this)">簡易診断</button>
+</nav>
+
+<!-- ══════ TAB: THEORY ══════ -->
+<div class="tab-content active" id="tab-theory">
+<div class="container">
+  <p class="sec-title">ビッグファイブとは</p>
+  <p class="sec-label">Big Five / Five-Factor Model</p>
+
+  <div class="info-box">
+    ビッグファイブ（Big Five Personality Traits）は、心理学における性格研究の<strong>現在の学術標準</strong>です。
+    1960〜90年代にかけてルイス・ゴールドバーグ、ポール・コスタ、ロバート・マクレーらが確立しました。
+    MBTIやエニアグラムが「カテゴリ（タイプ）」に分類するのに対し、ビッグファイブは
+    <strong>5つの軸それぞれで連続したスコア</strong>として性格を記述します。
+  </div>
+
+  <!-- OCEAN 概観SVG -->
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;margin-bottom:20px;overflow:hidden;">
+    <div style="font-size:11px;color:var(--ink4);letter-spacing:2px;text-align:center;text-transform:uppercase;margin-bottom:16px;">OCEAN — 5因子の概観</div>
+    <svg viewBox="0 0 640 220" style="width:100%;max-width:640px;display:block;margin:0 auto;">
+      <!-- O -->
+      <rect x="8" y="10" width="114" height="90" rx="10" fill="#f4f0fc" stroke="#c8b8ec" stroke-width="1.2"/>
+      <text x="65" y="38" font-family="Cormorant Garamond,serif" font-size="36" fill="#6a4aa8" text-anchor="middle" font-weight="300">O</text>
+      <text x="65" y="58" font-size="10" fill="#6a4aa8" text-anchor="middle" font-weight="500">開放性</text>
+      <text x="65" y="72" font-size="9" fill="#9878c8" text-anchor="middle">Openness</text>
+      <text x="65" y="88" font-size="9" fill="#9878c8" text-anchor="middle">想像力・好奇心</text>
+      <!-- C -->
+      <rect x="130" y="10" width="114" height="90" rx="10" fill="#ecf7f2" stroke="#90d4b0" stroke-width="1.2"/>
+      <text x="187" y="38" font-family="Cormorant Garamond,serif" font-size="36" fill="#2a7a58" text-anchor="middle" font-weight="300">C</text>
+      <text x="187" y="58" font-size="10" fill="#2a7a58" text-anchor="middle" font-weight="500">誠実性</text>
+      <text x="187" y="72" font-size="9" fill="#50a878" text-anchor="middle">Conscientiousness</text>
+      <text x="187" y="88" font-size="9" fill="#50a878" text-anchor="middle">計画性・自制心</text>
+      <!-- E -->
+      <rect x="252" y="10" width="114" height="90" rx="10" fill="#fdf5e8" stroke="#e8c070" stroke-width="1.2"/>
+      <text x="309" y="38" font-family="Cormorant Garamond,serif" font-size="36" fill="#c87820" text-anchor="middle" font-weight="300">E</text>
+      <text x="309" y="58" font-size="10" fill="#c87820" text-anchor="middle" font-weight="500">外向性</text>
+      <text x="309" y="72" font-size="9" fill="#e8a030" text-anchor="middle">Extraversion</text>
+      <text x="309" y="88" font-size="9" fill="#e8a030" text-anchor="middle">社交性・積極性</text>
+      <!-- A -->
+      <rect x="374" y="10" width="114" height="90" rx="10" fill="#eef4fc" stroke="#90c0e8" stroke-width="1.2"/>
+      <text x="431" y="38" font-family="Cormorant Garamond,serif" font-size="36" fill="#2a70a8" text-anchor="middle" font-weight="300">A</text>
+      <text x="431" y="58" font-size="10" fill="#2a70a8" text-anchor="middle" font-weight="500">協調性</text>
+      <text x="431" y="72" font-size="9" fill="#4a90c8" text-anchor="middle">Agreeableness</text>
+      <text x="431" y="88" font-size="9" fill="#4a90c8" text-anchor="middle">思いやり・協力</text>
+      <!-- N -->
+      <rect x="496" y="10" width="114" height="90" rx="10" fill="#fdf0ee" stroke="#e8a8a0" stroke-width="1.2"/>
+      <text x="553" y="38" font-family="Cormorant Garamond,serif" font-size="36" fill="#b83830" text-anchor="middle" font-weight="300">N</text>
+      <text x="553" y="58" font-size="10" fill="#b83830" text-anchor="middle" font-weight="500">神経症傾向</text>
+      <text x="553" y="72" font-size="9" fill="#d05848" text-anchor="middle">Neuroticism</text>
+      <text x="553" y="88" font-size="9" fill="#d05848" text-anchor="middle">感情的反応性</text>
+
+      <!-- 下段：連続スコアのイメージ -->
+      <text x="320" y="125" font-size="10" fill="#b8c0d4" text-anchor="middle" letter-spacing="1">各因子は 0〜100% の連続スコアで記述（二項対立ではない）</text>
+      <!-- スコアバー例 -->
+      <rect x="20" y="138" width="600" height="8" rx="4" fill="#e8eaf0"/>
+      <rect x="20" y="138" width="370" height="8" rx="4" fill="url(#oceanGrad)"/>
+      <defs>
+        <linearGradient id="oceanGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#c8a8ec"/>
+          <stop offset="30%" stop-color="#80d4a8"/>
+          <stop offset="55%" stop-color="#f0c840"/>
+          <stop offset="75%" stop-color="#80c0e8"/>
+          <stop offset="100%" stop-color="#f0a098"/>
+        </linearGradient>
+      </defs>
+      <text x="20" y="163" font-size="9.5" fill="#9aaace">低</text>
+      <text x="610" y="163" font-size="9.5" fill="#9aaace" text-anchor="end">高</text>
+      <text x="320" y="163" font-size="9.5" fill="#9aaace" text-anchor="middle">← 連続分布として記述 →</text>
+      <text x="20" y="185" font-size="9.5" fill="#b8c0d4">※ タイプ（INTJ等）のような二分割ではなく、</text>
+      <text x="20" y="200" font-size="9.5" fill="#b8c0d4">　 各因子が独立した軸を持つ「5次元空間上の座標」として個人差を表現します。</text>
+    </svg>
+  </div>
+
+  <h2 class="sh">学術的背景</h2>
+  <div class="card">
+    <h3>語彙アプローチから生まれた理論</h3>
+    <p>ビッグファイブの起源は、言語学者オールポートとオドバートが1936年に行った研究です。
+    「人の性格を表す英語の形容詞は約18,000語ある」という観察から始まり、
+    因子分析によって繰り返し同じ5つの因子が抽出されることが確認されました。
+    異なる文化・言語・研究者間で再現性が高く、現在では<strong>心理学の性格研究における国際標準</strong>として位置づけられています。</p>
+  </div>
+  <div class="card">
+    <h3>NEO-PI-R と IPIP-NEO</h3>
+    <p>コスタ&マクレーが開発した<strong>NEO-PI-R</strong>は最も広く使われる公式測定尺度です。
+    5因子×6ファセット（小因子）= 30ファセットで測定します。
+    オープンソース版として<strong>IPIP-NEO</strong>（国際性格項目プール）があり、学術研究に広く利用されています。</p>
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: 5因子詳細 ══════ -->
+<div class="tab-content" id="tab-ocean">
+<div class="container">
+  <p class="sec-title">5因子詳細</p>
+  <p class="sec-label">OCEAN — Five Factors in Depth</p>
+
+  <div class="note-box">各因子は「高い/低い」の二択ではなく、<strong>連続した分布</strong>上に位置します。「低い＝悪い」ではなく、それぞれの極に異なる強みがあります。</div>
+
+  <!-- O -->
+  <div class="ocean-card ocean-O" data-letter="O">
+    <div class="ocean-header">
+      <div class="ocean-letter">O</div>
+      <div>
+        <div class="ocean-title">開放性（Openness to Experience）</div>
+        <div class="ocean-en">想像力・好奇心・審美的感受性・新しい経験への開放</div>
+      </div>
+    </div>
+    <div class="ocean-desc">
+      知的好奇心、想像力、芸術・美への感受性、新しいアイデアや経験を求める傾向を表します。
+      高O傾向の人は創造的で好奇心旺盛、抽象的思考を好みます。
+      低O傾向の人は実用的・伝統的で、確立された方法を好みます。
+    </div>
+    <div class="ocean-spectrum">
+      <div class="spectrum-labels"><span>低 ← 実用的・慣習的</span><span>高 → 創造的・好奇心旺盛</span></div>
+      <div class="spectrum-bar"></div>
+    </div>
+    <div class="facets">
+      <span class="facet">想像力</span><span class="facet">芸術的関心</span><span class="facet">感情への開放</span>
+      <span class="facet">冒険心</span><span class="facet">知的好奇心</span><span class="facet">自由主義</span>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="ocean-card ocean-C" data-letter="C">
+    <div class="ocean-header">
+      <div class="ocean-letter">C</div>
+      <div>
+        <div class="ocean-title">誠実性（Conscientiousness）</div>
+        <div class="ocean-en">計画性・自制心・秩序・目標志向・責任感</div>
+      </div>
+    </div>
+    <div class="ocean-desc">
+      目標に向けた自己規律、計画性、秩序への傾向を表します。
+      高C傾向の人は組織的で信頼性が高く、責任感が強い。
+      低C傾向の人は柔軟で自発的、あまり計画に縛られない傾向があります。
+    </div>
+    <div class="ocean-spectrum">
+      <div class="spectrum-labels"><span>低 ← 柔軟・自発的</span><span>高 → 計画的・責任感強</span></div>
+      <div class="spectrum-bar"></div>
+    </div>
+    <div class="facets">
+      <span class="facet">自己有能感</span><span class="facet">秩序</span><span class="facet">責任感</span>
+      <span class="facet">達成志向</span><span class="facet">自己規律</span><span class="facet">慎重さ</span>
+    </div>
+  </div>
+
+  <!-- E -->
+  <div class="ocean-card ocean-E" data-letter="E">
+    <div class="ocean-header">
+      <div class="ocean-letter">E</div>
+      <div>
+        <div class="ocean-title">外向性（Extraversion）</div>
+        <div class="ocean-en">社交性・活力・積極性・ポジティブ感情</div>
+      </div>
+    </div>
+    <div class="ocean-desc">
+      社会的刺激への関与の傾向を表します。
+      高E傾向（外向的）の人は社交的でエネルギッシュ、他者との交流からエネルギーを得ます。
+      低E傾向（内向的）の人は一人の時間を好み、内省的で、選択的に交流します。
+    </div>
+    <div class="ocean-spectrum">
+      <div class="spectrum-labels"><span>低 ← 内向的・内省的</span><span>高 → 外向的・社交的</span></div>
+      <div class="spectrum-bar"></div>
+    </div>
+    <div class="facets">
+      <span class="facet">温かさ</span><span class="facet">社交性</span><span class="facet">自己主張</span>
+      <span class="facet">活動性</span><span class="facet">刺激希求</span><span class="facet">ポジティブ感情</span>
+    </div>
+  </div>
+
+  <!-- A -->
+  <div class="ocean-card ocean-A" data-letter="A">
+    <div class="ocean-header">
+      <div class="ocean-letter">A</div>
+      <div>
+        <div class="ocean-title">協調性（Agreeableness）</div>
+        <div class="ocean-en">思いやり・協力・信頼・共感・利他性</div>
+      </div>
+    </div>
+    <div class="ocean-desc">
+      対人関係における協調・親切さの傾向を表します。
+      高A傾向の人は思いやりがあり、他者と協力的に関わり、対立を避けます。
+      低A傾向の人は競争的で懐疑的、自分の主張を優先する傾向があります。
+    </div>
+    <div class="ocean-spectrum">
+      <div class="spectrum-labels"><span>低 ← 競争的・懐疑的</span><span>高 → 協調的・思いやり</span></div>
+      <div class="spectrum-bar"></div>
+    </div>
+    <div class="facets">
+      <span class="facet">信頼</span><span class="facet">誠実さ</span><span class="facet">利他性</span>
+      <span class="facet">協調性</span><span class="facet">謙虚さ</span><span class="facet">共感</span>
+    </div>
+  </div>
+
+  <!-- N -->
+  <div class="ocean-card ocean-N" data-letter="N">
+    <div class="ocean-header">
+      <div class="ocean-letter">N</div>
+      <div>
+        <div class="ocean-title">神経症傾向（Neuroticism）</div>
+        <div class="ocean-en">感情的反応性・不安・怒り・抑うつ傾向</div>
+      </div>
+    </div>
+    <div class="ocean-desc">
+      感情的な不安定さ・ネガティブ感情への傾向を表します。
+      高N傾向の人はストレス・不安・気分の変化を経験しやすく、感情的反応が強めです。
+      低N傾向（感情安定性が高い）の人は落ち着いており、ストレス耐性が高い傾向があります。
+      <strong>高N傾向は「精神疾患」を意味するものではありません。</strong>
+    </div>
+    <div class="ocean-spectrum">
+      <div class="spectrum-labels"><span>低 ← 感情安定・落ち着き</span><span>高 → 感情的反応が強い</span></div>
+      <div class="spectrum-bar"></div>
+    </div>
+    <div class="facets">
+      <span class="facet">不安</span><span class="facet">怒りっぽさ</span><span class="facet">抑うつ傾向</span>
+      <span class="facet">自意識</span><span class="facet">衝動性</span><span class="facet">傷つきやすさ</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: VS ══════ -->
+<div class="tab-content" id="tab-vs">
+<div class="container">
+  <p class="sec-title">類型論との違い</p>
+  <p class="sec-label">Trait Theory vs. Type Theory</p>
+
+  <div class="info-box">
+    ビッグファイブは<strong>「特性論（Trait Theory）」</strong>に属します。
+    MBTI・エニアグラム・ソシオニクスなどが人をカテゴリに分類する「類型論（Type Theory）」であるのに対し、
+    特性論は連続したスコアで個人差を記述します。この違いが学術的評価の差にも繋がっています。
+  </div>
+
+  <h2 class="sh">特性論 vs 類型論</h2>
+  <div style="overflow-x:auto;margin-bottom:20px;">
+    <table class="vs-table" style="min-width:500px;">
+      <thead>
+        <tr>
+          <th>観点</th>
+          <th style="color:#6a4aa8;">特性論（ビッグファイブ）</th>
+          <th style="color:#2a5fa8;">類型論（MBTI等）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>個人差の表現</td><td>連続スコア（0〜100%）</td><td>カテゴリ（例：INTJ）</td></tr>
+        <tr><td>因子数</td><td>5因子（各独立）</td><td>4〜9タイプ軸など</td></tr>
+        <tr><td>学術的地位</td><td>心理学の標準・査読研究多数</td><td>職業/自己啓発分野中心</td></tr>
+        <tr><td>再現性・信頼性</td><td>高い（クロスカルチャー再現）</td><td>中程度（数週で変動も）</td></tr>
+        <tr><td>境界線の扱い</td><td>グラデーション（境界なし）</td><td>どちらかに分類</td></tr>
+        <tr><td>親しみやすさ</td><td>やや難解・数値的</td><td>直感的・語りやすい</td></tr>
+        <tr><td>活用分野</td><td>学術研究・採用・臨床</td><td>自己理解・チーム開発</td></tr>
+        <tr><td>「タイプ」の有無</td><td>なし（座標で記述）</td><td>あり（16〜9種など）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sh">なぜ学術標準はビッグファイブか</h2>
+  <div class="card">
+    <h3>再現性と反証可能性</h3>
+    <p>ビッグファイブは異なる文化・言語・研究者が独立して因子分析を行っても、
+    ほぼ同じ5因子が抽出されます。これが「普遍性の証拠」とされ、学術的に支持される根拠です。
+    また「スコアが行動予測に統計的に有効か」を検証しやすく、反証・改良が可能です。</p>
+  </div>
+  <div class="card">
+    <h3>では類型論は不要か？</h3>
+    <p>学術的厳密さではビッグファイブが優れますが、類型論には「人間が理解・記憶しやすい」
+    「自己語り・他者理解のフレームになる」という実用的な強みがあります。
+    特に<strong>MBTIやエニアグラムは、複数の因子が相互作用したパターン</strong>として
+    人の「全体像」を直感的に描けるため、自己啓発・チーム開発で広く使われます。
+    両者は競合ではなく、補完的に活用するのが最善です。</p>
+  </div>
+
+  <h2 class="sh">16Personalitiesとの関係</h2>
+  <div class="card">
+    <h3>16P は「ビッグファイブ×MBTI記号」の混合</h3>
+    <p>16Personalitiesは実質的に<strong>ビッグファイブの特性測定にMBTI風のラベルを付けた</strong>モデルです。
+    5軸目の「A/T（自己主張型/慎重型）」はビッグファイブの「神経症傾向（N因子）」に対応します。
+    これがMBTIページで解説した「16PはMBTIではない」の根拠にもなっています。</p>
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: MBTI対応 ══════ -->
+<div class="tab-content" id="tab-mbti">
+<div class="container">
+  <p class="sec-title">MBTIとの対応関係</p>
+  <p class="sec-label">Big Five × MBTI Correspondence</p>
+
+  <div class="info-box">
+    MBTIの4軸はビッグファイブの5因子と一定の相関があります。ただし<strong>完全な対応ではなく</strong>、
+    複数の因子が重なって1つのMBTI軸と関連することもあります。
+    以下はメタ分析・研究から導かれた代表的な対応関係です。
+  </div>
+
+  <div class="mbti-grid">
+    <div class="mbti-row">
+      <div class="mbti-axis">
+        <div class="mbti-axis-code">E / I</div>
+        <div class="mbti-axis-label">外向 / 内向</div>
+      </div>
+      <div class="mbti-body">
+        <p>
+          <span class="ocean-chip chip-E">E（外向性）</span>と強い正の相関。
+          MBTIのExtraversion（E）は、ビッグファイブのExtraversion（E因子）とほぼ直接対応します。
+          社交性・積極性・エネルギーの方向性を共通して測定しています。
+        </p>
+      </div>
+    </div>
+    <div class="mbti-row">
+      <div class="mbti-axis">
+        <div class="mbti-axis-code">N / S</div>
+        <div class="mbti-axis-label">直感 / 感覚</div>
+      </div>
+      <div class="mbti-body">
+        <p>
+          <span class="ocean-chip chip-O">O（開放性）</span>と最も強く相関。
+          抽象的思考・新しいアイデアへの開放性はO因子と重なります。
+          N（直感）は高O傾向、S（感覚）は低O傾向に対応するケースが多いです。
+        </p>
+      </div>
+    </div>
+    <div class="mbti-row">
+      <div class="mbti-axis">
+        <div class="mbti-axis-code">T / F</div>
+        <div class="mbti-axis-label">思考 / 感情</div>
+      </div>
+      <div class="mbti-body">
+        <p>
+          <span class="ocean-chip chip-A">A（協調性）</span>と相関。
+          F（感情）は高A傾向（思いやり・協力重視）と対応しやすい。
+          T（思考）は低A傾向（論理優先・競争的）と対応します。
+          ただしTとFの違いは「論理vs感情の質」であり、A因子だけで説明しきれない部分もあります。
+        </p>
+      </div>
+    </div>
+    <div class="mbti-row">
+      <div class="mbti-axis">
+        <div class="mbti-axis-code">J / P</div>
+        <div class="mbti-axis-label">判断 / 知覚</div>
+      </div>
+      <div class="mbti-body">
+        <p>
+          <span class="ocean-chip chip-C">C（誠実性）</span>と強い正の相関。
+          J（判断）は計画性・秩序・決断を重視し、高C傾向に対応。
+          P（知覚）は柔軟性・開放性維持を重視し、低C傾向に対応します。
+        </p>
+      </div>
+    </div>
+    <div class="mbti-row">
+      <div class="mbti-axis">
+        <div class="mbti-axis-code">A / T</div>
+        <div class="mbti-axis-label">16Pの5軸目</div>
+      </div>
+      <div class="mbti-body">
+        <p>
+          <span class="ocean-chip chip-N">N（神経症傾向）</span>と逆相関。
+          16PersonalitiesのT（慎重型）は高N傾向に、A（自己主張型）は低N傾向（感情安定性）に対応します。
+          公式MBTIにはこの軸は存在しません。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sh">注意点</h2>
+  <div class="note-box">
+    MBTIとビッグファイブは<strong>目的・理論基盤が異なるため、単純な変換はできません。</strong>
+    例えばMBTIのINFJでも、O因子・N因子のスコアは個人によって大きく異なります。
+    対応表は「傾向」であり、特定の個人に対して「INFJだからO高め」のように断定するのは不適切です。
+    あくまで<strong>集団レベルの統計的傾向</strong>として理解してください。
+  </div>
+</div>
+</div>
+
+<!-- ══════ TAB: QUIZ ══════ -->
+<div class="tab-content" id="tab-quiz">
+<div class="container">
+  <p class="sec-title">簡易ビッグファイブ診断</p>
+  <p class="sec-label">25-Item Likert Scale Assessment</p>
+
+  <div class="note-box" style="margin-bottom:20px;">
+    各質問について、<strong>1（全くそうでない）〜 7（非常にそう）</strong>の7段階でお答えください。
+    25問（各因子5問）から5因子スコアを算出します。公式検査ではなく参考ツールです。
+  </div>
+
+  <div class="quiz-wrap" id="quizWrap">
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quizBar" style="width:0%"></div></div>
+    <div class="quiz-meta">
+      <span id="quizCounter">問 1 / 25</span>
+      <span id="quizFactorBadge" class="quiz-factor-badge"></span>
+    </div>
+    <div id="quizQArea"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn quiz-btn-prev" id="btnPrev" onclick="quizPrev()" disabled>← 前の問</button>
+      <button class="quiz-btn quiz-btn-next" id="btnNext" onclick="quizNext()" disabled>次の問 →</button>
+    </div>
+  </div>
+
+  <div class="quiz-result" id="quizResult">
+    <div class="result-title">あなたのビッグファイブプロフィール</div>
+    <div class="result-sub">Big Five Personality Profile</div>
+    <div class="result-bars" id="resultBars"></div>
+    <div class="result-profile" id="resultProfile"></div>
+    <div class="result-mbti" id="resultMbti"></div>
+    <button class="result-retry" onclick="resetQuiz()">← やり直す</button>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-inner">
+    <div class="footer-nav-row">
+      <a href="index.html" class="footer-nav-link">← ポータルへ</a>
+      <a href="mbti.html" class="footer-nav-link">MBTI</a>
+      <a href="enneagram.html" class="footer-nav-link">エニアグラム</a>
+      <a href="socionics.html" class="footer-nav-link">ソシオニクス</a>
+      <a href="psychosofia.html" class="footer-nav-link">サイコソフィア</a>
+    </div>
+    <p class="footer-bottom">参考：Costa & McCrae（1992）NEO-PI-R / Goldberg IPIP — 学習・参考目的です</p>
+  </div>
+</footer>
+
+<script>
+// ─── TAB SWITCH ───
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:document.getElementById('mainTabs').offsetTop-50,behavior:'smooth'});
+}
+
+// ─── QUIZ DATA ───
+// 各因子5問、dirは得点方向（+:そのまま加算 / -:逆転）
+const QUESTIONS = [
+  // Openness
+  {f:'O', q:'新しいアイデアや概念について考えることが好きだ。', dir:+1},
+  {f:'O', q:'芸術・音楽・文学などに深い関心がある。', dir:+1},
+  {f:'O', q:'想像力が豊かで、よく空想にふける。', dir:+1},
+  {f:'O', q:'変化よりも、慣れ親しんだやり方を好む。', dir:-1},
+  {f:'O', q:'抽象的な議論や哲学的な問いに興味が湧く。', dir:+1},
+  // Conscientiousness
+  {f:'C', q:'物事を計画的に進めないと落ち着かない。', dir:+1},
+  {f:'C', q:'締め切りや約束は必ず守るようにしている。', dir:+1},
+  {f:'C', q:'部屋や持ち物を整理整頓しておきたい。', dir:+1},
+  {f:'C', q:'衝動的に行動することがよくある。', dir:-1},
+  {f:'C', q:'目標に向けて着実に努力し続けられる。', dir:+1},
+  // Extraversion
+  {f:'E', q:'パーティや大勢の集まりでは活気づく。', dir:+1},
+  {f:'E', q:'初対面の人とすぐに打ち解けられる。', dir:+1},
+  {f:'E', q:'一人で過ごす時間の方が、人と過ごすより心地よい。', dir:-1},
+  {f:'E', q:'会話の場でよく話す側だと思う。', dir:+1},
+  {f:'E', q:'新しい刺激や興奮を積極的に求める。', dir:+1},
+  // Agreeableness
+  {f:'A', q:'他人の気持ちを傷つけないよう気を遣う。', dir:+1},
+  {f:'A', q:'困っている人を見ると、すぐに助けたくなる。', dir:+1},
+  {f:'A', q:'議論になると、自分の意見を強く主張する。', dir:-1},
+  {f:'A', q:'人の良い面を見つけることが得意だ。', dir:+1},
+  {f:'A', q:'他人のことをあまり信用できないことが多い。', dir:-1},
+  // Neuroticism
+  {f:'N', q:'些細なことで不安やストレスを感じやすい。', dir:+1},
+  {f:'N', q:'感情が激しく揺れ動くことがある。', dir:+1},
+  {f:'N', q:'批判されると長時間引きずってしまう。', dir:+1},
+  {f:'N', q:'大抵のことには動じず、精神的に安定している。', dir:-1},
+  {f:'N', q:'気分が急に落ち込んだり、高揚したりする。', dir:+1},
+];
+
+const FACTOR_COLORS = {O:'#6a4aa8',C:'#2a7a58',E:'#c87820',A:'#2a70a8',N:'#b83830'};
+const FACTOR_NAMES = {O:'開放性',C:'誠実性',E:'外向性',A:'協調性',N:'神経症傾向'};
+const FACTOR_BG = {O:'#f4f0fc',C:'#ecf7f2',E:'#fdf5e8',A:'#eef4fc',N:'#fdf0ee'};
+
+let qIdx=0, answers=Array(25).fill(null);
+
+function renderQuestion(){
+  const q=QUESTIONS[qIdx];
+  const pct=(qIdx/QUESTIONS.length)*100;
+  document.getElementById('quizBar').style.width=pct+'%';
+  document.getElementById('quizCounter').textContent=`問 ${qIdx+1} / ${QUESTIONS.length}`;
+  const badge=document.getElementById('quizFactorBadge');
+  badge.textContent=`${q.f} — ${FACTOR_NAMES[q.f]}`;
+  badge.style.background=FACTOR_BG[q.f];
+  badge.style.color=FACTOR_COLORS[q.f];
+  badge.style.border=`1px solid ${FACTOR_COLORS[q.f]}40`;
+
+  const sel=answers[qIdx];
+  document.getElementById('quizQArea').innerHTML=`
+    <div class="quiz-q">
+      <div class="quiz-q-factor" style="color:${FACTOR_COLORS[q.f]};">${FACTOR_NAMES[q.f]} — Q${qIdx+1}</div>
+      <p class="quiz-q-text">${q.q}</p>
+      <div class="likert">
+        <div class="likert-labels">
+          <span>全くそうでない</span>
+          <span>非常にそう</span>
+        </div>
+        <div class="likert-options">
+          ${[1,2,3,4,5,6,7].map(v=>`
+            <div class="likert-btn${sel===v?' selected':''}" onclick="selectOpt(${v},this)" style="${sel===v?`border-color:${FACTOR_COLORS[q.f]};background:${FACTOR_BG[q.f]};`:''}">
+              <div class="lb-num" style="${sel===v?`color:${FACTOR_COLORS[q.f]};`:''}">
+                ${v}
+              </div>
+              <div class="lb-dot" style="${sel===v?`background:${FACTOR_COLORS[q.f]};`:''}"></div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('btnPrev').disabled=qIdx===0;
+  document.getElementById('btnNext').disabled=answers[qIdx]===null;
+  document.getElementById('btnNext').textContent=qIdx<QUESTIONS.length-1?'次の問 →':'結果を見る';
+}
+
+function selectOpt(val, el){
+  answers[qIdx]=val;
+  document.querySelectorAll('.likert-btn').forEach(b=>{
+    b.classList.remove('selected');
+    b.style.borderColor=''; b.style.background='';
+    b.querySelector('.lb-num').style.color='';
+    b.querySelector('.lb-dot').style.background='';
+  });
+  const q=QUESTIONS[qIdx];
+  el.classList.add('selected');
+  el.style.borderColor=FACTOR_COLORS[q.f];
+  el.style.background=FACTOR_BG[q.f];
+  el.querySelector('.lb-num').style.color=FACTOR_COLORS[q.f];
+  el.querySelector('.lb-dot').style.background=FACTOR_COLORS[q.f];
+  document.getElementById('btnNext').disabled=false;
+}
+
+function quizNext(){
+  if(answers[qIdx]===null)return;
+  if(qIdx<QUESTIONS.length-1){qIdx++;renderQuestion();}
+  else showResult();
+}
+function quizPrev(){if(qIdx>0){qIdx--;renderQuestion();}}
+
+function showResult(){
+  // スコア計算（各因子5問、1〜7点、逆転処理後、最大35点→%換算）
+  const raw={O:0,C:0,E:0,A:0,N:0};
+  QUESTIONS.forEach((q,i)=>{
+    const v=answers[i]||4;
+    raw[q.f]+= q.dir===+1 ? v : (8-v);
+  });
+  const pct={};
+  Object.keys(raw).forEach(f=>{ pct[f]=Math.round((raw[f]-5)/30*100); });
+
+  document.getElementById('quizWrap').style.display='none';
+  const res=document.getElementById('quizResult');
+  res.classList.add('active');
+
+  // バー
+  const factors=['O','C','E','A','N'];
+  document.getElementById('resultBars').innerHTML = factors.map(f=>`
+    <div class="rbar-row rbar-${f}">
+      <div class="rbar-letter">${f}</div>
+      <div class="rbar-track">
+        <div class="rbar-fill" style="width:0%;background:${FACTOR_COLORS[f]}80;" data-target="${pct[f]}"></div>
+      </div>
+      <div class="rbar-pct">${pct[f]}%</div>
+    </div>`).join('');
+
+  // プロフィールカード
+  const PROFILES = {
+    O:[
+      {thr:60,title:'高い開放性',desc:'創造的で好奇心旺盛。新しいアイデアや体験を積極的に求め、芸術・哲学への関心も高い。'},
+      {thr:40,title:'バランス型',desc:'実用性と新しい経験のバランスを取りながら、状況に応じて柔軟に対応する。'},
+      {thr:0, title:'低い開放性',desc:'実用的・伝統的で慣れ親しんだ方法を好む。安定した環境で着実に成果を出す。'}
+    ],
+    C:[
+      {thr:60,title:'高い誠実性',desc:'計画的・責任感が強く信頼性が高い。目標に向けて着実に努力し続けられる。'},
+      {thr:40,title:'バランス型',desc:'計画と柔軟性を状況に応じてバランスよく使い分ける。'},
+      {thr:0, title:'低い誠実性',desc:'自発的・柔軟で衝動に従いやすい。自由な発想と即興性が強み。'}
+    ],
+    E:[
+      {thr:60,title:'高い外向性',desc:'社交的でエネルギッシュ。他者との交流からエネルギーを得て、場を活気づける。'},
+      {thr:40,title:'バランス型（両向性）',desc:'状況によって外向的にも内向的にもなれる両向型の傾向がある。'},
+      {thr:0, title:'内向的傾向',desc:'一人の時間を大切にし、内省的で深い集中ができる。選択的な交流を好む。'}
+    ],
+    A:[
+      {thr:60,title:'高い協調性',desc:'思いやりがあり協力的。他者の感情に敏感で、対立を避け調和を大切にする。'},
+      {thr:40,title:'バランス型',desc:'思いやりと自己主張のバランスを状況によって使い分ける。'},
+      {thr:0, title:'低い協調性',desc:'直接的で競争的。自分の意見を臆せず主張し、論理を優先する。'}
+    ],
+    N:[
+      {thr:60,title:'高い神経症傾向',desc:'感情の反応が強く、ストレスや不安を感じやすい。感受性が豊かともいえる。'},
+      {thr:40,title:'バランス型',desc:'感情的な反応は状況によって変わる。安定した面と感受性豊かな面を併せ持つ。'},
+      {thr:0, title:'高い感情安定性',desc:'落ち着いておりストレス耐性が高い。感情的に揺れにくい安定したタイプ。'}
+    ],
+  };
+
+  document.getElementById('resultProfile').innerHTML = factors.map(f=>{
+    const p=pct[f];
+    const prof=PROFILES[f].find(x=>p>=x.thr);
+    return `<div class="rp-card rp-${f}"><h4>${FACTOR_NAMES[f]}：${prof.title}</h4><p>${prof.desc}</p></div>`;
+  }).join('');
+
+  // MBTI推定
+  const E_pref = pct.E>=50 ? 'E' : 'I';
+  const N_pref = pct.O>=50 ? 'N' : 'S';
+  const T_pref = pct.A<50  ? 'T' : 'F';
+  const J_pref = pct.C>=50 ? 'J' : 'P';
+  const mbtiEst = E_pref+N_pref+T_pref+J_pref;
+  document.getElementById('resultMbti').innerHTML=`
+    <strong>MBTI傾向（参考）：${mbtiEst}</strong><br>
+    ビッグファイブのスコアから各軸の傾向を推定したものです。
+    MBTIとビッグファイブは理論基盤が異なるため、あくまで<strong>大まかな参考値</strong>です。
+    正確なMBTIタイプはMBTIページの診断または専門の検査でご確認ください。`;
+
+  // アニメーション
+  setTimeout(()=>{
+    document.querySelectorAll('.rbar-fill').forEach(b=>{
+      b.style.width=b.getAttribute('data-target')+'%';
+    });
+  },100);
+}
+
+function resetQuiz(){
+  qIdx=0; answers=Array(25).fill(null);
+  document.getElementById('quizWrap').style.display='block';
+  document.getElementById('quizResult').classList.remove('active');
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
