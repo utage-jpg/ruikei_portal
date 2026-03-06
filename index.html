@@ -74,6 +74,12 @@ body {
   font-size: 14px;
 }
 
+.nav-link-glossary {
+  font-size: 12px; color: var(--gold) !important; border: 1px solid var(--gold-lt);
+  border-radius: 6px; background: var(--gold-bg);
+}
+.nav-link-glossary:hover { background: var(--gold) !important; color: #fff !important; }
+
 /* NAV */
 .site-nav {
   position: sticky; top: 0; z-index: 200;
@@ -425,6 +431,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
       <a href="socionics.html" class="nav-link">ソシオニクス</a>
       <a href="bigfive.html" class="nav-link">ビッグファイブ</a>
       <a href="psychosofia.html" class="nav-link">サイコソフィア</a>
+      <a href="glossary.html" class="nav-link nav-link-glossary">📖 用語集</a>
     </div>
   </div>
 </nav>
@@ -636,6 +643,37 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
         </div>
       </div>
 
+      <!-- 用語集 -->
+      <div class="type-card reveal" style="border-color:var(--gold-lt);background:var(--gold-bg);" onclick="location.href='glossary.html'">
+        <div class="card-header" data-letter="G" style="background:linear-gradient(135deg,var(--gold-bg),#faefd4);">
+          <div class="card-num" style="color:var(--gold-lt);">06</div>
+          <div class="card-badge" style="color:var(--gold);">GLOSSARY · SEARCH</div>
+          <div class="card-title" style="color:var(--ink);">用語集</div>
+          <div class="card-subtitle" style="color:var(--ink3);">Typology Glossary — 用語横断検索</div>
+        </div>
+        <div class="card-divider" style="background:var(--gold-lt);"></div>
+        <div class="card-body">
+          <p class="card-desc">
+            MBTI・エニアグラム・ソシオニクス・ビッグファイブ・サイコソフィアの専門用語を一括検索。カテゴリタブで絞り込み、関連用語リンクで横断的に学べる用語辞典。
+          </p>
+          <div class="card-tags">
+            <span class="tag">用語検索</span>
+            <span class="tag">横断索引</span>
+            <span class="tag">解説付き</span>
+            <span class="tag">タブ絞込</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="glossary.html" class="card-link" style="color:var(--gold);" onclick="event.stopPropagation()">
+            用語を調べる
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14m-5-5l5 5-5 5"/>
+            </svg>
+          </a>
+          <span class="card-status" style="color:var(--gold);font-weight:500;">● 公開中</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -736,6 +774,7 @@ footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 48px 24px
           <li><a href="socionics.html">ソシオニクス</a></li>
           <li><a href="bigfive.html">ビッグファイブ</a></li>
           <li><a href="psychosofia.html">サイコソフィア</a></li>
+          <li><a href="glossary.html">📖 用語集</a></li>
         </ul>
       </div>
 

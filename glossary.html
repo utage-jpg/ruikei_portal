@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>用語集 — 類型界隈ポータル</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f5f2ee;--bg2:#ede9e3;--bg3:#e6e0d8;
+  --surface:#ffffff;--border:#ddd8cf;--border2:#c8c0b4;
+  --ink:#1e1c18;--ink2:#4a4640;--ink3:#7a746c;--ink4:#a09890;
+  --mbti:#2d5fa8;--mbti-bg:#eef3fc;--mbti-bd:#b8cef0;
+  --enne:#b85c28;--enne-bg:#fdf3ec;--enne-bd:#e8c0a0;
+  --socio:#2a7a58;--socio-bg:#ecf7f2;--socio-bd:#a0d8bc;
+  --big5:#5a6880;--big5-bg:#f0f2f6;--big5-bd:#c0c8d8;
+  --psycho:#7b5ea8;--psycho-bg:#f4f0fa;--psycho-bd:#c8b8e8;
+  --gold:#b8943a;--gold-lt:#d4b060;--gold-bg:#fdf8ee;
+  --radius:12px;--shadow:0 2px 12px rgba(0,0,0,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden;font-size:14px;}
+.topbar{position:sticky;top:0;z-index:300;background:rgba(245,242,238,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;height:48px;gap:12px;}
+.topbar-back{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink3);text-decoration:none;transition:color .2s;flex-shrink:0;}
+.topbar-back:hover{color:var(--gold);}
+.topbar-back svg{width:14px;height:14px;}
+.topbar-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;letter-spacing:.06em;color:var(--ink);flex:1;text-align:center;}
+.topbar-right{width:60px;flex-shrink:0;}
+.page-hero{background:linear-gradient(160deg,#f0ece4 0%,#f5f2ee 60%,#ece8e0 100%);border-bottom:1px solid var(--border);padding:36px 20px 28px;text-align:center;position:relative;overflow:hidden;}
+.page-hero::before{content:'辞';position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font-family:'Cormorant Garamond',serif;font-size:280px;font-weight:300;color:var(--border2);opacity:.22;pointer-events:none;line-height:1;}
+.hero-eyebrow{display:inline-block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;padding:4px 14px;border:1px solid var(--gold-lt);border-radius:20px;background:var(--gold-bg);margin-bottom:12px;}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,8vw,60px);font-weight:300;letter-spacing:.06em;color:var(--ink);line-height:1.0;margin-bottom:6px;position:relative;z-index:1;}
+.page-hero p{font-size:12px;color:var(--ink3);letter-spacing:1px;position:relative;z-index:1;}
+.search-wrap{position:sticky;top:48px;z-index:200;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 16px;}
+.search-inner{max-width:760px;margin:0 auto;}
+.search-box{display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border2);border-radius:50px;padding:9px 16px;transition:border-color .2s,box-shadow .2s;}
+.search-box:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,148,58,.12);}
+.search-box svg{width:15px;height:15px;color:var(--ink4);flex-shrink:0;}
+.search-box input{flex:1;border:none;outline:none;font-size:14px;font-family:'Noto Sans JP',sans-serif;font-weight:300;color:var(--ink);background:transparent;}
+.search-box input::placeholder{color:var(--ink4);}
+.clear-btn{background:none;border:none;cursor:pointer;color:var(--ink4);padding:2px;display:none;align-items:center;}
+.clear-btn.show{display:flex;}
+.clear-btn svg{width:14px;height:14px;}
+.result-count{font-size:11px;color:var(--ink4);text-align:right;margin-top:5px;min-height:15px;}
+.tabs-wrap{position:sticky;top:calc(48px + 68px);z-index:190;background:var(--surface);border-bottom:2px solid var(--border);overflow:hidden;}
+.tabs-scroll{display:flex;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth;touch-action:pan-x;}
+.tabs-scroll::-webkit-scrollbar{display:none;}
+.tab-btn{font-size:12px;font-family:'Noto Sans JP',sans-serif;font-weight:400;padding:10px 13px;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;color:var(--ink3);margin-bottom:-2px;-webkit-tap-highlight-color:transparent;}
+.tab-btn.active{font-weight:500;}
+.tab-btn[data-tab="all"].active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-btn[data-tab="mbti"].active{color:var(--mbti);border-bottom-color:var(--mbti);}
+.tab-btn[data-tab="enne"].active{color:var(--enne);border-bottom-color:var(--enne);}
+.tab-btn[data-tab="socio"].active{color:var(--socio);border-bottom-color:var(--socio);}
+.tab-btn[data-tab="big5"].active{color:var(--big5);border-bottom-color:var(--big5);}
+.tab-btn[data-tab="psycho"].active{color:var(--psycho);border-bottom-color:var(--psycho);}
+.tab-btn[data-tab="common"].active{color:var(--ink2);border-bottom-color:var(--ink2);}
+.main{max-width:760px;margin:0 auto;padding:20px 14px 80px;}
+.alpha-section{margin-bottom:24px;}
+.alpha-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:0 4px;}
+.alpha-label{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--ink3);line-height:1;flex-shrink:0;}
+.alpha-line{flex:1;height:1px;background:var(--border);}
+.term-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px 10px;margin-bottom:7px;box-shadow:var(--shadow);transition:box-shadow .18s;}
+.term-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.09);}
+.term-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:3px;}
+.term-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;color:var(--ink);line-height:1.2;}
+.term-name-sub{font-size:10px;color:var(--ink4);letter-spacing:.3px;margin-top:1px;}
+.term-badge{display:inline-flex;align-items:center;font-size:9px;font-weight:500;letter-spacing:.8px;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:3px;text-transform:uppercase;}
+.term-badge.mbti{background:var(--mbti-bg);color:var(--mbti);border:1px solid var(--mbti-bd);}
+.term-badge.enne{background:var(--enne-bg);color:var(--enne);border:1px solid var(--enne-bd);}
+.term-badge.socio{background:var(--socio-bg);color:var(--socio);border:1px solid var(--socio-bd);}
+.term-badge.big5{background:var(--big5-bg);color:var(--big5);border:1px solid var(--big5-bd);}
+.term-badge.psycho{background:var(--psycho-bg);color:var(--psycho);border:1px solid var(--psycho-bd);}
+.term-badge.common{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-lt);}
+.term-body{font-size:12px;color:var(--ink2);line-height:1.8;}
+.term-related{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
+.term-rel-tag{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--bg2);border:1px solid var(--border);color:var(--ink3);cursor:pointer;transition:all .18s;}
+.term-rel-tag:hover{background:var(--bg3);color:var(--ink);}
+.no-result{text-align:center;padding:50px 20px;color:var(--ink4);font-size:13px;display:none;}
+.no-result.show{display:block;}
+.no-result-icon{font-size:32px;margin-bottom:10px;}
+mark{background:rgba(184,148,58,.22);color:inherit;border-radius:3px;padding:0 2px;}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:24px 20px;text-align:center;}
+footer p{font-size:11px;color:var(--ink4);line-height:1.9;}
+footer a{color:var(--gold);text-decoration:none;}
+@media(max-width:480px){.term-name{font-size:15px;}.page-hero h1{font-size:34px;}}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
+    ポータルへ
+  </a>
+  <div class="topbar-title">Glossary</div>
+  <div class="topbar-right"></div>
+</nav>
+
+<header class="page-hero">
+  <div class="hero-eyebrow">Typology Glossary</div>
+  <h1>用語集</h1>
+  <p>類型界隈の専門用語を横断的に解説</p>
+</header>
+
+<div class="search-wrap">
+  <div class="search-inner">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="search" id="searchInput" placeholder="用語を検索…" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="clear-btn" id="clearBtn" aria-label="クリア">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="result-count" id="resultCount"></div>
+  </div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs-scroll">
+    <button class="tab-btn active" data-tab="all">すべて</button>
+    <button class="tab-btn" data-tab="mbti">MBTI</button>
+    <button class="tab-btn" data-tab="enne">エニアグラム</button>
+    <button class="tab-btn" data-tab="socio">ソシオニクス</button>
+    <button class="tab-btn" data-tab="big5">ビッグファイブ</button>
+    <button class="tab-btn" data-tab="psycho">サイコソフィア</button>
+    <button class="tab-btn" data-tab="common">共通・汎用</button>
+  </div>
+</div>
+
+<main class="main" id="mainContent">
+  <div class="no-result" id="noResult">
+    <div class="no-result-icon">🔍</div>
+    <p>「<span id="noResultQuery"></span>」に一致する用語が見つかりませんでした。</p>
+  </div>
+</main>
+
+<footer>
+  <p><a href="index.html">← ポータルへ戻る</a><br>学習・参考目的のサイトです。医学的・臨床的診断ではありません。</p>
+</footer>
+
+<script>
+const T=[
+// ══ MBTI ══
+{id:"cog-func",name:"認知機能",nameEn:"Cognitive Functions",cat:"mbti",s:"に",
+body:"ユング心理学を起源とする8つの心理機能（Te・Ti・Fe・Fi・Se・Si・Ne・Ni）。MBTIの理論的核心であり、各タイプの機能スタックを構成する土台。",
+rel:["機能スタック","ユング心理学"]},
+{id:"func-stack",name:"機能スタック",nameEn:"Function Stack",cat:"mbti",s:"き",
+body:"各タイプが持つ認知機能の優先順位リスト。主機能（1st）・補助機能（2nd）・第三機能（3rd）・劣等機能（4th）＋シャドー4機能（5〜8th）の計8機能で構成される。",
+rel:["主機能","劣等機能","シャドー機能"]},
+{id:"dominant",name:"主機能（ドミナント）",nameEn:"Dominant Function",cat:"mbti",s:"し",
+body:"機能スタック1番目。最も自然・強力に使える機能で、その人の中核的な知覚・判断スタイルを決定する。過剰使用による偏りも生じやすい。",
+rel:["機能スタック","補助機能"]},
+{id:"auxiliary",name:"補助機能（オグジリアリー）",nameEn:"Auxiliary Function",cat:"mbti",s:"ほ",
+body:"機能スタック2番目。主機能を支援し、外向・内向のバランスを補う役割。主機能と態度（外向/内向）が反対になるのが特徴。",
+rel:["主機能","第三機能"]},
+{id:"tertiary",name:"第三機能（ターシャリー）",nameEn:"Tertiary Function",cat:"mbti",s:"た",
+body:"機能スタック3番目。成人後に発達し始める機能。ストレス下では過剰・退行的な使われ方をすることがある。補助機能と態度が反対。",
+rel:["機能スタック","劣等機能"]},
+{id:"inferior",name:"劣等機能（インフェリア）",nameEn:"Inferior Function",cat:"mbti",s:"れ",
+body:"機能スタック4番目。最も意識化・発達が遅れた機能。強いストレス時に「グリップ」として突発的に前面に出る。長期的成長の鍵でもある。",
+rel:["グリップ","機能スタック","個性化"]},
+{id:"shadow",name:"シャドー機能",nameEn:"Shadow Functions",cat:"mbti",s:"し",
+body:"スタック5〜8番目の無意識的機能群。ジョン・ビービが提唱。防衛・攻撃・投影の形で現れ、「敵対的・悲観的・トリックスター・悪魔」の役割を持つ。",
+rel:["機能スタック","劣等機能","ビービーモデル"]},
+{id:"grip",name:"グリップ",nameEn:"Grip State",cat:"mbti",s:"く",
+body:"強いストレス下で劣等機能が前面に出て通常と異なる言動をとる状態。例：INFJのグリップでは劣等Seが突出し過剰な感覚追求・衝動的行動が現れる。",
+rel:["劣等機能","機能スタック"]},
+{id:"loop",name:"ループ（機能ループ）",nameEn:"Function Loop",cat:"mbti",s:"る",
+body:"補助機能をスキップして主機能と第三シャドー機能が連動する不健全な状態。例：INFJのNi-Tiループは思考が空回りし現実から乖離しやすくなる。",
+rel:["機能スタック","シャドー機能"]},
+{id:"Te",name:"Te（外向的思考）",nameEn:"Extraverted Thinking",cat:"mbti",s:"て",
+body:"外部の論理・効率・体系を組織化し実行する機能。目標達成・プロセス管理・客観的基準への参照が得意。ENTJ・ESTJの主機能。",
+rel:["Ti","認知機能"]},
+{id:"Ti",name:"Ti（内向的思考）",nameEn:"Introverted Thinking",cat:"mbti",s:"て",
+body:"内的な論理フレームワークを構築・検証する機能。一貫性・正確さ・カテゴリ分類への強いこだわりを持つ。INTP・ISTPの主機能。",
+rel:["Te","認知機能"]},
+{id:"Fe",name:"Fe（外向的感情）",nameEn:"Extraverted Feeling",cat:"mbti",s:"ふ",
+body:"集団の調和・感情的雰囲気・社会的価値観を管理する機能。他者の感情への感受性が高く、場の空気を読み共感的関係を築く。ENFJ・ESFJの主機能。",
+rel:["Fi","認知機能"]},
+{id:"Fi",name:"Fi（内向的感情）",nameEn:"Introverted Feeling",cat:"mbti",s:"ふ",
+body:"内的な価値観・真正性・個人の倫理観を優先する機能。深い感情的確信を持つが外に表出しにくい。INFP・ISFPの主機能。",
+rel:["Fe","認知機能"]},
+{id:"Ne",name:"Ne（外向的直観）",nameEn:"Extraverted Intuition",cat:"mbti",s:"ね",
+body:"外部の可能性・パターン・繋がりを拡散的に生成する機能。アイデアの連想・ブレインストーミング・可能性思考に優れる。ENFP・ENTPの主機能。",
+rel:["Ni","認知機能"]},
+{id:"Ni",name:"Ni（内向的直観）",nameEn:"Introverted Intuition",cat:"mbti",s:"ね",
+body:"内部で収束的に洞察・予測・本質パターンを把握する機能。長期ビジョン・象徴的理解・「わかった感」が特徴。INFJ・INTJの主機能。",
+rel:["Ne","認知機能"]},
+{id:"Se",name:"Se（外向的感覚）",nameEn:"Extraverted Sensing",cat:"mbti",s:"せ",
+body:"現在の五感情報・物理的環境・即興的機会への反応機能。臨場感・刺激・現実への直接関与を好む。ESTP・ESFPの主機能。",
+rel:["Si","認知機能"]},
+{id:"Si",name:"Si（内向的感覚）",nameEn:"Introverted Sensing",cat:"mbti",s:"し",
+body:"過去の経験・記憶・安定した内部データベースを参照する機能。慣習・詳細への注意・継続性の重視が特徴。ISTJ・ISFJの主機能。",
+rel:["Se","認知機能"]},
+{id:"dichotomies",name:"4軸指標（E/I・N/S・T/F・J/P）",nameEn:"Four Dichotomies",cat:"mbti",s:"よ",
+body:"MBTIの4つの二項指標。外向/内向・直観/感覚・思考/感情・判断/知覚。認知機能理論ではJ/Pは「外向き主機能の種類（判断系か知覚系か）」を示す重要な指標。",
+rel:["認知機能","16Personalities問題"]},
+{id:"16p-diff",name:"16Personalities問題",nameEn:"16Personalities ≠ MBTI",cat:"mbti",s:"じ",
+body:"16Personalities.comはBig5系の「NERIS型指標」を採用し5軸目A/Tを追加。認知機能を使わずスコア集計のみでタイプを決定するため、類型界隈では本来のMBTIとは別物として扱われる。",
+rel:["4軸指標","認知機能"]},
+{id:"16types-mbti",name:"16タイプ（MBTI）",nameEn:"16 Types",cat:"mbti",s:"じ",
+body:"4軸の組み合わせから生まれる16のタイプ。ISTJ・ISFJ・INFJ・INTJ・ISTP・ISFP・INFP・INTP・ESTP・ESFP・ENFP・ENTP・ESTJ・ESFJ・ENFJ・ENTJの16種。",
+rel:["認知機能","気質グループ"]},
+{id:"temperament",name:"気質グループ（ケアシー）",nameEn:"Keirsey Temperaments",cat:"mbti",s:"き",
+body:"デイヴィッド・ケアシーによるNF（理想主義者）・NT（理性主義者）・SJ（後見者）・SP（職人気質）の4気質分類。16タイプをより大きな枠で捉える視点。",
+rel:["16タイプ（MBTI）"]},
+{id:"individuation",name:"個性化（インディビデュエーション）",nameEn:"Individuation",cat:"mbti",s:"こ",
+body:"ユングが提唱した自己実現プロセス。意識と無意識を統合し「真の自己（セルフ）」へ向かう生涯的成長。劣等機能・シャドーの統合が重要な課題となる。",
+rel:["劣等機能","シャドー機能","ユング心理学"]},
+{id:"type-dynamics",name:"タイプダイナミクス",nameEn:"Type Dynamics",cat:"mbti",s:"た",
+body:"各タイプの機能スタック内における相互作用の理論。主機能が外向きなら補助は内向き、という態度の交互配置など、機能間の動的関係を論じる。",
+rel:["機能スタック","主機能"]},
+{id:"func-dev",name:"機能発達",nameEn:"Functional Development",cat:"mbti",s:"き",
+body:"年齢・経験とともに各機能が発達していくプロセス。主機能は幼少期から、補助機能は青年期、第三・劣等機能は成人後に発達すると一般的に言われる。",
+rel:["機能スタック","個性化"]},
+{id:"beebe",name:"ビービーモデル",nameEn:"Beebe Model",cat:"mbti",s:"ひ",
+body:"ジョン・ビービが提唱した8機能の元型的役割理論。各スロットに「英雄・父母・永遠の子供・アニマ/アニムス・敵対的・悲観的・トリックスター・悪魔」等の元型を対応させる。",
+rel:["シャドー機能","元型","ユング心理学"]},
+{id:"dominant-attitude",name:"主態度（外向/内向）",nameEn:"Dominant Attitude",cat:"mbti",s:"し",
+body:"そのタイプが全体として外向的か内向的か。外向タイプは主機能が外向きで補助は内向き、内向タイプはその逆。MBTIのE/Iに対応するが、認知機能から導出される。",
+rel:["4軸指標","主機能"]},
+{id:"mbti-briggs",name:"マイヤーズ＆ブリッグス",nameEn:"Myers & Briggs",cat:"mbti",s:"ま",
+body:"Isabel Briggs MyersとKatharine Cook Briggsによるユング理論の発展・実用化。第二次世界大戦中に職業適性向けツールとして開発し、現在のMBTIの直接的起源となった。",
+rel:["ユング心理学","4軸指標"]},
+
+// ══ ENNEAGRAM ══
+{id:"9types",name:"エニアグラム9タイプ",nameEn:"9 Types",cat:"enne",s:"え",
+body:"コアな恐れ・欲求・動機で定義される9つの基本タイプ。タイプ1〜9。ウィング・本能・健全度の組み合わせにより同タイプでも外見が大きく異なる。",
+rel:["ウィング","トライタイプ","生得本能"]},
+{id:"core-fear",name:"コアフィアー（核心的恐れ）",nameEn:"Core Fear",cat:"enne",s:"こ",
+body:"各タイプの行動パターンの根底にある根本的恐れ。例：タイプ5＝無能・枯渇、タイプ2＝愛されないこと。コアフィアーを避けようとする防衛がタイプの動機を形成する。",
+rel:["コアデザイア","パッション","健全度レベル"]},
+{id:"core-desire",name:"コアデザイア（核心的欲求）",nameEn:"Core Desire",cat:"enne",s:"こ",
+body:"各タイプが深く求めるもの。コアフィアーの裏返しとして現れる。例：タイプ5＝有能・知識の獲得、タイプ2＝必要とされること。",
+rel:["コアフィアー","パッション"]},
+{id:"wing",name:"ウィング",nameEn:"Wing",cat:"enne",s:"う",
+body:"コアタイプの隣番号タイプからの影響。4w3は達成志向が加わり社交的、4w5は知的・内省的になるなど同タイプでも大きく色彩が異なる。",
+rel:["エニアグラム9タイプ","トライタイプ"]},
+{id:"tritype",name:"トライタイプ",nameEn:"Tritype",cat:"enne",s:"と",
+body:"Katherine Fauvreが提唱。頭（5・6・7）・心（2・3・4）・腸（8・9・1）の3センターから各1タイプを持つという理論。コアタイプを先頭に3桁で表記（例：549）。",
+rel:["3センター","生得本能","ウィング"]},
+{id:"3centers",name:"3センター（トライアド）",nameEn:"Three Centers / Triads",cat:"enne",s:"さ",
+body:"腸センター（8・9・1／怒り）・心センター（2・3・4／恥）・頭センター（5・6・7／恐れ）の3分類。各センターに中核的感情と感情の使い方（抑圧/過剰/理性化）がある。",
+rel:["エニアグラム9タイプ","トライタイプ"]},
+{id:"instinct",name:"生得本能（インスティンクト）",nameEn:"Instinctual Variants",cat:"enne",s:"せ",
+body:"自己保存（sp）・一対一（sx）・社会的（so）の3本能。コアタイプの「色付け」をし、同タイプでも全く異なる外見を作り出す重要な変数。最後の本能がブラインドスポット。",
+rel:["sp自己保存","sx一対一","so社会的","本能スタック"]},
+{id:"sp",name:"sp（自己保存本能）",nameEn:"Self-Preservation",cat:"enne",s:"し",
+body:"自身の安全・健康・物質的安定・快適さを最優先する本能。sp優勢タイプは実用的・内向き傾向が強まり、同タイプの「標準」から最も離れた外見を示すことが多い。",
+rel:["生得本能","sx一対一","so社会的"]},
+{id:"sx",name:"sx（一対一本能）",nameEn:"Sexual / One-to-One Instinct",cat:"enne",s:"わ",
+body:"深い絆・化学反応・強烈な体験・個人的魅力を求める本能。「セクシュアル本能」とも呼ばれるが性愛に限らない。エネルギーと強度が特徴的で最も「エニアグラム的」に見えやすい。",
+rel:["生得本能","sp自己保存","so社会的"]},
+{id:"so",name:"so（社会的本能）",nameEn:"Social Instinct",cat:"enne",s:"し",
+body:"集団・社会的役割・位置づけ・貢献を重視する本能。so優勢タイプはコミュニティ意識が強く、グループ内での自分の在り方を常に意識している。",
+rel:["生得本能","sp自己保存","sx一対一"]},
+{id:"instinct-stack",name:"本能スタック",nameEn:"Instinct Stack",cat:"enne",s:"ほ",
+body:"3本能の優先順位。例：sp/sx/soなら自己保存が最優先、soが最後でブラインドスポット。スタック全体でそのタイプの行動パターン・外見が決まる。27通り存在する。",
+rel:["生得本能","ブラインドスポット"]},
+{id:"blindspot",name:"ブラインドスポット（盲点）",nameEn:"Blind Spot",cat:"enne",s:"ふ",
+body:"本能スタックの最後（3番目）に位置する本能。最も意識しにくく、他者からは自明に見える自分の特性。例：so-lastのタイプは自分の社会的影響を過小評価しがち。",
+rel:["本能スタック","生得本能"]},
+{id:"counter-type",name:"カウンタータイプ（対抗タイプ）",nameEn:"Counter-Type",cat:"enne",s:"か",
+body:"同タイプの3本能バリアントの中でタイプの「典型的イメージ」から最も逸脱した変型。sx本能がカウンタータイプになることが多い。例：タイプ6のsx（反権威的・挑発的）。",
+rel:["生得本能","本能スタック"]},
+{id:"arrows",name:"統合と分裂の矢印",nameEn:"Integration / Disintegration Lines",cat:"enne",s:"と",
+body:"各タイプが健全成長する方向（統合の矢印）とストレス下で退行する方向（分裂の矢印）。近年は「矢印先のタイプの健全/不健全の特徴に向かって動く」という解釈が主流。",
+rel:["健全度レベル","エニアグラム9タイプ"]},
+{id:"levels",name:"健全度レベル",nameEn:"Levels of Development",cat:"enne",s:"け",
+body:"リソ＆ハドソンが提唱した各タイプの健全度9段階（1〜3健全・4〜6平均・7〜9不健全）。同タイプでも健全度が異なると全く別人のように見える。タイピングを難しくする主因の一つ。",
+rel:["統合と分裂の矢印","エニアグラム9タイプ","リソ＆ハドソン"]},
+{id:"passion",name:"パッション（情念）",nameEn:"Passion",cat:"enne",s:"は",
+body:"各タイプの主要な感情的パターン・動機の歪み。例：タイプ4＝羨望（エンヴィ）、タイプ1＝怒り、タイプ7＝暴食（グラトニー）。スーフィーの7大罪に2つ追加した9種。",
+rel:["フィクセーション","ヴァーチュー","コアフィアー"]},
+{id:"fixation",name:"フィクセーション（固着）",nameEn:"Fixation",cat:"enne",s:"ふ",
+body:"各タイプが繰り返す思考パターン・認知の歪み。例：タイプ5＝貯め込み（スタングネス）、タイプ6＝懐疑・臆病、タイプ3＝欺瞞。パッション（感情）の認知版。",
+rel:["パッション","コアフィアー"]},
+{id:"virtue",name:"ヴァーチュー（徳）",nameEn:"Virtue",cat:"enne",s:"う",
+body:"各タイプが健全化したときに現れる本質的な徳。タイプ4＝平静心（equanimity）、タイプ1＝寧静（serenity）。パッションと対をなす概念で成長の方向性を示す。",
+rel:["パッション","健全度レベル"]},
+{id:"holy-idea",name:"ホーリーアイデア（聖なる理念）",nameEn:"Holy Idea",cat:"enne",s:"ほ",
+body:"各タイプが本来持っている「真実の見方」。エゴの幻想を超えた客観的現実認識。例：タイプ9のホーリーアイデアは「聖なる愛」（すべては本質的に繋がっている）。",
+rel:["ヴァーチュー","パッション"]},
+{id:"subtype-enne",name:"サブタイプ（エニアグラム）",nameEn:"Subtypes",cat:"enne",s:"さ",
+body:"コアタイプ×3本能の組み合わせで生まれる27の変型。同タイプでも本能が異なると外見・行動パターンが大幅に変わり、タイピングを難しくする主因の一つ。",
+rel:["生得本能","カウンタータイプ","トライタイプ"]},
+{id:"tritype-archetypes",name:"トライタイプ27原型",nameEn:"27 Tritype Archetypes",cat:"enne",s:"と",
+body:"トライタイプの27通りの組み合わせにそれぞれ固有の特徴がある。例：358＝「鉄のマネージャー」、479＝「夢想の理想主義者」、146＝「誠実なサポーター」など。",
+rel:["トライタイプ","3センター"]},
+{id:"type1",name:"タイプ1（改革者）",nameEn:"Type 1 – Reformer",cat:"enne",s:"た",
+body:"正しさ・完全性を求め、理想と現実のギャップへの怒りを持つ。誠実で原則的。コアフィアーは「不完全・悪である」こと。パッション＝怒り、フィクセーション＝憤慨。",
+rel:["エニアグラム9タイプ","パッション"]},
+{id:"type2",name:"タイプ2（助力者）",nameEn:"Type 2 – Helper",cat:"enne",s:"た",
+body:"愛されること・必要とされることを欲し、他者へのケアと奉仕に駆られる。自分のニーズを否定しがち。パッション＝高慢（プライド）、フィクセーション＝おせっかい。",
+rel:["エニアグラム9タイプ","パッション"]},
+{id:"type3",name:"タイプ3（達成者）",nameEn:"Type 3 – Achiever",cat:"enne",s:"た",
+body:"成功・達成・社会的価値への承認を求める。効率的・カリスマ的。コアフィアーは「価値なし・失敗者」。パッション＝欺瞞、フィクセーション＝虚偽（イメージ優先）。",
+rel:["エニアグラム9タイプ","パッション"]},
+{id:"type4",name:"タイプ4（個人主義者）",nameEn:"Type 4 – Individualist",cat:"enne",s:"た",
+body:"独自性・アイデンティティ・深い感情体験を求める。欠乏感と羨望を持ちながらも美的感受性が豊か。パッション＝羨望（エンヴィ）、フィクセーション＝空想（メランコリー）。",
+rel:["エニアグラム9タイプ","パッション"]},
+{id:"type5",name:"タイプ5（研究者）",nameEn:"Type 5 – Investigator",cat:"enne",s:"た",
+body:"知識・有能さ・内的資源の保全を重視。観察と分析に優れる。関与を最小化し距離を保つことで安全を確保しようとする。パッション＝貪欲（アヴァリス）。",
+rel:["エニアグラム9タイプ","パッション"]},
+{id:"type6",name:"タイプ6（忠実者）",nameEn:"Type 6 – Loyalist",cat:"enne",s:"た",
+body:"安全・サポート・確実性を求める。懐疑的でフォビック（恐れへの投降）またはカウンターフォビック（恐れへの挑戦）に分かれる。パッション＝恐れ（臆病）。",
+rel:["エニアグラム9タイプ","カウンタータイプ","フォビック・カウンターフォビック"]},
+{id:"type7",name:"タイプ7（楽天家）",nameEn:"Type 7 – Enthusiast",cat:"enne",s:"た",
+body:"自由・多様な体験・苦痛の回避を求める。未来志向で楽観的・創造的。苦痛を再定義して回避する「再フレーミング」傾向。パッション＝暴食（グラトニー）。",
+rel:["エニアグラム9タイプ","パッション"]},
+{id:"type8",name:"タイプ8（挑戦者）",nameEn:"Type 8 – Challenger",cat:"enne",s:"た",
+body:"力・コントロール・脆弱性の回避を求める。強さと正義感を持ち不当なことに反発する。コアフィアーは「コントロールされること」。パッション＝色欲（ラスト）。",
+rel:["エニアグラム9タイプ","パッション"]},
+{id:"type9",name:"タイプ9（平和主義者）",nameEn:"Type 9 – Peacemaker",cat:"enne",s:"た",
+body:"調和・一体感・葛藤の回避を求める。自己を麻痺させ優先順位をつけることが困難になりやすい。パッション＝怠惰（スロス）。コアな欲求は内的平和と存在の安定。",
+rel:["エニアグラム9タイプ","パッション"]},
+{id:"phobic-counterphobic",name:"フォビック・カウンターフォビック",nameEn:"Phobic / Counter-Phobic",cat:"enne",s:"ふ",
+body:"タイプ6特有の2極性。フォビック（恐れる物事から逃げる）とカウンターフォビック（恐れに向かって突進する）。同じタイプ6でも正反対の外見を持つことがある。",
+rel:["タイプ6","カウンタータイプ"]},
+{id:"ennea-reframe",name:"再フレーミング（タイプ7）",nameEn:"Reframing (Type 7)",cat:"enne",s:"さ",
+body:"タイプ7が苦痛・否定的体験をポジティブな枠組みに置き換えて回避する防衛機制。「これは実は面白い体験だ」と意味を変換することで不快を避ける。",
+rel:["タイプ7（楽天家）","フィクセーション"]},
+{id:"riso-hudson",name:"リソ＆ハドソン",nameEn:"Riso & Hudson",cat:"enne",s:"り",
+body:"Don Richard RisoとRuss Hudsonによる研究者コンビ。「健全度レベル」「本質的タイプ理論」を大幅に発展させ、現代エニアグラムの主流学派の一つを形成。",
+rel:["健全度レベル","統合と分裂の矢印"]},
+{id:"ichazo-naranjo",name:"イチャゾ＆ナランジョ",nameEn:"Ichazo & Naranjo",cat:"enne",s:"い",
+body:"オスカー・イチャゾが心理学的体系を構築し、クラウディオ・ナランジョがDSM精神医学との統合・西洋普及に貢献。現代エニアグラムの二大起源。",
+rel:["パッション","フィクセーション"]},
+{id:"katherine-fauvre",name:"キャサリン・フォーブル",nameEn:"Katherine Fauvre",cat:"enne",s:"き",
+body:"トライタイプ理論の提唱者。エニアグラムの3センターを横断する多重タイプ理論を発展させ、27の原型分類を確立した。",
+rel:["トライタイプ","3センター"]},
+{id:"hornevian-groups",name:"ホーナイグループ",nameEn:"Hornevian Groups",cat:"enne",s:"ほ",
+body:"Karen Horneyの神経症三類型（攻撃的/服従的/離脱的）をエニアグラムに対応させた分類。積極的（3・7・8）・依存的（1・2・6）・内引的（4・5・9）の3グループ。",
+rel:["エニアグラム9タイプ","3センター"]},
+{id:"harmonic-groups",name:"ハーモニックグループ",nameEn:"Harmonic Groups",cat:"enne",s:"は",
+body:"困難・葛藤への反応パターンによる3グループ分類。楽観的（7・9・2）・有能性（1・3・5）・感情的（4・6・8）。自分の問題への対処スタイルを示す。",
+rel:["エニアグラム9タイプ","ホーナイグループ"]},
+{id:"object-relations",name:"対象関係グループ",nameEn:"Object Relations Groups",cat:"enne",s:"た",
+body:"母親・父親・兄弟姉妹との早期対象関係のパターンによる3グループ。拒絶（4・5・8）・連結（1・2・6）・抑圧（3・7・9）に分類される。",
+rel:["エニアグラム9タイプ"]},
+
+// ══ SOCIONICS ══
+{id:"model-a",name:"モデルA",nameEn:"Model A",cat:"socio",s:"も",
+body:"A. Augustaが提唱したソシオニクスの基本モデル。8スロット（機能ポジション）に情報要素がどう配置されるかを示す構造図。各タイプの情報代謝様式を記述する核心理論。",
+rel:["情報要素","機能スロット","モデルG"]},
+{id:"model-g",name:"モデルG",nameEn:"Model G (Gulenko)",cat:"socio",s:"も",
+body:"Viktor Gulenkoが提唱したモデルAの拡張。機能の活性化状態・プロセス/結果指向・肯定/否定極性などの動的要素を加えた、より複雑なモデル。GS（グループ・ソシオニクス）の基盤。",
+rel:["モデルA","Gulenko","サブタイプ（ソシオニクス）"]},
+{id:"info-elements",name:"情報要素",nameEn:"Information Elements / Aspects",cat:"socio",s:"じ",
+body:"ソシオニクスにおける8要素（Fe・Fi・Te・Ti・Se・Si・Ne・Ni）。「現実に流れる情報の側面」として定義される。MBTIの認知機能と類似するが理論的背景・定義が異なる。",
+rel:["モデルA","情報代謝"]},
+{id:"info-metabolism",name:"情報代謝",nameEn:"Information Metabolism",cat:"socio",s:"じ",
+body:"A. Augustaがアントン・ケンピンスキの「情報代謝論」をもとに提唱した概念。人の心理を「外界の情報を取り込み・処理・出力するシステム」として捉えるソシオニクスの根本思想。",
+rel:["情報要素","モデルA","Augusta"]},
+{id:"slots",name:"機能スロット（8ポジション）",nameEn:"Model A Slots",cat:"socio",s:"き",
+body:"モデルAの8ポジション。①基本（ベース）②創造③役割④脆弱⑤提案⑥動員⑦観察⑧デモ。各スロットに情報要素が配置され、スロットごとに強さ・意識性・価値性が異なる。",
+rel:["モデルA","基本機能","脆弱機能"]},
+{id:"base",name:"基本機能（ベース）",nameEn:"Base / Leading Function",cat:"socio",s:"き",
+body:"モデルAの第1スロット。最も強く自然に使われる機能で、情報代謝の核。批判されても揺らがず自信を持って使い続けられる領域。4次元機能。",
+rel:["機能スロット","創造機能","4次元機能"]},
+{id:"creative",name:"創造機能",nameEn:"Creative Function",cat:"socio",s:"そ",
+body:"モデルAの第2スロット。基本機能を実現・行動化するための機能。柔軟かつ創意工夫できる領域で、基本機能のアイデアを現実に落とし込む役割を担う。3次元機能。",
+rel:["機能スロット","基本機能"]},
+{id:"role",name:"役割機能",nameEn:"Role Function",cat:"socio",s:"や",
+body:"モデルAの第3スロット。意識的に努力して使う機能。短期間は発揮できるが疲弊しやすく長期維持が困難。「こうあるべき」という期待から使おうとすることが多い。2次元機能。",
+rel:["機能スロット","脆弱機能"]},
+{id:"vulnerable",name:"脆弱機能（ペインポイント）",nameEn:"Vulnerable / PoLR Function",cat:"socio",s:"は",
+body:"モデルAの第4スロット（PoLR: Place of Least Resistance）。最も弱く批判されると深く傷つく領域。使うことを避けがちで、ここを攻撃されると対人関係が崩壊しやすい。1次元機能。",
+rel:["機能スロット","役割機能","1次元機能"]},
+{id:"suggestive",name:"提案機能",nameEn:"Suggestive / Dual-Seeking Function",cat:"socio",s:"て",
+body:"モデルAの第5スロット。デュアルパートナーの基本機能と一致する領域で、最もサポートを求め欲する機能。ここが充たされると安心感・満足感が生まれる。",
+rel:["機能スロット","デュアル"]},
+{id:"mobilizing",name:"動員機能",nameEn:"Mobilizing / Activating Function",cat:"socio",s:"と",
+body:"モデルAの第6スロット。長期的に発達させる潜在的機能。アクティベーターパートナーの基本機能と一致し、刺激を受けることで成長が促進される領域。",
+rel:["機能スロット","インタータイプ関係"]},
+{id:"ignoring",name:"観察機能（無視機能）",nameEn:"Ignoring Function",cat:"socio",s:"か",
+body:"モデルAの第7スロット。意識の外にあるが実は使える機能。積極的には使わないが必要とあれば発揮でき、デュアルの創造機能と一致する。",
+rel:["機能スロット","デュアル"]},
+{id:"demo",name:"デモ機能",nameEn:"Demonstrative Function",cat:"socio",s:"て",
+body:"モデルAの第8スロット。無意識に（しばしば過剰に）発揮される機能。自分では「使っている」と認識しにくいが、他者からは明らかに見える。",
+rel:["機能スロット"]},
+{id:"valued",name:"価値機能",nameEn:"Valued Functions",cat:"socio",s:"か",
+body:"モデルAのスロット①②⑤⑥に配置された4機能。各タイプはこの情報を重視・好み、クアドラ内で共有される。非価値機能の情報は自然と軽視・無視しがち。",
+rel:["モデルA","クアドラ","非価値機能"]},
+{id:"non-valued",name:"非価値機能",nameEn:"Non-Valued Functions",cat:"socio",s:"ひ",
+body:"モデルAのスロット③④⑦⑧に対応する機能。使えるが重要視しない領域。同タイプでも価値観に関わるため、非価値機能の情報を押しつけられると苦痛に感じる。",
+rel:["価値機能","モデルA"]},
+{id:"dimensionality",name:"次元（機能の次元）",nameEn:"Dimensionality",cat:"socio",s:"じ",
+body:"各スロットの機能が持つ「処理の深さ」。1〜4次元で表し、基本機能は4次元（経験・状況・時間・規範の4軸で処理）、脆弱機能は1次元（良い/悪いのみ）。",
+rel:["4次元機能","1次元機能","機能スロット"]},
+{id:"dim4",name:"4次元機能",nameEn:"4-Dimensional Function",cat:"socio",s:"よ",
+body:"「経験・状況・時間・規範」の4軸で情報処理できる最も成熟した次元。基本機能（第1スロット）がこれに当たり、長期的・文脈的・抽象的な扱いが可能。",
+rel:["次元（機能の次元）","基本機能"]},
+{id:"dim1",name:"1次元機能",nameEn:"1-Dimensional Function",cat:"socio",s:"い",
+body:"「規範（良い/悪い）」の1軸のみで情報処理する最も未熟な次元。脆弱機能（第4スロット）がこれに当たり、黒白思考・過敏反応・アドバイスへの傷つきが起きやすい。",
+rel:["次元（機能の次元）","脆弱機能"]},
+{id:"intertype",name:"インタータイプ関係",nameEn:"Intertype Relations",cat:"socio",s:"い",
+body:"ソシオニクス固有の16種の関係論。モデルAのスロット対応から数学的に導出される。デュアル（最良補完）〜コンフリクト（最大緊張）まで体系的に記述する。",
+rel:["デュアル","クアドラ","モデルA"]},
+{id:"dual",name:"デュアル",nameEn:"Dual",cat:"socio",s:"て",
+body:"最も相互補完的なタイプペア。基本機能↔提案機能、創造機能↔動員機能が対応し、自然に互いの弱点をカバーする。長期的な関係で安定・成長をもたらすとされる。",
+rel:["インタータイプ関係","提案機能","クアドラ"]},
+{id:"activation",name:"アクティベーター",nameEn:"Activation",cat:"socio",s:"あ",
+body:"デュアルに次ぐ補完関係。互いを刺激・活性化させ短期的な協力・楽しさに優れる。同クアドラ内の組み合わせだが、長期接触ではデュアルより疲弊しやすいとされる。",
+rel:["インタータイプ関係","デュアル"]},
+{id:"mirror-socio",name:"鏡（ミラー）",nameEn:"Mirror",cat:"socio",s:"か",
+body:"価値機能を共有するがスロット配置が異なるペア。似た価値観を持ちながら実践の仕方が噛み合わず「なぜそうするの？」となりやすい。同クアドラ内の関係。",
+rel:["インタータイプ関係","クアドラ"]},
+{id:"identity-socio",name:"同一（アイデンティティ）",nameEn:"Identity",cat:"socio",s:"と",
+body:"完全に同じタイプ同士の関係。深く理解し合えるが、互いの弱点も共有するため刺激・補完が少ない。長期では停滞感が生まれやすい。",
+rel:["インタータイプ関係"]},
+{id:"conflict",name:"コンフリクト（相衝突）",nameEn:"Conflict",cat:"socio",s:"こ",
+body:"互いの脆弱機能（4th）を相手の基本機能（1st）が直撃するペア。最も消耗・ストレスが高い関係。短期は刺激的なこともあるが、長期接触で著しく疲弊する。",
+rel:["インタータイプ関係","脆弱機能"]},
+{id:"supervision",name:"監督（スーパービジョン）",nameEn:"Supervision",cat:"socio",s:"か",
+body:"インタータイプ関係の一つ。監督者は被監督者の脆弱機能領域を刺激する。被監督者は「見張られている」感覚を持ちやすく、長期では消耗する非対称な関係。",
+rel:["インタータイプ関係","脆弱機能"]},
+{id:"benefit",name:"利益（ベネフィット）",nameEn:"Benefit",cat:"socio",s:"り",
+body:"インタータイプ関係の一つ。利益提供者は受け手に有益な情報を無意識に与えるが、受け手は提供者のニーズを気づきにくい非対称な関係。",
+rel:["インタータイプ関係"]},
+{id:"semi-dual",name:"セミデュアル",nameEn:"Semi-Dual",cat:"socio",s:"せ",
+body:"デュアルに次ぐ親密さを持つが完全には補完し合わないペア。価値機能の一部が一致するため共鳴する面もあるが、コミュニケーションで摩擦が生じやすい。",
+rel:["インタータイプ関係","デュアル"]},
+{id:"quasi-identical",name:"準同一（クアシ・アイデンティカル）",nameEn:"Quasi-Identical",cat:"socio",s:"し",
+body:"同じ情報要素を持つが価値機能配置が異なるペア。外から見ると似ているが内部の動機・価値観が大きくずれる。「似て非なる」関係。",
+rel:["インタータイプ関係","同一（アイデンティティ）"]},
+{id:"quadra",name:"クアドラ",nameEn:"Quadra",cat:"socio",s:"く",
+body:"16タイプを4タイプずつに分けた4グループ（α・β・γ・δ）。同クアドラ内は価値機能を共有するため文化・コミュニケーションスタイルが似る。",
+rel:["インタータイプ関係","価値機能","クアドラ価値観"]},
+{id:"alpha",name:"アルファ（α）クアドラ",nameEn:"Alpha Quadra",cat:"socio",s:"あ",
+body:"ILE・SEI・ESE・LIIの4タイプ。Ne・Si・Fe・Tiを価値機能とする。知的探求・楽しい雰囲気・民主的コミュニケーション・多様なアイデアを好む傾向。",
+rel:["クアドラ"]},
+{id:"beta",name:"ベータ（β）クアドラ",nameEn:"Beta Quadra",cat:"socio",s:"へ",
+body:"SLE・IEI・EIE・LSIの4タイプ。Se・Ni・Fe・Tiを価値機能とする。強さ・カリスマ・長期ビジョン・感情的表現・ヒエラルキーを重視する傾向。",
+rel:["クアドラ"]},
+{id:"gamma",name:"ガンマ（γ）クアドラ",nameEn:"Gamma Quadra",cat:"socio",s:"か",
+body:"SEE・ILI・LIE・ESIの4タイプ。Se・Ni・Te・Fiを価値機能とする。実践的成果・戦略・個人の倫理観・競争的環境を好む傾向。",
+rel:["クアドラ"]},
+{id:"delta",name:"デルタ（δ）クアドラ",nameEn:"Delta Quadra",cat:"socio",s:"て",
+body:"IEE・SLI・LSE・EIIの4タイプ。Ne・Si・Te・Fiを価値機能とする。実用的革新・個人の自律・穏やかな協力・質の高い日常を重視する傾向。",
+rel:["クアドラ"]},
+{id:"quadra-values",name:"クアドラ価値観",nameEn:"Quadra Values",cat:"socio",s:"く",
+body:"各クアドラが共有する情報優先順位のセット。α=Ne/Si/Fe/Ti、β=Se/Ni/Fe/Ti、γ=Se/Ni/Te/Fi、δ=Ne/Si/Te/Fi。社会の変遷を4クアドラの循環で説明する理論もある（Gulenko）。",
+rel:["クアドラ","価値機能"]},
+{id:"dichotomies-socio",name:"ソシオニクス・ディコトミー",nameEn:"Socionics Dichotomies",cat:"socio",s:"そ",
+body:"合理的/非合理的・外向/内向・倫理/論理・直観/感覚・静的/動的・陽性/陰性・民主的/貴族的・戦術/戦略・構成的/感情的など多数の二項対立分類軸。タイプ判別に使われる。",
+rel:["合理的・非合理的","静的・動的","戦術・戦略"]},
+{id:"rational-irr",name:"合理的・非合理的",nameEn:"Rational / Irrational",cat:"socio",s:"こ",
+body:"判断機能（Te/Ti/Fe/Fi）を基本機能とするタイプを「合理的（Rational）」、知覚機能（Se/Si/Ne/Ni）を基本とするタイプを「非合理的（Irrational）」と呼ぶ。",
+rel:["ソシオニクス・ディコトミー","情報要素"]},
+{id:"static-dynamic",name:"静的・動的",nameEn:"Static / Dynamic",cat:"socio",s:"し",
+body:"静的タイプは状態・スナップショット・状況の記述を重視し、動的タイプは変化・プロセス・流れを重視する傾向がある。Se・Ti・Fe・Niが静的、Si・Te・Fi・Neが動的。",
+rel:["ソシオニクス・ディコトミー"]},
+{id:"tactics-strategy",name:"戦術・戦略",nameEn:"Tactics / Strategy",cat:"socio",s:"せ",
+body:"短期的・具体的行動（戦術型）か、長期的・大局的計画（戦略型）かのディコトミー。Se/Ne優勢タイプは戦術的、Si/Ni優勢タイプは戦略的になりやすい。",
+rel:["ソシオニクス・ディコトミー"]},
+{id:"positivist-neg",name:"陽性・陰性（ポジティビスト/ネガティビスト）",nameEn:"Positivist / Negativist",cat:"socio",s:"よ",
+body:"陽性タイプは肯定的・包括的な表現を好み、陰性タイプは否定・例外・問題点からアプローチしやすい。価値判断の方向性の違いとして現れる。",
+rel:["ソシオニクス・ディコトミー"]},
+{id:"constructivist",name:"構成的・感情的",nameEn:"Constructivist / Emotivist",cat:"socio",s:"こ",
+body:"論理機能（Te/Ti）を価値とするタイプは構成的（論理優先）、倫理機能（Fe/Fi）を価値とするタイプは感情的（関係・感情優先）に分類される。",
+rel:["ソシオニクス・ディコトミー","価値機能"]},
+{id:"democratic",name:"民主的・貴族的",nameEn:"Democratic / Aristocratic",cat:"socio",s:"み",
+body:"民主的タイプは個人の能力・行動を重視し実力を評価する。貴族的タイプはグループ・家系・社会的地位を重視する傾向がある。",
+rel:["ソシオニクス・ディコトミー","クアドラ"]},
+{id:"subtype-socio",name:"サブタイプ（ソシオニクス）",nameEn:"Subtype",cat:"socio",s:"さ",
+body:"同タイプ内での変型。主に「基本機能優勢サブタイプ」と「創造機能優勢サブタイプ」に二分される（Gulenko学派）。同タイプでも外見が大幅に異なる理由の一つ。",
+rel:["モデルG","基本機能","創造機能"]},
+{id:"augusta",name:"Augusta（ソシオニクス創始者）",nameEn:"Aušra Augustinavičiūtė",cat:"socio",s:"お",
+body:"リトアニアの研究者で1970年代にソシオニクスを創始。ユング心理学とケンピンスキの情報代謝論を統合し、インタータイプ関係理論を含む体系を構築した。",
+rel:["情報代謝","モデルA","インタータイプ関係"]},
+{id:"gulenko",name:"Gulenko（Viktor Gulenko）",nameEn:"Viktor Gulenko",cat:"socio",s:"く",
+body:"ウクライナのソシオニクス研究者。グループ・ソシオニクス（GS）を主宰。モデルG・サブタイプ論・クアドラ社会理論・コミュニケーションスタイル論などを発展させた。",
+rel:["モデルG","クアドラ"]},
+{id:"wikisocion",name:"Wikisocion",nameEn:"Wikisocion",cat:"socio",s:"う",
+body:"英語圏の主要なソシオニクス情報集積サイト。Augusta・複数研究者の理論を整理した標準的な英語リファレンス。モデルA記述・インタータイプ関係・タイプ記述が充実。",
+rel:["モデルA","インタータイプ関係"]},
+{id:"16types-socio",name:"16タイプ（ソシオニクス）",nameEn:"16 Socionic Types",cat:"socio",s:"じ",
+body:"ILE・SEI・ESE・LII・EIE・LSI・SLE・IEI・SEE・ILI・LIE・ESI・LSE・EII・IEE・SLIの16種。MBTIと類似するが命名・理論基盤が異なる。例：ILE≈ENTP、LII≈INTP。",
+rel:["情報要素","モデルA","クアドラ"]},
+{id:"process-result",name:"プロセス・結果（ディコトミー）",nameEn:"Process / Result",cat:"socio",s:"ふ",
+body:"Gulenkoのモデルにおけるディコトミー。プロセス型は進行中の過程・変化を重視し、結果型は達成・完了した状態を重視する。思考・行動スタイルの違いに現れる。",
+rel:["ソシオニクス・ディコトミー","モデルG"]},
+{id:"asking-declaring",name:"問い・宣言（ディコトミー）",nameEn:"Asking / Declaring",cat:"socio",s:"と",
+body:"コミュニケーションスタイルのディコトミー。問い型は情報交換を疑問形で行い、宣言型は断言・主張の形でコミュニケーションをとる傾向がある。",
+rel:["ソシオニクス・ディコトミー"]},
+{id:"extratim-introtim",name:"エクストラティム・イントロティム",nameEn:"Extratim / Introtim",cat:"socio",s:"え",
+body:"ソシオニクスにおける外向（エクストラティム）と内向（イントロティム）の分類。エネルギーの向き・情報処理の方向を示す。MBTIのE/Iとほぼ対応するが理論的定義が異なる。",
+rel:["ソシオニクス・ディコトミー","情報要素"]},
+
+// ══ BIG FIVE ══
+{id:"ocean",name:"OCEAN（5因子）",nameEn:"OCEAN / Five Factor Model",cat:"big5",s:"お",
+body:"O（開放性）・C（誠実性）・E（外向性）・A（協調性）・N（神経症傾向）の頭文字。学術心理学で最も支持されるパーソナリティモデルの略称。",
+rel:["特性論","NEO PI-R","各因子説明"]},
+{id:"openness",name:"開放性（O）",nameEn:"Openness to Experience",cat:"big5",s:"か",
+body:"知的好奇心・芸術的感受性・抽象的思考・新しい体験への開放度。高Oは創造的・想像的・好奇心旺盛。低Oは実用的・慣習的・具体的傾向。MBTIのN/Sと最も相関が高い因子。",
+rel:["OCEAN（5因子）","ビッグファイブ−MBTI対応"]},
+{id:"conscientiousness",name:"誠実性（C）",nameEn:"Conscientiousness",cat:"big5",s:"せ",
+body:"自己規律・計画性・責任感・目標達成への粘り強さ。高Cは組織的・信頼できる・勤勉。低Cは衝動的・柔軟・即興的傾向。MBTIのJ/Pと最も相関が高い因子。",
+rel:["OCEAN（5因子）","ビッグファイブ−MBTI対応"]},
+{id:"extraversion",name:"外向性（E）",nameEn:"Extraversion",cat:"big5",s:"か",
+body:"社交性・活発さ・自己主張・ポジティブ感情の傾向。高Eは社交的・話し好き・注目を楽しむ。低E（内向）は控えめ・一人を好む・落ち着いた傾向。MBTIのE/Iと高相関。",
+rel:["OCEAN（5因子）","ビッグファイブ−MBTI対応"]},
+{id:"agreeableness",name:"協調性（A）",nameEn:"Agreeableness",cat:"big5",s:"き",
+body:"協力的・信頼・思いやり・利他性・他者との調和。高Aは親切・共感的・協力的。低Aは競争的・批判的・自己主張が強い傾向。MBTIのT/F（F側）と相関が高い因子。",
+rel:["OCEAN（5因子）","ビッグファイブ−MBTI対応"]},
+{id:"neuroticism",name:"神経症傾向（N）",nameEn:"Neuroticism",cat:"big5",s:"し",
+body:"感情的不安定さ・不安・抑うつ・易怒性・ネガティブ感情への感受性。高Nは感情の起伏が大きく心配性。低N（感情安定）は落ち着いた・ストレス耐性が高い傾向。",
+rel:["OCEAN（5因子）"]},
+{id:"trait-theory",name:"特性論",nameEn:"Trait Theory",cat:"big5",s:"と",
+body:"パーソナリティを連続量の「特性（トレイト）」で記述するアプローチ。カテゴリに分類する「類型論」と対比される。「外向性50%」のような連続的記述が可能な点が特徴。",
+rel:["類型論","OCEAN（5因子）"]},
+{id:"neo-pi",name:"NEO PI-R",nameEn:"NEO Personality Inventory-Revised",cat:"big5",s:"ね",
+body:"CostaとMcCraeが開発したビッグファイブ標準測定尺度。5因子×6ファセット＝30サブスケールで精密測定。研究・臨床で最も広く使用される標準化されたツール。",
+rel:["OCEAN（5因子）","ファセット"]},
+{id:"facets",name:"ファセット（下位因子）",nameEn:"Facets",cat:"big5",s:"ふ",
+body:"各ビッグファイブ因子をさらに6つに細分化した下位尺度。例：誠実性のファセットは「有能感・秩序・誠実さ・達成追求・自己規律・慎重さ」。より精密な個人差の記述が可能。",
+rel:["NEO PI-R","OCEAN（5因子）"]},
+{id:"b5-mbti",name:"ビッグファイブ−MBTI対応",nameEn:"Big Five – MBTI Correlations",cat:"big5",s:"た",
+body:"E↔外向性(r≈0.7)、O↔N/S(r≈0.6)、A↔T/F(F側と正相関)、C↔J/P(J側と正相関)という統計的相関。理論的枠組みが異なるため完全対応ではない。",
+rel:["OCEAN（5因子）","4軸指標"]},
+{id:"heritability",name:"遺伝率（パーソナリティ）",nameEn:"Heritability of Personality",cat:"big5",s:"い",
+body:"双生児研究などからビッグファイブの各因子は40〜60%程度の遺伝率を持つとされる。パーソナリティが生物学的基盤を持つことを示す重要なエビデンス。",
+rel:["OCEAN（5因子）","特性論"]},
+{id:"ipip",name:"IPIP（国際パーソナリティ尺度プール）",nameEn:"IPIP",cat:"big5",s:"い",
+body:"Lewis Goldbergが公開したオープンソースのパーソナリティ測定項目集。無料ビッグファイブテストの多くがこれを利用。研究者が自由に使用できる公開尺度。",
+rel:["NEO PI-R","OCEAN（5因子）"]},
+{id:"b5-stability",name:"パーソナリティの安定性",nameEn:"Personality Stability",cat:"big5",s:"は",
+body:"縦断研究では加齢とともにC（誠実性）・A（協調性）が上昇し、N（神経症傾向）・E（外向性）・O（開放性）はやや低下するパターンが示されている。",
+rel:["OCEAN（5因子）","特性論"]},
+{id:"cross-cultural-b5",name:"ビッグファイブの文化普遍性",nameEn:"Cross-Cultural Validity",cat:"big5",s:"ふ",
+body:"ビッグファイブの5因子構造は多くの文化・言語で再現されることが示されており、普遍的なパーソナリティ記述の枠組みとして支持を得ている。",
+rel:["OCEAN（5因子）","特性論"]},
+{id:"dark-triad",name:"ダークトライアド",nameEn:"Dark Triad",cat:"big5",s:"た",
+body:"ナルシシズム・マキャベリアニズム・サイコパシーの3特性のセット。ビッグファイブの低A（協調性）・低C（誠実性）・低N安定性と関連する。反社会的傾向の研究で重視される。",
+rel:["OCEAN（5因子）","協調性（A）"]},
+
+// ══ PSYCHOSOPHY ══
+{id:"psycho-4",name:"4機能（E・V・L・F）",nameEn:"Four Aspects",cat:"psycho",s:"よ",
+body:"サイコソフィアの4機能。E（感情）・V（意志）・L（論理）・F（物質）の並び順（順列24通り）がタイプを決定する。各機能は1〜4位のポジションで意味が変わる。",
+rel:["1st機能","サイコソフィア24タイプ","アファナシエフ"]},
+{id:"1st",name:"1st機能",nameEn:"First Function",cat:"psycho",s:"い",
+body:"最も強く自然に使われる機能。他者に批判されても揺らがず自信を持って使える。「過剰」になりやすく、周囲にはその機能が「強すぎる」と映ることもある。",
+rel:["4機能（E・V・L・F）","2nd機能"]},
+{id:"2nd",name:"2nd機能",nameEn:"Second Function",cat:"psycho",s:"に",
+body:"意識的に使う機能。不安定で揺れやすく過剰にもなる。周囲からのフィードバックに敏感で承認を求める傾向がある。創造的・表現的な側面も持つ。",
+rel:["1st機能","3rd機能","4機能（E・V・L・F）"]},
+{id:"3rd",name:"3rd機能",nameEn:"Third Function",cat:"psycho",s:"さ",
+body:"最も不安定で傷つきやすい機能。承認への欲求が強く批判されると深く傷つく。この機能の弱さは自己批判の源になりやすく、心理的ケアが特に必要な領域。",
+rel:["2nd機能","4th機能","4機能（E・V・L・F）"]},
+{id:"4th",name:"4th機能",nameEn:"Fourth Function",cat:"psycho",s:"よ",
+body:"最も弱く発達が遅れた機能だが批判への反応は穏やかで「気にしない」態度をとれることが多い。働きは控えめで周囲には「欠如」として映ることがある。",
+rel:["3rd機能","4機能（E・V・L・F）"]},
+{id:"E-func",name:"E機能（感情）",nameEn:"Emotion",cat:"psycho",s:"い",
+body:"感情・対人関係・美的感受性・精神的つながりを扱う機能。E1stは感情的に強く自信があり、E3rdは感情面での承認を強く求め傷つきやすい。",
+rel:["4機能（E・V・L・F）"]},
+{id:"V-func",name:"V機能（意志）",nameEn:"Volition",cat:"psycho",s:"い",
+body:"意志・目標・支配・コントロール・リーダーシップを扱う機能。V1stは強い意志と自律性、V3rdは意志決定での承認欲求と依存傾向が見られる。",
+rel:["4機能（E・V・L・F）"]},
+{id:"L-func",name:"L機能（論理）",nameEn:"Logic",cat:"psycho",s:"ろ",
+body:"論理・分析・体系化・概念的理解を扱う機能。L1stは論理的自信があり議論を恐れない。L3rdは論理的評価に敏感で「バカにされる」恐れを持ちやすい。",
+rel:["4機能（E・V・L・F）"]},
+{id:"F-func",name:"F機能（物質）",nameEn:"Physics",cat:"psycho",s:"ふ",
+body:"身体・物質・現実的行動・空間・感覚的快楽を扱う機能。F1stは身体的・物質的な自信と実行力があり、F3rdは外見・身体への批判に過敏になりやすい。",
+rel:["4機能（E・V・L・F）"]},
+{id:"24types",name:"サイコソフィア24タイプ",nameEn:"24 Types",cat:"psycho",s:"に",
+body:"4機能の順列24通りがタイプを形成。例：EVLF・FLVE・VELFなど。著名人の名前で呼ばれることも（例：EVLF＝パステルナーク、FVLE＝ナポレオン）。",
+rel:["4機能（E・V・L・F）","セクスタ"]},
+{id:"sexta",name:"セクスタ",nameEn:"Sexta",cat:"psycho",s:"せ",
+body:"24タイプを4タイプずつ6グループに分けた分類。同セクスタ内のタイプは補完的関係を持ちやすく、共通した価値観・コミュニケーションスタイルが見られる。",
+rel:["サイコソフィア24タイプ"]},
+{id:"afanasyev",name:"アファナシエフ",nameEn:"Alexander Afanasyev",cat:"psycho",s:"あ",
+body:"サイコソフィアの創始者。ロシアの文化研究者で、人間の心理を4側面（感情・意志・論理・物質）の優先順位で記述する体系を1985年頃に提唱した。",
+rel:["4機能（E・V・L・F）","サイコソフィア24タイプ"]},
+{id:"psycho-compatibility",name:"サイコソフィア相性論",nameEn:"Psychosophy Compatibility",cat:"psycho",s:"さ",
+body:"同セクスタ内・機能ポジションの一致/不一致による相性理論。1st機能が相手の3rdと重なる場合は無意識に傷つけ合いやすく、4th同士は穏やかな相互理解が生まれやすい。",
+rel:["セクスタ","1st機能","3rd機能"]},
+{id:"overuse",name:"1st機能の過剰（オーバーユース）",nameEn:"First Function Overuse",cat:"psycho",s:"い",
+body:"1st機能は最も得意なため無意識に使いすぎることがある。例：V1stは過度に支配的に、E1stは感情に溺れすぎることがある。成長には適切な抑制も必要とされる。",
+rel:["1st機能","4機能（E・V・L・F）"]},
+{id:"psycho-vs-socio",name:"サイコソフィアとソシオニクスの関係",nameEn:"Psychosophy vs Socionics",cat:"psycho",s:"さ",
+body:"ともにロシア語圏で発展した類型論で文化的背景を共有するが、独立した理論体系。ソシオニクスは「情報の処理様式」、サイコソフィアは「心理的優先順位」を扱う点で異なる。",
+rel:["サイコソフィア24タイプ","ソシオニクス・ディコトミー"]},
+
+// ══ COMMON ══
+{id:"jung",name:"ユング心理学",nameEn:"Jungian Psychology",cat:"common",s:"ゆ",
+body:"C.G.ユングの分析心理学。「心理学的類型（1921）」で外向/内向と4機能を提唱し、MBTIとソシオニクス双方の起源となった。集合的無意識・元型・個性化も主要概念。",
+rel:["認知機能","情報要素","個性化"]},
+{id:"typology",name:"類型論",nameEn:"Typology",cat:"common",s:"る",
+body:"パーソナリティをカテゴリ（タイプ）に分類するアプローチ。MBTI・エニアグラム・ソシオニクス・サイコソフィアが代表例。連続量で測定する特性論と対比される。",
+rel:["特性論","タイピング"]},
+{id:"typing",name:"タイピング",nameEn:"Typing",cat:"common",s:"た",
+body:"自己診断・他者観察・質問紙等によって類型システム上のタイプを特定するプロセス。認知機能観察・動画タイピング・コミュニティ議論など様々な手法がある。",
+rel:["ミスタイプ","自己概念バイアス","機能タイピング"]},
+{id:"mistype",name:"ミスタイプ",nameEn:"Mistype",cat:"common",s:"み",
+body:"タイプを誤って特定してしまうこと。テスト結果への過依存・表面的行動のみからの判断・自己概念バイアスが主因。E/I・J/Pのミスタイプが特に多い。",
+rel:["タイピング","自己概念バイアス"]},
+{id:"self-concept-bias",name:"自己概念バイアス",nameEn:"Self-Concept Bias",cat:"common",s:"し",
+body:"「自分がこうありたい」という理想像が診断結果に影響するバイアス。憧れのタイプへのミスタイプを生みやすく、特に「理想的」とされるタイプへの過大解釈が起きる。",
+rel:["ミスタイプ","タイピング"]},
+{id:"cross",name:"クロス分析",nameEn:"Cross-System Analysis",cat:"common",s:"く",
+body:"複数の類型システムのタイプを組み合わせて自己理解を深める手法。例：「INFJ + 4w5 + sp/sx + IEI + FLVE」のように複数結果を統合的に解釈する。",
+rel:["タイピング","トライタイプ"]},
+{id:"persona",name:"ペルソナ",nameEn:"Persona",cat:"common",s:"へ",
+body:"ユング心理学の概念。社会的役割を果たすために外に見せる「仮面」。過度に発達するとペルソナと本来の自己が乖離し、アイデンティティの問題が生じる。",
+rel:["ユング心理学","シャドー機能"]},
+{id:"archetype",name:"元型（アーキタイプ）",nameEn:"Archetype",cat:"common",s:"け",
+body:"ユングが提唱した集合的無意識に存在する普遍的イメージ・パターン。英雄・母・影・トリックスター・アニマ/アニムスなど。MBTIのビービーモデルや文化分析に応用される。",
+rel:["ユング心理学","ペルソナ"]},
+{id:"type-vs-state",name:"タイプ vs 状態",nameEn:"Type vs State",cat:"common",s:"た",
+body:"「タイプ」は比較的安定した性格傾向であり、「状態」は一時的な感情・文脈による変動。ストレス・疲弊・高揚などの状態変化がタイプのように見えることがあり判断を難しくする。",
+rel:["タイピング","グリップ","健全度レベル"]},
+{id:"func-typing",name:"機能タイピング（観察ベース）",nameEn:"Function-Based Typing",cat:"common",s:"き",
+body:"テスト結果ではなく、実際の行動・発言・反応パターンから認知機能やソシオニクスの情報要素を観察・推定するタイピング手法。より精度が高いとされるが習熟に時間がかかる。",
+rel:["タイピング","認知機能","情報要素"]},
+{id:"nature-nurture",name:"生得 vs 後天",nameEn:"Nature vs Nurture",cat:"common",s:"し",
+body:"パーソナリティ形成における遺伝的要因（生得）と環境・経験（後天）の比重をめぐる議論。ビッグファイブで4〜6割の遺伝率が示されるが、類型論では諸説ある。",
+rel:["遺伝率（パーソナリティ）","特性論"]},
+{id:"healthy-unhealthy",name:"健全/不健全な表れ",nameEn:"Healthy vs Unhealthy Expression",cat:"common",s:"け",
+body:"どの類型システムでも同一タイプが健全な状態と不健全な状態では全く異なる外見を示す。タイピングには「現在の状態」と「根本的なタイプ傾向」を区別する視点が重要。",
+rel:["健全度レベル","タイプ vs 状態"]},
+{id:"community",name:"類型界隈（コミュニティ）",nameEn:"Typology Community",cat:"common",s:"る",
+body:"MBTI・エニアグラム・ソシオニクス等を中心に自己・他者分析を楽しむオンラインコミュニティ。Twitter/X・Reddit・Discordなどで活発に議論が行われている。",
+rel:["タイピング","クロス分析"]},
+{id:"verification",name:"タイプの検証・修正",nameEn:"Type Verification",cat:"common",s:"た",
+body:"一度決めたタイプを継続的に見直すプロセス。理論学習が深まるにつれ「以前の診断は違った」となることは珍しくない。タイプは「正解」ではなく「精度を上げる仮説」として扱うことが推奨される。",
+rel:["タイピング","ミスタイプ"]},
+];
+
+// ── engine ──
+const CAT={mbti:"MBTI",enne:"エニアグラム",socio:"ソシオニクス",big5:"ビッグファイブ",psycho:"サイコソフィア",common:"共通"};
+let tab="all",q="";
+
+function hl(t,q){if(!q)return t;const e=q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");return t.replace(new RegExp(`(${e})`,"gi"),"<mark>$1</mark>");}
+
+function render(){
+  const main=document.getElementById("mainContent");
+  const nr=document.getElementById("noResult");
+  const rc=document.getElementById("resultCount");
+  const sq=q.toLowerCase().trim();
+  const filtered=T.filter(t=>{
+    const tOk=tab==="all"||t.cat===tab;
+    if(!sq)return tOk;
+    const h=(t.name+(t.nameEn||"")+(t.body||"")).toLowerCase();
+    return tOk&&h.includes(sq);
+  });
+  const grp={};
+  filtered.forEach(t=>{const k=t.s||"z";if(!grp[k])grp[k]=[];grp[k].push(t);});
+  const ks=Object.keys(grp).sort((a,b)=>a.localeCompare(b,"ja"));
+  main.innerHTML="";main.appendChild(nr);
+  if(!filtered.length){nr.classList.add("show");document.getElementById("noResultQuery").textContent=q;rc.textContent="0件";return;}
+  nr.classList.remove("show");rc.textContent=filtered.length+" 件";
+  ks.forEach(k=>{
+    const sec=document.createElement("div");sec.className="alpha-section";
+    sec.innerHTML=`<div class="alpha-header"><div class="alpha-label">${k}</div><div class="alpha-line"></div></div>`;
+    grp[k].forEach(term=>{
+      const card=document.createElement("div");card.className="term-card";
+      const rh=term.rel?.length?`<div class="term-related"><span style="font-size:10px;color:var(--ink4)">関連：</span>${term.rel.map(r=>`<span class="term-rel-tag" onclick="sr('${r.replace(/'/g,"\\'")}' )">${r}</span>`).join("")}</div>`:"";
+      card.innerHTML=`<div class="term-head"><div><div class="term-name">${hl(term.name,q)}</div>${term.nameEn?`<div class="term-name-sub">${term.nameEn}</div>`:""}</div><div class="term-badge ${term.cat}">${CAT[term.cat]||term.cat}</div></div><div class="term-body">${hl(term.body||"",q)}</div>${rh?`<div style="margin-top:6px">${rh}</div>`:""}`;
+      sec.appendChild(card);
+    });
+    main.appendChild(sec);
+  });
+}
+
+function sr(term){
+  document.getElementById("searchInput").value=term;q=term;
+  document.getElementById("clearBtn").classList.add("show");
+  tab="all";document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.tab==="all"));
+  render();window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.getElementById("searchInput").addEventListener("input",e=>{q=e.target.value;document.getElementById("clearBtn").classList.toggle("show",q.length>0);render();});
+document.getElementById("clearBtn").addEventListener("click",()=>{document.getElementById("searchInput").value="";q="";document.getElementById("clearBtn").classList.remove("show");render();document.getElementById("searchInput").focus();});
+document.querySelectorAll(".tab-btn").forEach(btn=>{btn.addEventListener("click",()=>{tab=btn.dataset.tab;document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");render();btn.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});});});
+
+render();
+</script>
+</body>
+</html>
