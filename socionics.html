@@ -1489,17 +1489,17 @@ const RELATIONS = [
   {
     name:'活性化関係', en:'Activation', score:'+5', sbadge:'rs-good', badge:'rb-good',
     desc:'双対関係と同程度に好ましい関係。互いの主導機能が相手の動員機能（第6）に作用し、コミュニケーションが活性化・気分が向上する。同クアドラ・同内外向のため警戒心を解きやすい。長期接触では一定の緊張も生じる。',
-    pairs:[['ILE','LII'],['ESE','SEI'],['SLE','LSI'],['EIE','IEI'],['SEE','ESI'],['LIE','ILI'],['IEE','EII'],['LSE','SLI']]
+    pairs:[['ILE','ESE'],['SEI','LII'],['SLE','EIE'],['IEI','LSI'],['SEE','LIE'],['ILI','ESI'],['IEE','LSE'],['SLI','EII']]
   },
   {
     name:'鏡像関係', en:'Mirror', score:'+3', sbadge:'rs-good', badge:'rb-good',
     desc:'主導機能と創造機能が左右反転した関係。互いに相手の思考プロセスの"鏡"として映り、学び合いに最適。共通の興味や趣味に基づく友情に向くが、互いに修正したくなる衝動もあり、恋愛には向きにくい。',
-    pairs:[['ILE','LII'],['ESE','SEI'],['SLE','LSI'],['EIE','IEI'],['SEE','ESI'],['LIE','ILI'],['IEE','EII'],['LSE','SLI']]
+    pairs:[['ILE','LII'],['SEI','ESE'],['SLE','LSI'],['EIE','IEI'],['SEE','ESI'],['ILI','LIE'],['IEE','EII'],['LSE','SLI']]
   },
   {
     name:'準双対関係', en:'Semi-duality', score:'+2', sbadge:'rs-good', badge:'rb-good',
     desc:'双対に近いが完全ではない補完関係。助け合いの機会が多く深い関係になり得るが、予測不可能な形で理解の欠如に突然直面することがある。良い状態では双対関係以上とも言われる可能性を秘めた関係。',
-    pairs:[['ILE','IEI'],['SEI','SLE'],['ESE','EII'],['LII','LSE'],['EIE','ESI'],['LSI','LIE'],['SEE','SLI'],['ILI','IEE']]
+    pairs:[['ILE','SLI'],['SEI','IEE'],['ESE','LSI'],['LII','EIE'],['SLE','ILI'],['IEI','SEE'],['LIE','EII'],['ESI','LSE']]
   },
   {
     name:'幻影関係', en:'Illusionary', score:'+2', sbadge:'rs-good', badge:'rb-good',
@@ -1509,7 +1509,7 @@ const RELATIONS = [
   {
     name:'要求関係', en:'Benefit / Request', score:'+2', sbadge:'rs-good', badge:'rb-good',
     desc:'非対称な関係。要求者（恩恵者）と被要求者（依頼者）に分かれ、被要求者は要求者に憧れを抱きやすい。友人・恋愛関係に発展しやすいが、要求者が被要求者の努力を認めないと物足りなさを感じる。「社会的秩序関係」「恩恵関係」とも呼ばれる。',
-    pairs:[['ILE','SEE'],['SEI','ILI'],['ESE','LSE'],['LII','EII'],['SLE','ILE'],['IEI','SEI'],['EIE','ESE'],['LSI','LII'],['SEE','SLE'],['ILI','LSI'],['LIE','EIE'],['ESI','IEI'],['IEE','LIE'],['SLI','ESI'],['LSE','IEE'],['EII','SLI']]
+    pairs:[['ILE','EIE'],['EIE','SEE'],['SEE','LSE'],['LSE','ILE'],['SEI','LSI'],['LSI','ILI'],['ILI','EII'],['EII','SEI'],['ESE','SLE'],['SLE','LIE'],['LIE','IEE'],['IEE','ESE'],['LII','IEI'],['IEI','ESI'],['ESI','SLI'],['SLI','LII']]
   },
   {
     name:'同一関係', en:'Identity', score:'+1', sbadge:'rs-neutral', badge:'rb-neutral',
@@ -1519,22 +1519,22 @@ const RELATIONS = [
   {
     name:'疑似同一性関係', en:'Quasi-identity', score:'-1', sbadge:'rs-neutral', badge:'rb-neutral',
     desc:'同じ情報要素を扱うが順序が異なる関係。互いに理解できると思いきや、アプローチが根本的に異なり戸惑いやすい。表面的には似ているが価値観の優先順位が異なるため深い相互理解に至りにくい。',
-    pairs:[['ILE','LIE'],['SEI','ESI'],['ESE','IEE'],['LII','SLI'],['SLE','SEE'],['IEI','ILI'],['EIE','LSE'],['LSI','EII']]
+    pairs:[['ILE','LIE'],['SEI','ESI'],['ESE','SEE'],['LII','ILI'],['EIE','IEE'],['LSI','SLI'],['LSE','SLE'],['EII','IEI']]
   },
   {
     name:'共鳴関係', en:'Contrary', score:'-2', sbadge:'rs-neutral', badge:'rb-neutral',
     desc:'同クアドラ内だが合理/非合理が逆の関係。共通の価値観を持ちながらも生活リズムや物事への取り組み方が異なる。興味は似ているが、リズムや優先順位の違いで摩擦が生じやすい。',
-    pairs:[['ILE','ESE'],['SEI','LII'],['SLE','EIE'],['IEI','LSI'],['SEE','LIE'],['ILI','ESI'],['IEE','LSE'],['SLI','EII']]
+    pairs:[['ILE','IEE'],['SEI','SLI'],['ESE','EIE'],['LII','LSI'],['SLE','SEE'],['IEI','ILI'],['LIE','LSE'],['ESI','EII']]
   },
   {
     name:'協力関係', en:'Business', score:'-2', sbadge:'rs-neutral', badge:'rb-neutral',
     desc:'共通の目標に向けて効率よく協力できる実務的な関係。同じ合理/非合理タイプ同士のクアドラ外の組み合わせ。感情的な深みは少ないが仕事・活動のパートナーとして良好。「ビジネス関係」とも呼ばれる。',
-    pairs:[['ILE','SLE'],['SEI','IEI'],['ESE','EIE'],['LII','LSI'],['SEE','IEE'],['ILI','SLI'],['LIE','LSE'],['ESI','EII']]
+    pairs:[['ILE','SLE'],['SEI','IEI'],['ESE','LSE'],['LII','EII'],['EIE','LIE'],['LSI','ESI'],['SEE','IEE'],['ILI','SLI']]
   },
   {
     name:'監督関係', en:'Supervision', score:'-2', sbadge:'rs-neutral', badge:'rb-neutral',
     desc:'非対称な一方向の影響関係。監督者は被監督者の弱点を無意識に指摘し、被監督者は落ち着かなさを感じる。監督者は明確なリーダーシップで被監督者を支配するが、被監督者が一方的に感じると緊張が高まる。',
-    pairs:[['ILE','ESI'],['SEI','LIE'],['ESE','SLI'],['LII','IEE'],['SLE','EII'],['IEI','LSE'],['EIE','ILI'],['LSI','SEE'],['SEE','LSI'],['ILI','EIE'],['LIE','SEI'],['ESI','ILE'],['IEE','LII'],['SLI','ESE'],['LSE','IEI'],['EII','SLE']]
+    pairs:[['ILE','LSI'],['LSI','SEE'],['SEE','EII'],['EII','ILE'],['SEI','EIE'],['EIE','ILI'],['ILI','LSE'],['LSE','SEI'],['ESE','IEI'],['IEI','LIE'],['LIE','SLI'],['SLI','ESE'],['LII','SLE'],['SLE','ESI'],['ESI','IEE'],['IEE','LII']]
   },
   {
     name:'消滅関係', en:'Extinguishment', score:'-3', sbadge:'rs-hard', badge:'rb-hard',
@@ -1544,12 +1544,12 @@ const RELATIONS = [
   {
     name:'超自我関係', en:'Super-ego', score:'-5', sbadge:'rs-hard', badge:'rb-hard',
     desc:'互いの超自我ブロック（第3・4機能）が影響し合う関係。相手の意図を悟れず予想外の行動をとるように見えるため、対立を避けられない。表面的には似た雰囲気だが、深まると相互批判になりやすく緊張が高まる。',
-    pairs:[['ILE','LSI'],['SEI','EIE'],['ESE','SLE'],['LII','IEI'],['SEE','EII'],['ILI','LSE'],['LIE','SLI'],['ESI','IEE']]
+    pairs:[['ILE','SEE'],['SEI','ILI'],['ESE','LIE'],['LII','ESI'],['EIE','LSE'],['LSI','EII'],['IEE','SLE'],['IEI','SLI']]
   },
   {
     name:'衝突関係', en:'Conflict', score:'-7', sbadge:'rs-hard', badge:'rb-hard',
     desc:'最も難しい関係。主導機能が相手の脆弱機能（第4）を直接刺激する。互いに意見を押し付け合い、無意識のうちに相手を傷つけやすい。頻繁に言い争いが起こり、ジョークや褒め言葉さえ曲解されやすい。双対関係の対極に位置する。',
-    pairs:[['ILE','SEE'],['SEI','ILI'],['ESE','SLE'],['LII','IEI'],['EIE','LSE'],['LSI','EII'],['SLE','ESE'],['IEI','LII'],['SEE','ILE'],['ILI','SEI'],['LIE','LSI'],['ESI','EIE'],['IEE','ESI'],['SLI','LIE'],['LSE','EIE'],['EII','LSI']]
+    pairs:[['ILE','ESI'],['SEI','LIE'],['ESE','ILI'],['LII','SEE'],['EIE','SLI'],['LSI','IEE'],['SLE','EII'],['IEI','LSE']]
   },
 ];
 
