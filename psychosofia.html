@@ -938,6 +938,9 @@ footer{background:var(--text);color:rgba(255,255,255,.5);padding:36px 20px calc(
       <text x="170" y="82" text-anchor="middle" fill="#8a72e8" font-size="9">アガペー</text>
       <!-- ライン 1↔3 エロス -->
       <line x1="115" y1="40" x2="225" y2="100" stroke="#e06060" stroke-width="1" stroke-dasharray="2,3"/>
+      <!-- ライン 1↔4 アガペー -->
+      <line x1="115" y1="40" x2="225" y2="130" stroke="#c088e8" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="155" y="96" text-anchor="middle" fill="#8a72e8" font-size="8">アガペー</text>
       <!-- ライン 4↔4 フィリア -->
       <line x1="115" y1="130" x2="225" y2="130" stroke="#88aaff" stroke-width="1.5"/>
     </svg>
@@ -969,8 +972,8 @@ footer{background:var(--text);color:rgba(255,255,255,.5);padding:36px 20px calc(
     </div>
     <div class="compat-card agape">
       <div class="compat-hd"><div class="compat-icon">💜</div><div class="compat-name">アガペー（Agape）</div></div>
-      <div class="compat-rule">2↔3 の対応（理想的な補完）</div>
-      <div class="compat-desc">一方の第２機能（強・対話的）と相手の第３機能（弱・傷つきやすい）が同じ機能で対応。「無条件の慈愛」の意。<br><br>最も理想的な補完関係。2位側は相手の弱い部分をサポートできる。3位側は最も不安定な部分で支えてもらえる感覚を得られる。最初は気づかないが時間をかけて深まる関係。</div>
+      <div class="compat-rule">2↔3 / 1↔4 の対応</div>
+      <div class="compat-desc">「無条件の慈愛」の意。強い機能が相手の弱い機能を自然にサポートする補完関係。<br><br><strong>2↔3（最理想）：</strong>第２機能（強・対話的）と第３機能（弱・傷つきやすい）が対応。3位側は最も不安定な部分で支えてもらえる感覚を得られる。最初は気づかないが時間をかけて深まる。<br><br><strong>1↔4：</strong>第１機能の強さが第４機能の受容的な弱さと対応。2↔3より強度は弱いが、自然な補完と安心感が生まれる。フロオバモデルでもアガペーに分類される。</div>
       <div class="stars-row"><span class="stars-label">快適さ</span><span class="stars">⭐⭐⭐⭐☆</span><span class="stars-label" style="margin-left:10px">長期安定</span><span class="stars">⭐⭐⭐⭐⭐</span></div>
     </div>
   </div>
@@ -1209,13 +1212,19 @@ function getRelation(posA,posB){
   if(posA===posB) return 'philia';
   if((posA===1&&posB===3)||(posA===3&&posB===1)||(posA===2&&posB===4)||(posA===4&&posB===2)) return 'eros';
   if((posA===2&&posB===3)||(posA===3&&posB===2)) return 'agape';
+  if((posA===1&&posB===4)||(posA===4&&posB===1)) return 'agape';
   return 'quasi';
 }
 function getRelationLabel(r){
   return {philia:'フィリア 🤝',quasi:'準フィリア 👬',eros:'エロス ⚡',agape:'アガペー 💜'}[r];
 }
-function getRelationScore(r){
-  return {philia:9,quasi:3,eros:-4,agape:6}[r];
+function getRelationScore(r,posA,posB){
+  if(r==='agape'){
+    // 2↔3 は最理想(+6)、1↔4 はアガペーだがやや弱め(+4)
+    if((posA===1&&posB===4)||(posA===4&&posB===1)) return 4;
+    return 6;
+  }
+  return {philia:9,quasi:3,eros:-4}[r];
 }
 function calcCompat(){
   const cA=document.getElementById('compat-a').value;
@@ -1234,7 +1243,7 @@ function calcCompat(){
     const posA=cA.indexOf(f)+1;
     const posB=cB.indexOf(f)+1;
     const rel=getRelation(posA,posB);
-    const sc=getRelationScore(rel);
+    const sc=getRelationScore(rel,posA,posB);
     totalScore+=sc;
     const borderCols={philia:'#2e4080',quasi:'#2e5a30',eros:'#703030',agape:'#5a3080'};
     rows+=`<div style="background:#f8f6ff;border:1px solid ${borderCols[rel]};border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
